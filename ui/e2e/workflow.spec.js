@@ -54,6 +54,8 @@ test("live batch analysis, on-demand explanation and downloadable data", async (
     expect(data.records).toHaveLength(5);
     expect(data.predictions.results).toHaveLength(5);
     expect(data.model.metadata_available).toBe(true);
+    expect(data.model.metadata.model_family).toBe("RandomForestClassifier");
+    expect(data.model.metadata.evaluation_status).toBe("historical_holdout");
     expect(Object.keys(data.explanations)).toEqual(["0"]);
     await page.getByRole("button", {name: /Back to sequences/}).click();
     await expect(page.getByRole("textbox")).toHaveValue(/SOCS2_HUMAN/);
@@ -90,6 +92,9 @@ test("file upload, actionable validation and small viewport", async ({
         ),
     ).toBe(true);
     await page.getByText("Model & methods", {exact: true}).click();
+    await expect(
+        page.getByText(/Evaluation: Version 1 held-out evaluation/),
+    ).toBeVisible();
     expect(
         await page.evaluate(
             () =>
@@ -102,4 +107,56 @@ test("file upload, actionable validation and small viewport", async ({
     await expect(
         page.getByRole("tab", {name: "Sequence", exact: true}),
     ).toBeFocused();
+});
+
+test("cancellation and explanation failure preserve the working analysis", async ({
+                                                                                      page,
+                                                                                  }) => {
+    let cancelPending;
+    const pending = new Promise((resolve) => {
+        cancelPending = resolve;
+    });
+    let intercepted;
+    const started = new Promise((resolve) => {
+        intercepted = resolve;
+    });
+    await page.route("**/predict", async (route) => {
+        intercepted();
+        await pending;
+        await route.abort();
+    });
+    await page.goto("/");
+    await page.getByRole("textbox").fill("AAAA");
+    await page
+        .getByRole("button", {name: "Analyze sequences", exact: true})
+        .click();
+    await started;
+    await page.getByRole("button", {name: "Cancel", exact: true}).click();
+    // The application has aborted this request; release its test-only route safely.
+    await page.unrouteAll({behavior: "ignoreErrors"});
+    cancelPending();
+    await expect(page.getByRole("textbox")).toHaveValue("AAAA");
+    await page
+        .getByRole("button", {name: "Analyze sequences", exact: true})
+        .click();
+    await expect(
+        page.getByRole("heading", {name: "Your analysis"}),
+    ).toBeVisible();
+    await page.route("**/explain", (route) =>
+        route.fulfill({
+            status: 503,
+            contentType: "application/json",
+            body: JSON.stringify({detail: "Explanation temporarily unavailable"}),
+        }),
+    );
+    await page.getByRole("tab", {name: "Explanation", exact: true}).click();
+    await expect(page.getByRole("alert")).toContainText(
+        "The model is unavailable",
+    );
+    await expect(page.getByText(/Predicted compartment:/)).toBeVisible();
+    await page.unroute("**/explain");
+    await page
+        .getByRole("button", {name: "Retry explanation", exact: true})
+        .click();
+    await expect(page.getByText(/What influenced/)).toBeVisible();
 });

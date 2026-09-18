@@ -61,13 +61,13 @@ _SYNONYM_MAP = {
 
 
 def _clean_and_primary(subcell_locs: list[str]) -> str:
-    """Extract primary localization from Swiss-Prot subcellular location entries.
+    """Legacy DAT convenience parser, not an adjudicated biological reference.
 
-    This function:
-    1. Filters out locations with non-experimental evidence codes
-    2. Maps synonyms to standardized terms
-    3. Returns the first valid location or 'Other' if none found
-    4. Excludes multi-compartment entries (contains semicolon or comma)
+    Require an experimental code, reject explicit uncertainty and composite terms,
+    then map a recognized location. Free-text notes are discarded, so one returned
+    label does not establish exclusive localization. The structured JSON curator
+    and independent evidence review are required for scientific cohort construction.
+    Unknown or rejected assignments return 'Other', which is not a negative label.
     """
     if not subcell_locs:
         return "Other"
@@ -75,10 +75,10 @@ def _clean_and_primary(subcell_locs: list[str]) -> str:
     cleaned_entries = []
     for entry in subcell_locs:
         codes = re.findall(r"ECO:\d+", entry)
-        if codes and "ECO:0000269" not in codes:
+        if "ECO:0000269" not in codes:
             return "Other"
         entry = re.sub(r"^SUBCELLULAR LOCATION:\s*", "", entry, flags=re.IGNORECASE)
-        entry = re.sub(r"\{ECO:[^}]+\}", "", entry)
+        entry = re.sub(r"\{ECO:[^}]+}", "", entry)
         entry = re.split(r"\bNote=", entry, maxsplit=1, flags=re.IGNORECASE)[0]
         entry = entry.strip().rstrip(".")
         if entry:

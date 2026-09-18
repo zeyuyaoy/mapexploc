@@ -1,0 +1,53 @@
+{
+  "case_id": "REPLACE",
+  "accession": "",
+  "sequence": "",
+  "taxon_id": 9606,
+  "canonical": false,
+  "full_native_sequence": false,
+  "assay_sequence_verified": false,
+  "detection_breadth_adequate": false,
+  "context": "",
+  "assay_evidence_refs": [],
+  "independence_route": "prospective_temporal",
+  "first_assay_at": "",
+  "gene_ids": [],
+  "study_ids": [],
+  "assay_ids": [],
+  "batch_ids": [],
+  "family_ids": [],
+  "independence": {
+    "sequence": "unresolved",
+    "remote_domain": "unresolved",
+    "gene": "unresolved",
+    "publication": "unresolved",
+    "assay": "unresolved"
+  },
+  "reviews": [
+    {
+      "reviewer_id": "",
+      "submitted_at": "",
+      "labels": [],
+      "other_locations": [],
+      "status": "unresolved",
+      "evidence_complete": false,
+      "model_blind": false,
+      "independent_submission": false,
+      "notes_and_ambiguity_reviewed": false,
+      "evidence_rationale": ""
+    },
+    {
+      "reviewer_id": "",
+      "submitted_at": "",
+      "labels": [],
+      "other_locations": [],
+      "status": "unresolved",
+      "evidence_complete": false,
+      "model_blind": false,
+      "independent_submission": false,
+      "notes_and_ambiguity_reviewed": false,
+      "evidence_rationale": ""
+    }
+  ],
+  "adjudicator": null
+}

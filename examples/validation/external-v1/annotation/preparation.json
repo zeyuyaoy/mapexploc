@@ -1,0 +1,16 @@
+{
+  "review_scope": "all accepted internal records, not an external validation cohort",
+  "records": 2107,
+  "cytoplasm_nucleus_disagreements_any_saved_oof_repeat": 269,
+  "note_bearing_records": 381,
+  "either_trigger": 588,
+  "reviewed_by_independent_humans": 0,
+  "historical_predictions_generated": false,
+  "new_model_predictions_generated": false,
+  "bridge_records": 20431,
+  "source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "input_hashes": {
+    "examples/experiments/research-revision/dataset.csv": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a",
+    "examples/experiments/research-revision/diagnostics/final-error-analysis.csv": "d142a8ec51f5d458e6a2ed375c399fc421988ee091df7d18682da7fe50662f4d"
+  }
+}

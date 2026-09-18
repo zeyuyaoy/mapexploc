@@ -24,6 +24,8 @@ dependencies = [
     "imbalanced-learn>=0.14.2",
     "biopython>=1.88",
     "joblib>=1.6.0",
+    "scipy>=1.18.1",
+    "threadpoolctl>=3.7.0",
 ]
 
 [project.urls]
@@ -70,6 +72,8 @@ module = [
     "pandas.*",
     "shap.*",
     "sklearn.*",
+    "scipy.*",
+    "threadpoolctl.*",
 ]
 ignore_missing_imports = true
 

@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+
 from mapexploc.features import FEATURE_NAMES, build_feature_matrix
 from mapexploc.preprocessing import _clean_and_primary
 
@@ -42,14 +43,18 @@ def test_fasta_annotations_join_by_identifier(tmp_path: Path) -> None:
 
 def test_swissprot_location_prefix_and_evidence_are_cleaned() -> None:
     assert (
-            _clean_and_primary(["SUBCELLULAR LOCATION: Cytoplasm. {ECO:0000269|PubMed:1}"])
-            == "Cytoplasm"
+        _clean_and_primary(["SUBCELLULAR LOCATION: Cytoplasm. {ECO:0000269|PubMed:1}"])
+        == "Cytoplasm"
     )
-    assert _clean_and_primary(["SUBCELLULAR LOCATION: Cell membrane."]) == "Membrane"
+    assert _clean_and_primary(["SUBCELLULAR LOCATION: Cell membrane."]) == "Other"
+    assert (
+        _clean_and_primary(["SUBCELLULAR LOCATION: Cell membrane. {ECO:0000269}"])
+        == "Membrane"
+    )
     assert _clean_and_primary(["SUBCELLULAR LOCATION: Nucleus; Cytoplasm."]) == "Other"
 
 
 def test_explicit_nonexperimental_location_is_not_promoted() -> None:
     assert (
-            _clean_and_primary(["SUBCELLULAR LOCATION: Nucleus. {ECO:0000250}"]) == "Other"
+        _clean_and_primary(["SUBCELLULAR LOCATION: Nucleus. {ECO:0000250}"]) == "Other"
     )

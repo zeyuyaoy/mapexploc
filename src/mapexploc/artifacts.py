@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Any
 
 import joblib
+
+from .estimators import final_estimator
 from .features import FEATURE_NAMES
 
 ARTIFACT_KIND = "mapexploc-model"
@@ -29,16 +31,16 @@ class ModelArtifact:
 
 
 def _model_classes(model: Any) -> tuple[str, ...]:
-    estimator = getattr(model, "named_steps", {}).get("rf", model)
+    estimator = final_estimator(model)
     classes = getattr(estimator, "classes_", getattr(model, "classes_", ()))
     return tuple(str(label) for label in classes)
 
 
 def save_model_artifact(
-        model: Any,
-        path: Path,
-        *,
-        metadata: Mapping[str, Any] | None = None,
+    model: Any,
+    path: Path,
+    *,
+    metadata: Mapping[str, Any] | None = None,
 ) -> None:
     """Save a model with an explicit feature-schema version.
 
@@ -70,7 +72,7 @@ def _validate_feature_names(names: Sequence[object]) -> tuple[str, ...]:
 
 def _validate_estimator(model: Any) -> None:
     if not callable(getattr(model, "predict", None)) or not callable(
-            getattr(model, "predict_proba", None)
+        getattr(model, "predict_proba", None)
     ):
         raise ModelArtifactError("Artifact has no compatible classifier")
     if getattr(model, "n_features_in_", None) != len(FEATURE_NAMES):
@@ -101,6 +103,10 @@ def load_model_artifact(path: Path) -> ModelArtifact:
         _validate_estimator(model)
         feature_names = _validate_feature_names(payload.get("feature_names", ()))
         classes = tuple(str(label) for label in payload.get("classes", ()))
+        if classes and classes != _model_classes(model):
+            raise ModelArtifactError(
+                "Artifact classes do not match estimator class order"
+            )
         metadata = payload.get("metadata", {})
         if not isinstance(metadata, Mapping):
             raise ModelArtifactError("Artifact metadata must be a mapping")

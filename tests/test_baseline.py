@@ -7,6 +7,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import pytest
+
 from mapexploc.baseline import (
     CLASSES,
     checksum,
@@ -47,8 +48,8 @@ def test_evidence_and_conflict_policy() -> None:
     assert accepted is not None and accepted["label"] == "Nucleus"
     assert "ECO:0000269" in accepted["evidence"]
     assert (
-            curate_entry(entry(evidence="ECO:0000250"))[1]
-            == "no_experimental_location_evidence"
+        curate_entry(entry(evidence="ECO:0000250"))[1]
+        == "no_experimental_location_evidence"
     )
     conflicting = entry()
     conflicting["comments"][0]["subcellularLocations"].append(
@@ -91,9 +92,9 @@ def split_frame() -> pd.DataFrame:
                     "label": label,
                     "group": f"{label_index}-{i // 2}",
                     "sequence": "M"
-                                + letters[label_index] * 10
-                                + letters[i // 20]
-                                + letters[i % 20],
+                    + letters[label_index] * 10
+                    + letters[i // 20]
+                    + letters[i % 20],
                 }
             )
     return pd.DataFrame(rows)
@@ -124,7 +125,7 @@ def test_probability_metrics_have_known_values() -> None:
 
 
 def test_baseline_trains_only_training_partition(
-        tmp_path: Path, monkeypatch: Any
+    tmp_path: Path, monkeypatch: Any
 ) -> None:
     from sklearn.model_selection import GridSearchCV
 
@@ -145,7 +146,7 @@ def test_baseline_trains_only_training_partition(
     seen = []
 
     class SmallSearch(GridSearchCV):
-        def fit(self, X: Any, y: Any, **params: Any) -> Any:
+        def fit(self, X: Any, y: Any = None, **params: Any) -> Any:
             seen.append(len(X))
             self.param_grid = {"rf__n_estimators": [4], "rf__max_depth": [3]}
             return super().fit(X, y, **params)
@@ -159,8 +160,8 @@ def test_baseline_trains_only_training_partition(
         for label in CLASSES
     ) == len(test)
     assert json.loads((tmp_path / "model.report.json").read_text())[
-               "artifact_sha256"
-           ] == checksum(tmp_path / "model.joblib")
+        "artifact_sha256"
+    ] == checksum(tmp_path / "model.joblib")
     with pytest.raises(ValueError, match="exists"):
         train_baseline(tmp_path, tmp_path / "model.joblib")
     with (tmp_path / "dataset.csv").open("a") as handle:

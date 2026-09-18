@@ -1,3 +1,5 @@
 include mkdocs.yml
-recursive-include config *.yml
-recursive-include docs *.md *.png
+include CONTRIBUTING.md REQUIREMENTS.md .editorconfig
+recursive-include config *.yml *.json
+recursive-include docs *.md *.png *.pdf
+recursive-include scripts *.py

@@ -616,6 +616,26 @@ export default function App() {
                                         </h2>
                                         <p>{analysis.model.metadata.scope}</p>
                                         <p>
+                                            Method:{" "}
+                                            {{
+                                                    random_forest: "Random Forest",
+                                                    RandomForestClassifier: "Random Forest",
+                                                    extra_trees: "Extra Trees",
+                                                    ExtraTreesClassifier: "Extra Trees",
+                                                }[analysis.model.metadata.model_family] ||
+                                                analysis.model.metadata.model_family ||
+                                                "Not recorded"}
+                                            {" · "}Evaluation:{" "}
+                                            {{
+                                                    independent_confirmation: "Independent confirmation",
+                                                    historical_diagnostic: "Previously inspected benchmark",
+                                                    historical_holdout: "Version 1 held-out evaluation",
+                                                    development_only: "Development validation only",
+                                                }[analysis.model.metadata.evaluation_status] ||
+                                                "Not recorded"}
+                                        </p>
+
+                                        <p>
                                             Source:{" "}
                                             {analysis.model.metadata.source?.includes(
                                                 "rest.uniprot.org",
@@ -631,7 +651,7 @@ export default function App() {
                                         </p>
                                         {analysis.model.metadata.evaluation && (
                                             <p>
-                                                Held-out macro-F1:{" "}
+                                                Evaluation macro-F1:{" "}
                                                 {analysis.model.metadata.evaluation.macro_f1?.toFixed(
                                                     3,
                                                 ) ?? "Not recorded"}

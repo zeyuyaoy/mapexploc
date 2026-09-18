@@ -1,0 +1,2193 @@
+[
+  {
+    "accession": "A1Z1Q3",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to DNA lesions, probably via mono-APD-ribosylated proteins"
+    ]
+  },
+  {
+    "accession": "A6NFX1",
+    "label": "Membrane",
+    "notes": [
+      "Localizes to the cell membrane and intracellular membranes"
+    ]
+  },
+  {
+    "accession": "A8MTJ3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Dual distribution pattern; plasmalemmal pattern with apical region localization and cytosolic pattern with localization throughout the cytoplasm"
+    ]
+  },
+  {
+    "accession": "A8MW92",
+    "label": "Nucleus",
+    "notes": [
+      "Localized to the perinucleolar region"
+    ]
+  },
+  {
+    "accession": "B2RNN3",
+    "label": "Secreted",
+    "notes": [
+      "Heteromeric complex formation with CTRP9A or ADIPOQ is required for secretion, otherwise, it is retained in the endoplasmic reticulum"
+    ]
+  },
+  {
+    "accession": "G2XKQ0",
+    "label": "Nucleus",
+    "notes": [
+      "Forms prominent non-membrane-bound structures in the nucleus"
+    ]
+  },
+  {
+    "accession": "M5A8F1",
+    "label": "Secreted",
+    "notes": [
+      "Also found in cell lysates"
+    ]
+  },
+  {
+    "accession": "O00255",
+    "label": "Nucleus",
+    "notes": [
+      "Concentrated in nuclear body-like structures. Relocates to the nuclear matrix upon gamma irradiation"
+    ]
+  },
+  {
+    "accession": "O15016",
+    "label": "Nucleus",
+    "notes": [
+      "Forms discrete foci within the centromeric chromocenter and surrounding nucleoplasm"
+    ]
+  },
+  {
+    "accession": "O43290",
+    "label": "Nucleus",
+    "notes": [
+      "Found in the nucleus of mitogen-activated peripheral blood mononuclear cells (PBMCs), tumor cells, or normal cell lines, but not in normal tissues except testis and fetal liver or in unstimulated PBMCs, suggesting preferential expression in proliferating cells"
+    ]
+  },
+  {
+    "accession": "O43313",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear, in discrete foci during G1 phase"
+    ]
+  },
+  {
+    "accession": "O43548",
+    "label": "Cytoplasm",
+    "notes": [
+      "Associated with intermediate filaments"
+    ]
+  },
+  {
+    "accession": "O43561",
+    "label": "Membrane",
+    "notes": [
+      "Present in lipid rafts"
+    ]
+  },
+  {
+    "accession": "O43812",
+    "label": "Nucleus",
+    "notes": [
+      "Actively transported through the nuclear pore complex (NPC)"
+    ]
+  },
+  {
+    "accession": "O43829",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ZBTB21 in nucleus in HEK293 cells"
+    ]
+  },
+  {
+    "accession": "O60293",
+    "label": "Nucleus",
+    "notes": [
+      "Excluded from the nucleolus"
+    ]
+  },
+  {
+    "accession": "O60343",
+    "label": "Cytoplasm",
+    "notes": [
+      "Isoform 2 shows a cytoplasmic perinuclear localization in a myoblastic cell line in resting and insulin-stimulated cells"
+    ]
+  },
+  {
+    "accession": "O75326",
+    "label": "Membrane",
+    "notes": [
+      "Detected in a punctate pattern on the cell membrane of basal and supra-basal skin keratinocytes"
+    ]
+  },
+  {
+    "accession": "O75475",
+    "label": "Nucleus",
+    "notes": [
+      "Remains chromatin-associated throughout the cell cycle"
+    ]
+  },
+  {
+    "accession": "O75509",
+    "label": "Membrane",
+    "notes": [
+      "Endocytosed following oxidation in response to reactive oxygen species (ROS)"
+    ]
+  },
+  {
+    "accession": "O75525",
+    "label": "Nucleus",
+    "notes": [
+      "Localized in a compartment adjacent to the nucleolus, but distinct from the peri-nucleolar one"
+    ]
+  },
+  {
+    "accession": "O94813",
+    "label": "Secreted",
+    "notes": [
+      "The C-terminal cleavage protein is more diffusible than the larger N-terminal protein that is more tightly cell associated"
+    ]
+  },
+  {
+    "accession": "O94892",
+    "label": "Nucleus",
+    "notes": [
+      "Excluded from nucleolus (PubMed:37823600). Responds to DNA damage by relocating to damage sites, this relocation is PAR-dependent (PubMed:37823600)"
+    ]
+  },
+  {
+    "accession": "O95180",
+    "label": "Membrane",
+    "notes": [
+      "Interaction with STAC increases expression at the cell membrane"
+    ]
+  },
+  {
+    "accession": "O95365",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to double-strand break sites of damaged DNA"
+    ]
+  },
+  {
+    "accession": "O95445",
+    "label": "Secreted",
+    "notes": [
+      "Present in high density lipoprotein (HDL) and to a lesser extent in triglyceride-rich lipoproteins (TGRLP) and low density lipoproteins (LDL)"
+    ]
+  },
+  {
+    "accession": "O96013",
+    "label": "Cytoplasm",
+    "notes": [
+      "Seems to shuttle between cytoplasmic compartments depending on the activating effector. For example, can be found on the cell periphery after activation of growth-factor or integrin-mediated signaling pathways"
+    ]
+  },
+  {
+    "accession": "P00450",
+    "label": "Secreted",
+    "notes": [
+      "Colocalizes with GCP1 in secretory intracellular compartments"
+    ]
+  },
+  {
+    "accession": "P00749",
+    "label": "Secreted",
+    "notes": [
+      "Secreted as an inactive zymogen, it is activated through specific proteolytic cleavage"
+    ]
+  },
+  {
+    "accession": "P01225",
+    "label": "Secreted",
+    "notes": [
+      "Efficient secretion requires dimerization with CGA"
+    ]
+  },
+  {
+    "accession": "P01266",
+    "label": "Secreted",
+    "notes": [
+      "Secreted into the thyroid follicle lumen (PubMed:19509106). Localizes to colloid globules, a structure formed in the thyroid follicle lumen consisting of cross-linked TG arranged in concentric layers (PubMed:11082042, PubMed:8626858)"
+    ]
+  },
+  {
+    "accession": "P02724",
+    "label": "Membrane",
+    "notes": [
+      "Appears to be colocalized with SLC4A1"
+    ]
+  },
+  {
+    "accession": "P04054",
+    "label": "Secreted",
+    "notes": [
+      "Secreted from pancreatic acinar cells in its inactive form"
+    ]
+  },
+  {
+    "accession": "P04180",
+    "label": "Secreted",
+    "notes": [
+      "Secreted into blood plasma (PubMed:10222237, PubMed:3458198, PubMed:8820107). Produced in astrocytes and secreted into cerebral spinal fluid (CSF) (PubMed:10222237)"
+    ]
+  },
+  {
+    "accession": "P04839",
+    "label": "Membrane",
+    "notes": [
+      "As unassembled monomer may localize to the endoplasmic reticulum"
+    ]
+  },
+  {
+    "accession": "P05060",
+    "label": "Secreted",
+    "notes": [
+      "Neuroendocrine and endocrine secretory granules"
+    ]
+  },
+  {
+    "accession": "P09471",
+    "label": "Membrane",
+    "notes": [
+      "Associated to the plasma membrane via lipid-anchor"
+    ]
+  },
+  {
+    "accession": "P0CG13",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin during S phase"
+    ]
+  },
+  {
+    "accession": "P10155",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localized in cytoplasmic mRNP granules containing untranslated mRNAs"
+    ]
+  },
+  {
+    "accession": "P11597",
+    "label": "Secreted",
+    "notes": [
+      "Secreted in plasma"
+    ]
+  },
+  {
+    "accession": "P11836",
+    "label": "Membrane",
+    "notes": [
+      "Constitutively associated with membrane rafts"
+    ]
+  },
+  {
+    "accession": "P12004",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with CREBBP, EP300 and POLD1 to sites of DNA damage (PubMed:24939902). Forms nuclear foci representing sites of ongoing DNA replication and vary in morphology and number during S phase (PubMed:15543136). Co-localizes with SMARCA5/SNF2H and BAZ1B/WSTF at replication foci during S phase (PubMed:15543136). Together with APEX2, is redistributed in discrete nuclear foci in presence of oxidative DNA damaging agents"
+    ]
+  },
+  {
+    "accession": "P14136",
+    "label": "Cytoplasm",
+    "notes": [
+      "Associated with intermediate filaments"
+    ]
+  },
+  {
+    "accession": "P15144",
+    "label": "Membrane",
+    "notes": [
+      "Also found as a soluble form"
+    ]
+  },
+  {
+    "accession": "P18089",
+    "label": "Membrane",
+    "notes": [
+      "Interaction with RAB26, GGA1, GGA2 and GGA3 mediates transport from the Golgi to the cell membrane"
+    ]
+  },
+  {
+    "accession": "P24530",
+    "label": "Membrane",
+    "notes": [
+      "internalized after activation by endothelins"
+    ]
+  },
+  {
+    "accession": "P26718",
+    "label": "Membrane",
+    "notes": [
+      "Colocalized with HCST on the cell surface"
+    ]
+  },
+  {
+    "accession": "P28290",
+    "label": "Cytoplasm",
+    "notes": [
+      "Located near the plasma membrane. Associated with actin filaments. May also exist as a membrane-bound form with extracellular regions"
+    ]
+  },
+  {
+    "accession": "P28340",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with PCNA and POLD3 at S phase replication sites (PubMed:11595739). After UV irradiation, recruited to DNA damage sites within 2 hours, independently of the cell cycle phase, nor on PCNA ubiquitination. This recruitment requires POLD3, PCNA and RFC1-replication factor C complex (PubMed:20227374, PubMed:22801543)"
+    ]
+  },
+  {
+    "accession": "P28827",
+    "label": "Membrane",
+    "notes": [
+      "Localizes in regions of cell-cell contact"
+    ]
+  },
+  {
+    "accession": "P29508",
+    "label": "Cytoplasm",
+    "notes": [
+      "Seems to also be secreted in plasma by cancerous cells but at a low level"
+    ]
+  },
+  {
+    "accession": "P32942",
+    "label": "Membrane",
+    "notes": [
+      "Localization at uropodium is mediated through interaction with MSN"
+    ]
+  },
+  {
+    "accession": "P33240",
+    "label": "Nucleus",
+    "notes": [
+      "Localized with DDX1 in cleavage bodies"
+    ]
+  },
+  {
+    "accession": "P34096",
+    "label": "Secreted",
+    "notes": [
+      "Detected in urine"
+    ]
+  },
+  {
+    "accession": "P34982",
+    "label": "Membrane",
+    "notes": [
+      "In spermatazoa is localized in the midpiece and is translocated to the head region upon receptor stimulation with bourgeonal"
+    ]
+  },
+  {
+    "accession": "P34998",
+    "label": "Membrane",
+    "notes": [
+      "Agonist-binding promotes endocytosis"
+    ]
+  },
+  {
+    "accession": "P35462",
+    "label": "Membrane",
+    "notes": [
+      "Both membrane-bound and scattered in the cytoplasm during basal conditions (PubMed:19520868). Receptor stimulation results in the rapid internalization and sequestration of the receptors at the perinuclear area (5 and 15 minutes), followed by the dispersal of the receptors to the membrane (30 minutes) (PubMed:19520868). DRD3 and GRK4 co-localize in lipid rafts of renal proximal tubule cells (PubMed:19520868)"
+    ]
+  },
+  {
+    "accession": "P35573",
+    "label": "Cytoplasm",
+    "notes": [
+      "Under glycogenolytic conditions localizes to the nucleus"
+    ]
+  },
+  {
+    "accession": "P35637",
+    "label": "Nucleus",
+    "notes": [
+      "Displays a punctate pattern inside the nucleus and is excluded from nucleoli"
+    ]
+  },
+  {
+    "accession": "P35659",
+    "label": "Nucleus",
+    "notes": [
+      "Enriched in regions where chromatin is decondensed or sparse in the interphase nuclei"
+    ]
+  },
+  {
+    "accession": "P35998",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes with TRIM5 in cytoplasmic bodies"
+    ]
+  },
+  {
+    "accession": "P38159",
+    "label": "Nucleus",
+    "notes": [
+      "Component of ribonucleosomes. Localizes in numerous small granules in the nucleus"
+    ]
+  },
+  {
+    "accession": "P41223",
+    "label": "Nucleus",
+    "notes": [
+      "Detected in chromatin at the promoter of AR target genes"
+    ]
+  },
+  {
+    "accession": "P42772",
+    "label": "Cytoplasm",
+    "notes": [
+      "Also found in the nucleus"
+    ]
+  },
+  {
+    "accession": "P43353",
+    "label": "Membrane",
+    "notes": [
+      "Primarily in the plasma membrane as well as in some punctate structures in the cytoplasm"
+    ]
+  },
+  {
+    "accession": "P47871",
+    "label": "Membrane",
+    "notes": [
+      "Is rapidly internalized after ligand-binding"
+    ]
+  },
+  {
+    "accession": "P48048",
+    "label": "Membrane",
+    "notes": [
+      "Phosphorylation at Ser-44 by SGK1 is necessary for its expression at the cell membrane"
+    ]
+  },
+  {
+    "accession": "P48509",
+    "label": "Membrane",
+    "notes": [
+      "Relocalizes to the immune synapse in T-cells upon activation"
+    ]
+  },
+  {
+    "accession": "P48552",
+    "label": "Nucleus",
+    "notes": [
+      "Localized to discrete foci and redistributes to larger nuclear domains upon binding to ligand-bound NR3C1"
+    ]
+  },
+  {
+    "accession": "P48594",
+    "label": "Cytoplasm",
+    "notes": [
+      "Seems to also be secreted in plasma by cancerous cells but at a low level"
+    ]
+  },
+  {
+    "accession": "P49005",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to DNA damage sites within 2 hours following UV irradiation"
+    ]
+  },
+  {
+    "accession": "P49862",
+    "label": "Secreted",
+    "notes": [
+      "In ovarian carcinoma, secreted and also observed at the apical membrane and in cytoplasm at the invasive front"
+    ]
+  },
+  {
+    "accession": "P51575",
+    "label": "Membrane",
+    "notes": [
+      "Detected at plasma membrane lipid rafts"
+    ]
+  },
+  {
+    "accession": "P51813",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localizes to the edges of spreading cells when complexed with BCAR1"
+    ]
+  },
+  {
+    "accession": "P51825",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin and is recruited to DNA damage sites in a PARP1-dependent manner"
+    ]
+  },
+  {
+    "accession": "P51959",
+    "label": "Nucleus",
+    "notes": [
+      "DNA replication foci after DNA damage"
+    ]
+  },
+  {
+    "accession": "P52739",
+    "label": "Nucleus",
+    "notes": [
+      "Sumoylation does not affect nuclear localization"
+    ]
+  },
+  {
+    "accession": "P54132",
+    "label": "Nucleus",
+    "notes": [
+      "Together with SPIDR, is redistributed in discrete nuclear DNA damage-induced foci following hydroxyurea (HU) or camptothecin (CPT) treatment. Accumulated at sites of DNA damage in a RMI complex- and SPIDR-dependent manner"
+    ]
+  },
+  {
+    "accession": "P56373",
+    "label": "Membrane",
+    "notes": [
+      "Localizes to neuronal cell body of sensory neurons"
+    ]
+  },
+  {
+    "accession": "P59923",
+    "label": "Nucleus",
+    "notes": [
+      "Binds various differentially methylated regions (DMR)"
+    ]
+  },
+  {
+    "accession": "P63092",
+    "label": "Membrane",
+    "notes": [
+      "Associated to the plasma membrane via lipid-anchor"
+    ]
+  },
+  {
+    "accession": "P80108",
+    "label": "Secreted",
+    "notes": [
+      "Associated with the High-Density Lipoproteins (HDL)"
+    ]
+  },
+  {
+    "accession": "P82970",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with nucleosomes in euchromatin and is largely excluded from constitutive heterochromatin"
+    ]
+  },
+  {
+    "accession": "P83110",
+    "label": "Secreted",
+    "notes": [
+      "Secretion increased during decidualization of endometrial stromal cells"
+    ]
+  },
+  {
+    "accession": "P83916",
+    "label": "Nucleus",
+    "notes": [
+      "Unassociated with chromosomes during mitosis"
+    ]
+  },
+  {
+    "accession": "P98175",
+    "label": "Nucleus",
+    "notes": [
+      "In the extranucleolar nucleoplasm constitutes hundreds of nuclear domains, which dynamically change their structures in a reversible manner. Upon globally reducing RNA polymerase II transcription, the nuclear bodies enlarge and decrease in number. They occur closely adjacent to nuclear speckles or IGCs (interchromatin granule clusters) but coincide with TIDRs (transcription-inactivation-dependent RNA domains)"
+    ]
+  },
+  {
+    "accession": "Q02817",
+    "label": "Secreted",
+    "notes": [
+      "In the intestine, secreted into the inner and outer mucus layers (By similarity). Before secretion, mucin polymers are stored in dedicated secretory vesicles (PubMed:33031746)"
+    ]
+  },
+  {
+    "accession": "Q04724",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear and chromatin-associated, depending on isoforms and phosphorylation status. Hyperphosphorylation decreases the affinity for nuclear components"
+    ]
+  },
+  {
+    "accession": "Q04756",
+    "label": "Secreted",
+    "notes": [
+      "Exists as an inactive zymogen in plasma (PubMed:8226803). Exists as an active heterodimeric form in serum (PubMed:7683665)"
+    ]
+  },
+  {
+    "accession": "Q06141",
+    "label": "Secreted",
+    "notes": [
+      "Found in the apical region of pancreatic acinar cells"
+    ]
+  },
+  {
+    "accession": "Q06455",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ATN1 in discrete nuclear dots"
+    ]
+  },
+  {
+    "accession": "Q08830",
+    "label": "Secreted",
+    "notes": [
+      "Secreted in the blood plasma"
+    ]
+  },
+  {
+    "accession": "Q0VD83",
+    "label": "Membrane",
+    "notes": [
+      "Binds monocyte-macrophage membrane. Thought to be anchored in the membrane through an interaction with an integral membrane protein"
+    ]
+  },
+  {
+    "accession": "Q12948",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with PITX2 isoform 3 in the nucleus at subnuclear chromatine regions (PubMed:16449236). Colocalizes with CBX5 to a heterochromatin-rich region of the nucleus (PubMed:15684392). Colocalizes with GLI2 in the nucleus (By similarity)"
+    ]
+  },
+  {
+    "accession": "Q13111",
+    "label": "Nucleus",
+    "notes": [
+      "DNA replication foci"
+    ]
+  },
+  {
+    "accession": "Q13156",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to DNA repair foci after DNA damage"
+    ]
+  },
+  {
+    "accession": "Q13185",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with euchromatin and is largely excluded from constitutive heterochromatin. May be associated with microtubules and mitotic poles during mitosis (Potential)"
+    ]
+  },
+  {
+    "accession": "Q13191",
+    "label": "Cytoplasm",
+    "notes": [
+      "Upon EGF stimulation, associates with endocytic vesicles"
+    ]
+  },
+  {
+    "accession": "Q13242",
+    "label": "Nucleus",
+    "notes": [
+      "Cellular stresses such as heat shock may induce localization to discrete nuclear bodies termed SAM68 nuclear bodies (SNBs), HAP bodies, or stress bodies. Numerous splicing factors including SRSF1/SFRS1/SF2, SRSF7/SFRS7, SAFB and KHDRBS1/SAM68 accumulate at these structures, which may participate in the post-transcriptional regulation of mRNAs in stressed cells"
+    ]
+  },
+  {
+    "accession": "Q13263",
+    "label": "Nucleus",
+    "notes": [
+      "Associated with centromeric heterochromatin during cell differentiation through CBX1 (By similarity). Localizes to sites of DNA damage (PubMed:25593309)"
+    ]
+  },
+  {
+    "accession": "Q13310",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localized in cytoplasmic mRNP granules containing untranslated mRNAs"
+    ]
+  },
+  {
+    "accession": "Q13351",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with SUMO1 in nuclear speckles"
+    ]
+  },
+  {
+    "accession": "Q13356",
+    "label": "Nucleus",
+    "notes": [
+      "May also localize to the cytoplasm and the cell membrane"
+    ]
+  },
+  {
+    "accession": "Q13404",
+    "label": "Nucleus",
+    "notes": [
+      "Excluded from the nucleolus"
+    ]
+  },
+  {
+    "accession": "Q13495",
+    "label": "Nucleus",
+    "notes": [
+      "Punctate nuclear localization"
+    ]
+  },
+  {
+    "accession": "Q13536",
+    "label": "Nucleus",
+    "notes": [
+      "Associates within the nuclear transcriptional apparatus during proliferation and differentiation"
+    ]
+  },
+  {
+    "accession": "Q13564",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with APP in lipid rafts"
+    ]
+  },
+  {
+    "accession": "Q13733",
+    "label": "Membrane",
+    "notes": [
+      "In mature sperm, located in the principle piece of the sperm flagellum"
+    ]
+  },
+  {
+    "accession": "Q14129",
+    "label": "Nucleus",
+    "notes": [
+      "Predominantly nuclear"
+    ]
+  },
+  {
+    "accession": "Q14520",
+    "label": "Secreted",
+    "notes": [
+      "Secreted as an inactive single-chain precursor and is then activated to a heterodimeric form"
+    ]
+  },
+  {
+    "accession": "Q14814",
+    "label": "Nucleus",
+    "notes": [
+      "Translocated by HDAC4 to nuclear dots"
+    ]
+  },
+  {
+    "accession": "Q15022",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to chromatin as part of the PRC2 complex"
+    ]
+  },
+  {
+    "accession": "Q15648",
+    "label": "Nucleus",
+    "notes": [
+      "A subset of the protein may enter the nucleolus subsequent to phosphorylation by MAPK1 or MAPK3"
+    ]
+  },
+  {
+    "accession": "Q156A1",
+    "label": "Nucleus",
+    "notes": [
+      "Present in SCA8-specific 1C2-positive intranuclear inclusions"
+    ]
+  },
+  {
+    "accession": "Q15762",
+    "label": "Membrane",
+    "notes": [
+      "Localizes to lipid rafts"
+    ]
+  },
+  {
+    "accession": "Q15814",
+    "label": "Cytoplasm",
+    "notes": [
+      "Detected predominantly in the photoreceptor connecting cilium"
+    ]
+  },
+  {
+    "accession": "Q15843",
+    "label": "Nucleus",
+    "notes": [
+      "Mainly nuclear"
+    ]
+  },
+  {
+    "accession": "Q16515",
+    "label": "Membrane",
+    "notes": [
+      "Localized at the plasma membrane of neurons, in the soma and punctated peripheral processes"
+    ]
+  },
+  {
+    "accession": "Q2M3C7",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes with SPHK1 in the cytoplasm"
+    ]
+  },
+  {
+    "accession": "Q2TAK8",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to DNA damage sites via its interaction with the BRCT domain of TP53BP1"
+    ]
+  },
+  {
+    "accession": "Q32M45",
+    "label": "Membrane",
+    "notes": [
+      "Shows an intracellular localization"
+    ]
+  },
+  {
+    "accession": "Q495A1",
+    "label": "Membrane",
+    "notes": [
+      "Clustered to the immunological synapse where it disrupts granule polarization and cytotoxicity of NK cells once engaged with PVR"
+    ]
+  },
+  {
+    "accession": "Q4KMQ2",
+    "label": "Membrane",
+    "notes": [
+      "Shows an intracellular localization according to PubMed:22075693"
+    ]
+  },
+  {
+    "accession": "Q58F21",
+    "label": "Nucleus",
+    "notes": [
+      "Detected on chromatin"
+    ]
+  },
+  {
+    "accession": "Q5EBM0",
+    "label": "Mitochondrion",
+    "notes": [
+      "Mitochondrial localization is required for its antiviral function"
+    ]
+  },
+  {
+    "accession": "Q5K131",
+    "label": "Cytoplasm",
+    "notes": [
+      "Detected in the cytoplasm of chronic lymphocytic leukemia (CLL) cells"
+    ]
+  },
+  {
+    "accession": "Q5MJ68",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes with tubulin gamma during interphase. During mitosis, enriched at the spindle poles and the midbody during telophase"
+    ]
+  },
+  {
+    "accession": "Q5QGZ9",
+    "label": "Membrane",
+    "notes": [
+      "Ligand binding leads to internalization (PubMed:16239426). Clusters at phagocytic vesicles upon monosodium urate crystal-binding (PubMed:38367667)"
+    ]
+  },
+  {
+    "accession": "Q5R3K3",
+    "label": "Membrane",
+    "notes": [
+      "Recruited at immune synapses in response to pathogen-derived and proinflammatory stimuli"
+    ]
+  },
+  {
+    "accession": "Q5TB30",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ZNF224 at the nucleus"
+    ]
+  },
+  {
+    "accession": "Q5TD97",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclei of round and elongated spermatids"
+    ]
+  },
+  {
+    "accession": "Q5VSL9",
+    "label": "Cytoplasm",
+    "notes": [
+      "Enriched on the plasma membrane"
+    ]
+  },
+  {
+    "accession": "Q5VYS8",
+    "label": "Cytoplasm",
+    "notes": [
+      "Expression is pancytoplasmic in contrast with TUT4 expression which is enriched in cytoplasmic ribonucleoprotein granules"
+    ]
+  },
+  {
+    "accession": "Q5W186",
+    "label": "Secreted",
+    "notes": [
+      "May be targeted through the Golgi via the secretory pathway"
+    ]
+  },
+  {
+    "accession": "Q60I27",
+    "label": "Cytoplasm",
+    "notes": [
+      "Distributed onto the vesicular compartments in the cytoplasm with strong punctated staining. Colocalizes with RAB5A onto the vesicular/membranous compartments in the cytoplasm, particularly to the leading edges of the cells"
+    ]
+  },
+  {
+    "accession": "Q659A1",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with COIL in subnuclear Cajal and histone locus bodies. Translocates in the LEC complex to Cajal and histone locus bodies at snRNA genes in a ICE1-dependent manner. Associates to transcriptionally active chromatin at snRNA genes"
+    ]
+  },
+  {
+    "accession": "Q69YH5",
+    "label": "Nucleus",
+    "notes": [
+      "Excluded from the nucleolus. Present in nucleoplasm throughout the G1, S and G2 stages of the cell cycle. During M phase, it becomes diffuse throughout the cell as the nuclear membrane breaks down, and faintly accumulates later on metaphase chromatin. As the cell progresses to anaphase, it accumulates on chromatin"
+    ]
+  },
+  {
+    "accession": "Q6DJT9",
+    "label": "Nucleus",
+    "notes": [
+      "Strong nucleolar localization when sumoylation is inhibited"
+    ]
+  },
+  {
+    "accession": "Q6DT37",
+    "label": "Cytoplasm",
+    "notes": [
+      "Concentrates at the leading edge of cells"
+    ]
+  },
+  {
+    "accession": "Q6P1M3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localized in the perinuclear structure and faintly at the cell-cell contacts sites in the interphase. Localized at the cell periphery during metaphase. Cortical localization in mitotic cells. Found in the lateral region of polarized epithelial cells"
+    ]
+  },
+  {
+    "accession": "Q6PHR2",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localizes to pre-autophagosomal structure during cellular senescence"
+    ]
+  },
+  {
+    "accession": "Q6PII3",
+    "label": "Nucleus",
+    "notes": [
+      "In the nucleus of neuroblastoma cells, it colocalizes with EIF4A3, a component of exon junction complex"
+    ]
+  },
+  {
+    "accession": "Q6PIU1",
+    "label": "Membrane",
+    "notes": [
+      "Has to be associated with another potassium channel subunit to get inserted in the plasma membrane. Remains intracellular in the absence of KCNB2"
+    ]
+  },
+  {
+    "accession": "Q6PJ21",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear SPSB3 levels increase during interphase"
+    ]
+  },
+  {
+    "accession": "Q6PJP8",
+    "label": "Nucleus",
+    "notes": [
+      "In some cells it may be found in typically 1 or 2 discrete nuclear aggregates of unknown function which also contain TP53BP1. Also found in multiple discrete nuclear foci which increase in number following treatment with ionizing radiation or interstrand cross-linking agents. These foci overlap with those formed by the MRN complex (composed of MRE11, RAD50 and NBN) and BRCA1"
+    ]
+  },
+  {
+    "accession": "Q6UB99",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to chromatin during prometaphase"
+    ]
+  },
+  {
+    "accession": "Q6UWR7",
+    "label": "Membrane",
+    "notes": [
+      "A small amount of the protein may be found in the extracellular milieu"
+    ]
+  },
+  {
+    "accession": "Q6UWV6",
+    "label": "Membrane",
+    "notes": [
+      "The catalytic domain is released into the extracellular medium when cells are treated with trypsin (PubMed:15205117). Localized at the surface of the microvillar membrane in small intestine enterocytes, and in endosome-like structures situated beneath the microvillar membrane, and in Golgi complex (PubMed:12671034, PubMed:12885774)"
+    ]
+  },
+  {
+    "accession": "Q6UWZ7",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes at sites of DNA damage at double-strand breaks (DSBs)"
+    ]
+  },
+  {
+    "accession": "Q6UXZ3",
+    "label": "Membrane",
+    "notes": [
+      "Cell surface localization requires the ITAM-bearing Fc receptor FCER1G to overcome ER retention"
+    ]
+  },
+  {
+    "accession": "Q6ZRF8",
+    "label": "Cytoplasm",
+    "notes": [
+      "Probably located in the endoplasmic reticulum and/or possibly the cis-Golgi apparatus"
+    ]
+  },
+  {
+    "accession": "Q76LX8",
+    "label": "Secreted",
+    "notes": [
+      "Secretion enhanced by O-fucosylation of TSP type-1 repeats"
+    ]
+  },
+  {
+    "accession": "Q7L266",
+    "label": "Cytoplasm",
+    "notes": [
+      "Midpiece of sperm tail"
+    ]
+  },
+  {
+    "accession": "Q7L590",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ORC2 in nuclei foci. Associated with chromatin in S phase. From early to mid-S phase located in discrete nuclear foci. In early S phase, several hundred foci appeared throughout the nucleus. In mid-S phase, the foci appeared at the nuclear periphery and nucleolar regions. In the late S and G phases localized to nucleoli"
+    ]
+  },
+  {
+    "accession": "Q7Z2Z1",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin"
+    ]
+  },
+  {
+    "accession": "Q7Z4R8",
+    "label": "Secreted",
+    "notes": [
+      "Secreted by hepatocytes"
+    ]
+  },
+  {
+    "accession": "Q7Z7K0",
+    "label": "Mitochondrion",
+    "notes": [
+      "Colocalizes with MT-CO1"
+    ]
+  },
+  {
+    "accession": "Q86SQ4",
+    "label": "Membrane",
+    "notes": [
+      "Detected on the cell surface of activated but not resting umbilical vein"
+    ]
+  },
+  {
+    "accession": "Q86TG1",
+    "label": "Membrane",
+    "notes": [
+      "Localizes mainly at the plasma membrane; only a minor fraction localizes on intracellular structures (PubMed:25608530)"
+    ]
+  },
+  {
+    "accession": "Q86V24",
+    "label": "Membrane",
+    "notes": [
+      "Localized to the cell membrane and intracellular organelles"
+    ]
+  },
+  {
+    "accession": "Q86VQ3",
+    "label": "Cytoplasm",
+    "notes": [
+      "In ejaculated spermatozoa, it localizes in the caudal region of the head to the end of the principal piece"
+    ]
+  },
+  {
+    "accession": "Q86VW1",
+    "label": "Membrane",
+    "notes": [
+      "Detected in the plasma membrane of Sertoli cells and in the luminal membrane of epithelial cells in the epididymis"
+    ]
+  },
+  {
+    "accession": "Q86XK3",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ESR1 in the nucleus"
+    ]
+  },
+  {
+    "accession": "Q86XT4",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localizes mainly into discrete cytoplasmic punctuate structures heterogeneous in size and shape containing polyubiquitinated proteins"
+    ]
+  },
+  {
+    "accession": "Q86YC2",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with BRCA2 and BRCA1 in nuclear foci"
+    ]
+  },
+  {
+    "accession": "Q8IU80",
+    "label": "Membrane",
+    "notes": [
+      "The processed, activated two-chains form is released in the extracellular space"
+    ]
+  },
+  {
+    "accession": "Q8IUR6",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with CREB3 in nuclear foci"
+    ]
+  },
+  {
+    "accession": "Q8IXK0",
+    "label": "Nucleus",
+    "notes": [
+      "Co-localizes with SAMD7 in nuclear polycomb bodies"
+    ]
+  },
+  {
+    "accession": "Q8IY92",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to sites of DNA damage"
+    ]
+  },
+  {
+    "accession": "Q8IYJ3",
+    "label": "Membrane",
+    "notes": [
+      "Peripheral membrane protein tightly bound to the cytoplasmic side of cellular membranes"
+    ]
+  },
+  {
+    "accession": "Q8IYW5",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to double-strand breaks (DSBs) sites of DNA damage"
+    ]
+  },
+  {
+    "accession": "Q8IZH2",
+    "label": "Cytoplasm",
+    "notes": [
+      "Discrete foci at the inner surface of the cell membrane"
+    ]
+  },
+  {
+    "accession": "Q8IZP1",
+    "label": "Membrane",
+    "notes": [
+      "Associated with lipid rafts"
+    ]
+  },
+  {
+    "accession": "Q8N1F8",
+    "label": "Cytoplasm",
+    "notes": [
+      "Some cells show granular or punctuate expression. Colocalizes with STK11/LKB1 and SMAD4 in granular or punctuate structures"
+    ]
+  },
+  {
+    "accession": "Q8N335",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localized to the region of the plasma membrane"
+    ]
+  },
+  {
+    "accession": "Q8N427",
+    "label": "Cytoplasm",
+    "notes": [
+      "In spermatozoa, it is an integral component of the fibrous sheath (FS)"
+    ]
+  },
+  {
+    "accession": "Q8N5P1",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with coilin in subnuclear cajal and histone locus bodies. Translocates in the LEC complex to cajal and histone locus bodies at snRNA genes in a ICE1-dependent manner. Associates to transcriptionally active chromatin at snRNA genes"
+    ]
+  },
+  {
+    "accession": "Q8N699",
+    "label": "Nucleus",
+    "notes": [
+      "Expressed in nuclei of hepatocellular carcinoma cell line BEL-7402 cells"
+    ]
+  },
+  {
+    "accession": "Q8N7H5",
+    "label": "Nucleus",
+    "notes": [
+      "Punctuate distribution throughout the nucleus except in nucleoli and the perinuclear chromatin"
+    ]
+  },
+  {
+    "accession": "Q8N7J2",
+    "label": "Membrane",
+    "notes": [
+      "Translocates to the cell membrane following binding to PtdIns(4,5)P2"
+    ]
+  },
+  {
+    "accession": "Q8N9M5",
+    "label": "Membrane",
+    "notes": [
+      "Although it is found at the cell surface, the majority of the molecules seems to be located in intracellular compartments"
+    ]
+  },
+  {
+    "accession": "Q8NAC3",
+    "label": "Membrane",
+    "notes": [
+      "Soluble isoforms may be produced"
+    ]
+  },
+  {
+    "accession": "Q8NCE2",
+    "label": "Cytoplasm",
+    "notes": [
+      "Found in reticular structures and plasma membrane ruffles. Concentrated near the nucleus"
+    ]
+  },
+  {
+    "accession": "Q8NEV9",
+    "label": "Secreted",
+    "notes": [
+      "Does not seem to be secreted without coexpression of EBI3"
+    ]
+  },
+  {
+    "accession": "Q8NEX9",
+    "label": "Cytoplasm",
+    "notes": [
+      "Granular distribution in the whole cell"
+    ]
+  },
+  {
+    "accession": "Q8NF64",
+    "label": "Nucleus",
+    "notes": [
+      "Detected at replication foci throughout S phase"
+    ]
+  },
+  {
+    "accession": "Q8NFP4",
+    "label": "Membrane",
+    "notes": [
+      "Associated with lipid rafts"
+    ]
+  },
+  {
+    "accession": "Q8NHJ6",
+    "label": "Membrane",
+    "notes": [
+      "Ligand binding leads to internalization and translocation to an antigen-processing compartment"
+    ]
+  },
+  {
+    "accession": "Q8NHR9",
+    "label": "Cytoplasm",
+    "notes": [
+      "In round spermatids, mainly observed in the acroplaxome. During the progression of spermiogenesis, relocalizes to the developing manchette of spermatids step 8 (S8). Coinciding with the initiation of manchette disassembly in spermatids S14, seen in the cytoplasm subjacent to the disassembling manchette"
+    ]
+  },
+  {
+    "accession": "Q8NHU6",
+    "label": "Cytoplasm",
+    "notes": [
+      "Localizes to cytoplasmic RNA granules. Present in chromatoid body (CB) of spermatids (mammalian counterpart of germplasm, pole plasm or polar granules in Drosophila germ cells), also named processing bodies (P-bodies) in somatic cells. Detected in the multilobular cytoplasmic CBs (also called intermitochondrial cementin) in pachytene spermatocytes and as a single perinuclear CB in haploid round spermatids (By similarity)"
+    ]
+  },
+  {
+    "accession": "Q8TC90",
+    "label": "Nucleus",
+    "notes": [
+      "Forms condensates in the nucleus through liquid-liquid phase separation"
+    ]
+  },
+  {
+    "accession": "Q8TDN1",
+    "label": "Membrane",
+    "notes": [
+      "Has to be associated with KCNB1 or possibly another partner to get inserted in the plasma membrane (PubMed:19074135). Colocalizes with KCNB1 at the plasma membrane (PubMed:19074135). Retains in the endoplasmic reticulum in the absence of KCNB1 (PubMed:19074135)"
+    ]
+  },
+  {
+    "accession": "Q8TDS7",
+    "label": "Membrane",
+    "notes": [
+      "Localized at the plasma membrane but internalized into the cytoplasm after treatment with beta-alanine"
+    ]
+  },
+  {
+    "accession": "Q8TEZ7",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with a lysosomal protein CTSD/cathepsin D"
+    ]
+  },
+  {
+    "accession": "Q8WTR7",
+    "label": "Nucleus",
+    "notes": [
+      "Stable component of Cajal bodies (CBs). Colocalizes with SMN, coilin and U7 snRNA"
+    ]
+  },
+  {
+    "accession": "Q8WVB6",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin during S phase"
+    ]
+  },
+  {
+    "accession": "Q8WVY7",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with nuclear proteasomes"
+    ]
+  },
+  {
+    "accession": "Q8WWY6",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear, in large foci"
+    ]
+  },
+  {
+    "accession": "Q8WXC3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Recruited to specks formed by PYCARD within the cytoplasm"
+    ]
+  },
+  {
+    "accession": "Q8WXE1",
+    "label": "Nucleus",
+    "notes": [
+      "Redistributes to discrete nuclear foci upon DNA damage"
+    ]
+  },
+  {
+    "accession": "Q92833",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with the PRC2 complex on chromatin"
+    ]
+  },
+  {
+    "accession": "Q93034",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to sites of DNA damage in a UBAP2 and UBAP2L-dependent manner"
+    ]
+  },
+  {
+    "accession": "Q969P0",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with CD81 at the immune synapse"
+    ]
+  },
+  {
+    "accession": "Q96A54",
+    "label": "Membrane",
+    "notes": [
+      "Localized to the cell membrane and intracellular organelles"
+    ]
+  },
+  {
+    "accession": "Q96AH0",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to nuclear foci following DNA damage"
+    ]
+  },
+  {
+    "accession": "Q96B02",
+    "label": "Nucleus",
+    "notes": [
+      "In the nucleus, colocalizes with FANCL"
+    ]
+  },
+  {
+    "accession": "Q96BP3",
+    "label": "Nucleus",
+    "notes": [
+      "Associated with spliceosomal complexes"
+    ]
+  },
+  {
+    "accession": "Q96BU1",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with S100P in the nucleus"
+    ]
+  },
+  {
+    "accession": "Q96CG3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes with lysosomal marker LAMP2 following homooligomerization and subsequent activation"
+    ]
+  },
+  {
+    "accession": "Q96E14",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with BLM at nuclear DNA repair foci"
+    ]
+  },
+  {
+    "accession": "Q96GA3",
+    "label": "Cytoplasm",
+    "notes": [
+      "The protein is expressed in a diffuse cytoplasmic pattern with granular perinuclear accentuation within the basal keratinocytes"
+    ]
+  },
+  {
+    "accession": "Q96IJ6",
+    "label": "Cytoplasm",
+    "notes": [
+      "Myc-tagged GMPPA shows a diffuse cytoplasmic and nuclear pattern in transfected COS-7 cells"
+    ]
+  },
+  {
+    "accession": "Q96JB8",
+    "label": "Cytoplasm",
+    "notes": [
+      "Detected at the outer limiting membrane (OLM) and in the outer plexiform layer (OPL) of the retina. At the OLM, detected apical to the adherens junction (AJ)"
+    ]
+  },
+  {
+    "accession": "Q96KK3",
+    "label": "Membrane",
+    "notes": [
+      "May not reach the plasma membrane but remain in an intracellular compartment in the absence of KCNB1 or KCNB2 (PubMed:10484328)"
+    ]
+  },
+  {
+    "accession": "Q96L08",
+    "label": "Membrane",
+    "notes": [
+      "Prominently localized to cell-cell borders"
+    ]
+  },
+  {
+    "accession": "Q96NN9",
+    "label": "Mitochondrion",
+    "notes": [
+      "Does not translocate to the nucleus upon induction of apoptosis"
+    ]
+  },
+  {
+    "accession": "Q96P47",
+    "label": "Cytoplasm",
+    "notes": [
+      "In cells upon oxidative stress or in brains of Machado-Joseph disease patients, translocates to PML nuclear bodies"
+    ]
+  },
+  {
+    "accession": "Q96QE3",
+    "label": "Nucleus",
+    "notes": [
+      "Accumulates in nuclear foci at sites of stalled DNA replication forks in response to DNA damage"
+    ]
+  },
+  {
+    "accession": "Q96RL1",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes at sites of DNA damage at double-strand breaks (DSBs)"
+    ]
+  },
+  {
+    "accession": "Q96SN7",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with STIM1 upon store depletion"
+    ]
+  },
+  {
+    "accession": "Q96T23",
+    "label": "Nucleus",
+    "notes": [
+      "Localization is diffuse during mitosis (PubMed:12972596). Co-localizes with SMARCA5 in the nucleus (PubMed:12972596)"
+    ]
+  },
+  {
+    "accession": "Q96T58",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin"
+    ]
+  },
+  {
+    "accession": "Q99684",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with PIAS3 and RUNX1T1 in nuclear dots"
+    ]
+  },
+  {
+    "accession": "Q99967",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with EP300 in dot-like structures"
+    ]
+  },
+  {
+    "accession": "Q99988",
+    "label": "Secreted",
+    "notes": [
+      "Secreted in the plasma"
+    ]
+  },
+  {
+    "accession": "Q9BQ15",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to nuclear foci following DNA damage. Foci formation is not cell-cycle dependent. Partial colocalization with RAD51 after ionizing radiation treatment"
+    ]
+  },
+  {
+    "accession": "Q9BQ69",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to DNA lesions, probably via mono-APD-ribosylated proteins"
+    ]
+  },
+  {
+    "accession": "Q9BQA5",
+    "label": "Nucleus",
+    "notes": [
+      "Associated with discrete nuclear foci"
+    ]
+  },
+  {
+    "accession": "Q9BQN1",
+    "label": "Cytoplasm",
+    "notes": [
+      "Displays distinct fibrous patterns in the cytoplasm and in the vicinity of membrane ruffles. In the presence of CSNK1A1, localizes along fibrous structures"
+    ]
+  },
+  {
+    "accession": "Q9BRJ6",
+    "label": "Secreted",
+    "notes": [
+      "Secreted via exosomes, secretion is induced by feeding and cholesterol absorption"
+    ]
+  },
+  {
+    "accession": "Q9BRQ5",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with STIM1 upon store depletion"
+    ]
+  },
+  {
+    "accession": "Q9BSF0",
+    "label": "Membrane",
+    "notes": [
+      "The GFP-tagged protein has been detected at the plasma membrane, enriched in filopodia and cell-cell junctions"
+    ]
+  },
+  {
+    "accession": "Q9BTE3",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with chromatin. Highly associated with chromatin in G1/S and S phases, reduced binding to chromatin in G2, and further decreased binding in early M phase. It then reassociates with chromatin in late M phase. Dissociates from chromatin later than component of the MCM complex"
+    ]
+  },
+  {
+    "accession": "Q9BV86",
+    "label": "Nucleus",
+    "notes": [
+      "Predominantly nuclear (PubMed:24090352)"
+    ]
+  },
+  {
+    "accession": "Q9BW66",
+    "label": "Nucleus",
+    "notes": [
+      "Binds to nuclear under G1 conditions, and dissociates from chromatin with the start of DNA replication"
+    ]
+  },
+  {
+    "accession": "Q9BW71",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear throughout the cell cycle and is excluded from condensed chromatin during mitosis"
+    ]
+  },
+  {
+    "accession": "Q9BWC9",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with p53/TP53"
+    ]
+  },
+  {
+    "accession": "Q9BX79",
+    "label": "Membrane",
+    "notes": [
+      "In the retinal pigment epithelium localizes to the basolateral membrane"
+    ]
+  },
+  {
+    "accession": "Q9BY27",
+    "label": "Nucleus",
+    "notes": [
+      "Predominantly nuclear"
+    ]
+  },
+  {
+    "accession": "Q9BYH8",
+    "label": "Nucleus",
+    "notes": [
+      "Aggregated in dot-like structures (PubMed:16513645). Colocalizes with NCOR2 (PubMed:16513645)"
+    ]
+  },
+  {
+    "accession": "Q9BYP7",
+    "label": "Cytoplasm",
+    "notes": [
+      "Mediates formation and localizes to cytoplasmic membraneless compartment in response to hyperosmotic stress"
+    ]
+  },
+  {
+    "accession": "Q9GZP0",
+    "label": "Secreted",
+    "notes": [
+      "Released by platelets upon wounding"
+    ]
+  },
+  {
+    "accession": "Q9GZU7",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with RNA polymerase II"
+    ]
+  },
+  {
+    "accession": "Q9GZY6",
+    "label": "Membrane",
+    "notes": [
+      "Present in lipid rafts"
+    ]
+  },
+  {
+    "accession": "Q9H160",
+    "label": "Nucleus",
+    "notes": [
+      "Predominantly nuclear. Localized to chromatin and nuclear matrix. Upon reduced PtdIns(5)P levels seems to be released from chromatin and, at least partially, translocated to the cytoplasm"
+    ]
+  },
+  {
+    "accession": "Q9H1E1",
+    "label": "Secreted",
+    "notes": [
+      "Detected in urine"
+    ]
+  },
+  {
+    "accession": "Q9H2H9",
+    "label": "Membrane",
+    "notes": [
+      "Restricted to the somatodendritic compartment of neurons. Found in the cellular processes of neurons in the developing brain"
+    ]
+  },
+  {
+    "accession": "Q9H334",
+    "label": "Nucleus",
+    "notes": [
+      "Not found in the nucleolus"
+    ]
+  },
+  {
+    "accession": "Q9H400",
+    "label": "Membrane",
+    "notes": [
+      "Present in lipid rafts. Recruited to the immunological synapse upon conjugation of T-cell with antigen-presenting cell"
+    ]
+  },
+  {
+    "accession": "Q9H4E5",
+    "label": "Membrane",
+    "notes": [
+      "Localization to the plasma membrane is regulated by GLUL"
+    ]
+  },
+  {
+    "accession": "Q9H788",
+    "label": "Cytoplasm",
+    "notes": [
+      "Located at podocyte foot processes"
+    ]
+  },
+  {
+    "accession": "Q9H8Y5",
+    "label": "Cytoplasm",
+    "notes": [
+      "Translocates to the mitochondria upon exposure to hydrogen peroxide"
+    ]
+  },
+  {
+    "accession": "Q9HB58",
+    "label": "Nucleus",
+    "notes": [
+      "Found in the nuclear body"
+    ]
+  },
+  {
+    "accession": "Q9HBJ8",
+    "label": "Membrane",
+    "notes": [
+      "Localizes to the brush border membranes of cells in the proximal tubules of kidney (By similarity). Colocalizes with SLC6A19 in the early proximal S1 tubule (By similarity)"
+    ]
+  },
+  {
+    "accession": "Q9HBL7",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes on the cell surface with urokinase plasminogen activator surface receptor/PLAUR"
+    ]
+  },
+  {
+    "accession": "Q9HCC8",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with the actin cytoskeleton"
+    ]
+  },
+  {
+    "accession": "Q9HCE9",
+    "label": "Membrane",
+    "notes": [
+      "Shows predominantly an intracellular localization with a weak expression in the cell membrane"
+    ]
+  },
+  {
+    "accession": "Q9HCK8",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to the promoter regions of several CTNNB1-responsive genes. Also present at known CTCF target sites"
+    ]
+  },
+  {
+    "accession": "Q9HCS7",
+    "label": "Nucleus",
+    "notes": [
+      "Detected in the splicing complex carrying pre-mRNA"
+    ]
+  },
+  {
+    "accession": "Q9HCU8",
+    "label": "Nucleus",
+    "notes": [
+      "Partially recruited to DNA damage sites within 2 hours following UV irradiation, before degradation"
+    ]
+  },
+  {
+    "accession": "Q9NNW5",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes in the cytoplasm with STK11/LKB1"
+    ]
+  },
+  {
+    "accession": "Q9NPD8",
+    "label": "Nucleus",
+    "notes": [
+      "Accumulates to chromatin"
+    ]
+  },
+  {
+    "accession": "Q9NPF7",
+    "label": "Secreted",
+    "notes": [
+      "Secreted upon association with IL12B"
+    ]
+  },
+  {
+    "accession": "Q9NQ31",
+    "label": "Nucleus",
+    "notes": [
+      "Locates to punctate spots"
+    ]
+  },
+  {
+    "accession": "Q9NRL2",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to pericentric heterochromatin (By similarity). May target the CHRAC complex to heterochromatin (PubMed:10880450). Localizes to sites of DNA damage (PubMed:25593309)"
+    ]
+  },
+  {
+    "accession": "Q9NRY2",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes to nuclear foci following DNA damage"
+    ]
+  },
+  {
+    "accession": "Q9NS37",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes in promyelocytic leukemia protein nuclear bodies (PML-NB) with CREB3 and HCFC1"
+    ]
+  },
+  {
+    "accession": "Q9NU63",
+    "label": "Nucleus",
+    "notes": [
+      "Binds various differentially methylated regions (DMR)"
+    ]
+  },
+  {
+    "accession": "Q9NW15",
+    "label": "Membrane",
+    "notes": [
+      "Shows predominantly an intracellular localization with a weak expression in the cell membrane"
+    ]
+  },
+  {
+    "accession": "Q9NWS8",
+    "label": "Mitochondrion",
+    "notes": [
+      "May be localized in mitochondrial RNA granules (PubMed:25604853)"
+    ]
+  },
+  {
+    "accession": "Q9NY74",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes at sites of DNA damage following replication stress (PubMed:27601467, PubMed:27723717, PubMed:27723720). Recruited to stalled replication forks via interaction with RPA1 and RPA2 subunits of the RPA complex (PubMed:27601467, PubMed:27723720)"
+    ]
+  },
+  {
+    "accession": "Q9NYB5",
+    "label": "Membrane",
+    "notes": [
+      "Expressed in both luminal and abluminal membranes of brain capillary endothelial cells. Localized to the apical membrane and basal surfaces of choroid plexus"
+    ]
+  },
+  {
+    "accession": "Q9NZC9",
+    "label": "Nucleus",
+    "notes": [
+      "Recruited to damaged DNA regions"
+    ]
+  },
+  {
+    "accession": "Q9NZJ4",
+    "label": "Cytoplasm",
+    "notes": [
+      "Predominantly cytoplasmic, a small portion is present in the nucleus and also shows a partial mitochondrial overlap with the mitochondrial marker Hsp60"
+    ]
+  },
+  {
+    "accession": "Q9NZL3",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with DEPDC1A at the nucleus"
+    ]
+  },
+  {
+    "accession": "Q9P2A4",
+    "label": "Cytoplasm",
+    "notes": [
+      "Colocalizes with PAK2 at leading edge of cells"
+    ]
+  },
+  {
+    "accession": "Q9P2M1",
+    "label": "Cytoplasm",
+    "notes": [
+      "Detected in a vesicular staining pattern close to the plasma membrane and throughout the cytoplasm"
+    ]
+  },
+  {
+    "accession": "Q9UBC1",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear localization with a speckled expression pattern in some cells. Colocalizes with CACTIN in the nucleus"
+    ]
+  },
+  {
+    "accession": "Q9UBD9",
+    "label": "Secreted",
+    "notes": [
+      "Secreted as a stable complex with CLCF1 or soluble form of CNTFR (PubMed:10966616, PubMed:11285233). Secretion is CRLF1- or CNTFR (soluble form)-dependent (PubMed:10966616, PubMed:11285233)"
+    ]
+  },
+  {
+    "accession": "Q9UBG3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Does not colocalize with TGM1"
+    ]
+  },
+  {
+    "accession": "Q9UBL9",
+    "label": "Membrane",
+    "notes": [
+      "Localizes to the apical membranes of hair cells in the organ of Corti"
+    ]
+  },
+  {
+    "accession": "Q9UBP9",
+    "label": "Cytoplasm",
+    "notes": [
+      "May associate with the cytoplasmic side of the plasma membrane and early endosomes"
+    ]
+  },
+  {
+    "accession": "Q9UBT6",
+    "label": "Nucleus",
+    "notes": [
+      "Detected throughout the nucleus and at replication foci (PubMed:12414988). Recruited to DNA damage sites in response to ultraviolet irradiation: N6-methyladenosine (m6A)-containing mRNAs accumulate in the vicinity of DNA damage sites and their presence is required to recruit POLK (PubMed:28297716)"
+    ]
+  },
+  {
+    "accession": "Q9UBZ9",
+    "label": "Nucleus",
+    "notes": [
+      "In response to replication stress, is recruited to stalled DNA replication through recognition of monoubiquitinated PCNA, and accumulates in nuclear foci in a process facilitated by FAAP20 binding (PubMed:22266823). Nuclear foci localization likely reflects the recruitment of REV1 to DNA lesions in response to replication stress, and depends on its ubiquitin-binding motif (UBM) domains (PubMed:22266823)"
+    ]
+  },
+  {
+    "accession": "Q9UGR2",
+    "label": "Nucleus",
+    "notes": [
+      "Nuclear localization seems to be depleted upon rotavirus A infection"
+    ]
+  },
+  {
+    "accession": "Q9UGT4",
+    "label": "Membrane",
+    "notes": [
+      "SUSD2 and LGALS1 co-localized in very specific, punctate regions along the cell membrane of breast cancer cells"
+    ]
+  },
+  {
+    "accession": "Q9UHX1",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes partially with RO60"
+    ]
+  },
+  {
+    "accession": "Q9UIG0",
+    "label": "Nucleus",
+    "notes": [
+      "Accumulates in pericentromeric heterochromatin during replication (PubMed:15543136). Co-localizes with PCNA at replication foci during S phase (PubMed:15543136). Co-localizes with SMARCA5/SNF2H at replication foci during late-S phase (PubMed:15543136). Also localizes to replication foci independently of SMARCA5/SNF2H and PCNA (PubMed:15543136). Localizes to sites of DNA damage (PubMed:25593309)"
+    ]
+  },
+  {
+    "accession": "Q9UK33",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalized with SMAD2 in the nucleus"
+    ]
+  },
+  {
+    "accession": "Q9UK99",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with PML at the peripheries of nuclear bodies"
+    ]
+  },
+  {
+    "accession": "Q9UKL0",
+    "label": "Nucleus",
+    "notes": [
+      "Upon infection by HSV-1, it is partially translocated into the cytoplasm in an HSV-1-dependent manner"
+    ]
+  },
+  {
+    "accession": "Q9UKS7",
+    "label": "Nucleus",
+    "notes": [
+      "Associates with IKZF1/Ikaros at centromeric heterochromatin in T-cell nuclei"
+    ]
+  },
+  {
+    "accession": "Q9UKY1",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalized in the nucleus with DNMT3B"
+    ]
+  },
+  {
+    "accession": "Q9ULC4",
+    "label": "Cytoplasm",
+    "notes": [
+      "Nuclear relocalization after DNA damage"
+    ]
+  },
+  {
+    "accession": "Q9ULI0",
+    "label": "Nucleus",
+    "notes": [
+      "Partially localizes to replication sites"
+    ]
+  },
+  {
+    "accession": "Q9ULJ3",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with ZBTB14 in nucleus in HEK293 cells"
+    ]
+  },
+  {
+    "accession": "Q9ULL4",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with RIT2/RIN at the plasma membrane"
+    ]
+  },
+  {
+    "accession": "Q9ULQ0",
+    "label": "Cytoplasm",
+    "notes": [
+      "Enriched in lamellipodia"
+    ]
+  },
+  {
+    "accession": "Q9UM73",
+    "label": "Membrane",
+    "notes": [
+      "Membrane attachment is essential for promotion of neuron-like differentiation and cell proliferation arrest through specific activation of the MAP kinase pathway"
+    ]
+  },
+  {
+    "accession": "Q9UPN9",
+    "label": "Nucleus",
+    "notes": [
+      "In discrete nuclear dots resembling nuclear bodies (By similarity). Localizes to sites of DNA damage (PubMed:25593309)"
+    ]
+  },
+  {
+    "accession": "Q9UPQ3",
+    "label": "Cytoplasm",
+    "notes": [
+      "Associates with the endocytic compartment"
+    ]
+  },
+  {
+    "accession": "Q9UQ84",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with PCNA to discrete nuclear foci in S-phase"
+    ]
+  },
+  {
+    "accession": "Q9Y253",
+    "label": "Nucleus",
+    "notes": [
+      "Binding to ubiquitinated PCNA mediates colocalization to replication foci during DNA replication and persists at sites of stalled replication forks following UV irradiation (PubMed:12606586, PubMed:16357261, PubMed:24553286). After UV irradiation, recruited to DNA damage sites within 1 hour, to a maximum of about 80%; this recruitment may not be not restricted to cells active in DNA replication (PubMed:22801543). Colocalizes with TRAIP to nuclear foci (PubMed:24553286)"
+    ]
+  },
+  {
+    "accession": "Q9Y2K2",
+    "label": "Cytoplasm",
+    "notes": [
+      "Locates to punctate structures within the cytoplasm on binding to YWHAZ"
+    ]
+  },
+  {
+    "accession": "Q9Y2M0",
+    "label": "Nucleus",
+    "notes": [
+      "Localizes at sites of DNA damage following recruitment by monoubiquitinated FANCD2 (PubMed:20603015, PubMed:20603016). Localizes to stalled replication forks via its UBZ4-type zinc finger (PubMed:20935496)"
+    ]
+  },
+  {
+    "accession": "Q9Y2Y4",
+    "label": "Nucleus",
+    "notes": [
+      "Located in nuclear speckles"
+    ]
+  },
+  {
+    "accession": "Q9Y468",
+    "label": "Nucleus",
+    "notes": [
+      "Excluded from the nucleolus. Does not colocalize with the PcG protein BMI1, suggesting that these two proteins do not belong to the same complex"
+    ]
+  },
+  {
+    "accession": "Q9Y471",
+    "label": "Cytoplasm",
+    "notes": [
+      "May localize to membranes, nucleus and cytoskeleton"
+    ]
+  },
+  {
+    "accession": "Q9Y4C2",
+    "label": "Membrane",
+    "notes": [
+      "Colocalizes with TRPM8 on the plasma membrane"
+    ]
+  },
+  {
+    "accession": "Q9Y5A7",
+    "label": "Nucleus",
+    "notes": [
+      "Predominantly nuclear"
+    ]
+  },
+  {
+    "accession": "Q9Y5Y7",
+    "label": "Membrane",
+    "notes": [
+      "Localized to the plasma membrane and in vesicles near extranuclear membranes which may represent trans-Golgi network (TGN) and endosomes/prelysosomeal compartments. Undergoes ligand-dependent internalization and recycling at the cell surface. Localizes at cell-cell junctions"
+    ]
+  },
+  {
+    "accession": "Q9Y6H5",
+    "label": "Cytoplasm",
+    "notes": [
+      "Detected in cytoplasmic inclusion bodies, together with SNCA"
+    ]
+  },
+  {
+    "accession": "Q9Y6X8",
+    "label": "Nucleus",
+    "notes": [
+      "Colocalizes with EFNB1 intracellular domain in the nucleus"
+    ]
+  }
+]

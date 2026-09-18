@@ -5,7 +5,11 @@ nav:
   - First Analysis: quickstart.md
   - Model Card: model-card.md
   - Reproduce Baseline: baseline.md
-  - Model Improvement Plan: model-improvement.md
+  - Model Comparison: model-improvement.md
+  - Scientific Revision: research-revision.md
+  - External Validation Study: external-validation.md
+  - Research Software Standards: research-software.md
+  - Research Protocol: research-plan.md
   - API Reference: api.md
   - Adapter Guide: adapter-guide.md
   - Explainer Guide: explainer-guide.md

@@ -21,17 +21,12 @@ import numpy as np
 import pandas as pd
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import (
-    balanced_accuracy_score,
-    classification_report,
-    confusion_matrix,
-    f1_score,
-    log_loss,
-)
 from sklearn.model_selection import GridSearchCV, StratifiedGroupKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+
 from .artifacts import load_model_artifact, save_model_artifact
+from .evaluation import classification_metrics as classification_metrics
 from .explainers.shap import ShapExplainer
 from .features import build_feature_matrix, normalize_protein_sequence
 
@@ -54,9 +49,11 @@ LOCATION_MAP = {
     "Plasma membrane": "Membrane",
 }
 LIMITATIONS = (
-    "Human canonical proteins with one experimentally supported compartment only. "
-    "Multilocalized, isoform-specific, unsupported and ambiguous annotations were "
-    "excluded. Probabilities are uncalibrated; class-balanced curation does not "
+    "Human canonical proteins with one mapped structured compartment and "
+    "experimental evidence. "
+    "Conflicting structured locations, isoform-specific and unsupported records were "
+    "excluded; free-text notes may describe additional localizations. "
+    "Probabilities are uncalibrated; class-balanced curation does not "
     "represent natural prevalence. Sequence grouping at 30% identity and 80% "
     "bidirectional coverage does not exclude all remote or domain-level homology. "
     "SHAP describes engineered features, not biological causality."
@@ -148,7 +145,7 @@ def curate_entry(entry: dict[str, Any]) -> tuple[dict[str, Any] | None, str]:
 
 
 def curate_snapshot(
-        source: Path, cap: int = 500, seed: int = 42
+    source: Path, cap: int = 500, seed: int = 42
 ) -> tuple[pd.DataFrame, dict[str, int]]:
     """Curate, remove duplicates, and reproducibly cap each class."""
     payload = json.loads(source.read_text())
@@ -161,7 +158,7 @@ def curate_snapshot(
             rows.append(row)
     if not rows:
         raise ValueError(
-            "No records satisfy the experimental, single-compartment policy"
+            "No records satisfy the experimental, single structured-label policy"
         )
     frame = pd.DataFrame(rows).sort_values("accession")
     conflicting = frame.groupby("sequence")["label"].transform("nunique") > 1
@@ -204,7 +201,7 @@ def grouped_split(frame: pd.DataFrame, seed: int = 42) -> tuple[np.ndarray, np.n
     for train, test in splitter.split(frame, frame["label"], frame["group"]):
         counts = frame.iloc[test]["label"].value_counts()
         if set(frame.iloc[train]["label"]) != set(CLASSES) or any(
-                counts.get(c, 0) < 10 for c in CLASSES
+            counts.get(c, 0) < 10 for c in CLASSES
         ):
             continue
         if set(frame.iloc[train]["group"]) & set(frame.iloc[test]["group"]):
@@ -225,7 +222,7 @@ def write_fasta(frame: pd.DataFrame, path: Path) -> None:
 
 
 def search_similar(
-        query: Path, target: Path, output: Path, threads: int
+    query: Path, target: Path, output: Path, threads: int
 ) -> list[tuple[str, str]]:
     """Run the same exhaustive-output search policy for grouping and split audits."""
     command = [
@@ -265,7 +262,7 @@ def search_similar(
 
 
 def prepare_baseline(
-        directory: Path, cap: int = 500, seed: int = 42, threads: int = 4
+    directory: Path, cap: int = 500, seed: int = 42, threads: int = 4
 ) -> dict[str, Any]:
     """Prepare a frozen dataset, group partition and bidirectional leakage audit."""
     if shutil.which("mmseqs") is None:
@@ -315,7 +312,9 @@ def prepare_baseline(
         )
     manifest = {
         "name": "MAP-ExPLoc human baseline",
-        "scope": "Reviewed human canonical proteins; single-compartment classification",
+        "scope": (
+            "Reviewed human canonical proteins; single structured-label classification"
+        ),
         "source": SOURCE_URL,
         "release": release,
         "retrieved_at": datetime.fromtimestamp(source.stat().st_mtime, UTC).isoformat(),
@@ -346,42 +345,8 @@ def prepare_baseline(
     return manifest
 
 
-def classification_metrics(
-        truth: Any, predicted: Any, probabilities: np.ndarray, classes: list[str]
-) -> dict[str, Any]:
-    """Multiclass discrimination and uncalibrated probability quality."""
-    truth_array = np.asarray(truth)
-    confidence = probabilities.max(axis=1)
-    correct = np.asarray(predicted) == truth_array
-    bins = np.minimum((confidence * 10).astype(int), 9)
-    ece = sum(
-        float((bins == i).mean())
-        * abs(float(correct[bins == i].mean()) - float(confidence[bins == i].mean()))
-        for i in range(10)
-        if (bins == i).any()
-    )
-    one_hot = (truth_array[:, None] == np.asarray(classes)[None, :]).astype(float)
-    return {
-        "macro_f1": float(f1_score(truth, predicted, average="macro", zero_division=0)),
-        "weighted_f1": float(
-            f1_score(truth, predicted, average="weighted", zero_division=0)
-        ),
-        "balanced_accuracy": float(balanced_accuracy_score(truth, predicted)),
-        "classification_report": classification_report(
-            truth, predicted, labels=classes, output_dict=True, zero_division=0
-        ),
-        "confusion_matrix": confusion_matrix(truth, predicted, labels=classes).tolist(),
-        "classes": classes,
-        "log_loss": float(log_loss(truth, probabilities, labels=classes)),
-        "multiclass_brier": float(
-            np.mean(np.sum((probabilities - one_hot) ** 2, axis=1))
-        ),
-        "top_label_ece_10_bins": ece,
-    }
-
-
 def train_baseline(
-        directory: Path, output_model: Path, jobs: int = 4
+    directory: Path, output_model: Path, jobs: int = 4
 ) -> dict[str, Any]:
     """Select on grouped training CV; evaluate once without fitting on held-out rows."""
     if output_model.exists():
@@ -395,7 +360,7 @@ def train_baseline(
     train = frame.loc[frame["split"] == "train"]
     test = frame.loc[frame["split"] == "test"]
     if set(train["group"]) & set(test["group"]) or set(train["sequence"]) & set(
-            test["sequence"]
+        test["sequence"]
     ):
         raise ValueError("Training and test data overlap")
     if any((test["label"] == label).sum() < 10 for label in CLASSES):
@@ -408,7 +373,7 @@ def train_baseline(
     splits = list(cv.split(features, train["label"], train["group"]))
     for fit, validation in splits:
         if set(train.iloc[fit]["label"]) != set(CLASSES) or set(
-                train.iloc[validation]["label"]
+            train.iloc[validation]["label"]
         ) != set(CLASSES):
             raise ValueError("All five classes must occur in every grouped CV fold")
         if set(train.iloc[fit]["group"]) & set(train.iloc[validation]["group"]):
@@ -453,7 +418,7 @@ def train_baseline(
         classes,
     )
     evaluation["exceeds_dummy_macro_f1"] = (
-            evaluation["macro_f1"] > evaluation["dummy"]["macro_f1"]
+        evaluation["macro_f1"] > evaluation["dummy"]["macro_f1"]
     )
     cv_report = [
         {"params": params, "mean_macro_f1": float(score), "std_macro_f1": float(std)}

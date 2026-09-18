@@ -1,0 +1,11 @@
+{
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "code_snapshot": "execution-code.tar.gz",
+  "source_dataset": "dataset.csv",
+  "final_artifact": "final/model.joblib",
+  "final_artifact_status": "development_candidate_not_independently_confirmed",
+  "primary_seconds": 603.4219303330174,
+  "finalization_directory_in_working_run": "final-reviewed",
+  "finalization_note": "Repeated after formatting-only script cleanup; numerical outputs match initial finalization. Original calibrated nested intermediate remains inside primary/run.tar.gz."
+}

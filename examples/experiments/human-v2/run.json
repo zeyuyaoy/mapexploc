@@ -1,0 +1,24 @@
+{
+  "cap": 1000,
+  "headers_sha256": "0b4e7331a2a0ad63e85e0777618f33b62cb67398724728b1702e37893652ee18",
+  "implementation_sha256": "e2134ceee09848d1487f97379c348e9c789df9016a6c2b03ceb5f2783db753f2",
+  "protocol": 1,
+  "reference_hashes": {
+    "examples/baseline/dataset.csv": "56fb89f09b33ec32a0d1c443612840f77f49e8e6eb67621901663640124729a3",
+    "examples/baseline/manifest.json": "ab5cedc9b0c7394f3ecfb29693173ae60d6ca15c3e24d4712ea797f04fdbdc6d",
+    "examples/models/human-baseline.joblib": "cd8ecb31c3c177efcf136fa84791839c6ca185ce3525a77aae9155a87b062082"
+  },
+  "reference_root": "/Users/zeyuyao/Documents/GitHub/mapexploc",
+  "seed": 42,
+  "software": {
+    "biopython": "1.88",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  },
+  "source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "threads": 4
+}

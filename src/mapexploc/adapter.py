@@ -7,6 +7,8 @@ from typing import Any, Protocol, runtime_checkable
 
 import numpy as np
 import pandas as pd
+
+from .estimators import final_estimator
 from .features import build_feature_matrix
 
 
@@ -26,7 +28,7 @@ class BaseModelAdapter(Protocol):
         """Return class probabilities for ``batch``."""
 
     def embed(
-            self, batch: Sequence[str]
+        self, batch: Sequence[str]
     ) -> np.ndarray | None:  # pragma: no cover - optional
         """Return embeddings for ``batch`` if available."""
         raise NotImplementedError
@@ -81,7 +83,7 @@ class FeatureModelAdapter:
     @property
     def classes(self) -> tuple[str, ...]:
         """Return fitted class labels in probability-column order."""
-        estimator = getattr(self.model, "named_steps", {}).get("rf", self.model)
+        estimator = final_estimator(self.model)
         labels = getattr(estimator, "classes_", getattr(self.model, "classes_", ()))
         return tuple(str(label) for label in labels)
 

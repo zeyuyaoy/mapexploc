@@ -28,7 +28,7 @@ class Settings(BaseModel):
 
 
 def set_seed(seed: int) -> None:
-    """Set seeds for ``random`` and ``numpy`` to ensure determinism.
+    """Seed ``random`` and ``numpy``; estimator and runtime controls remain separate.
 
     Parameters
     ----------

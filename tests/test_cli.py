@@ -3,8 +3,9 @@
 from pathlib import Path
 from typing import Any
 
-from mapexploc.cli import app
 from typer.testing import CliRunner
+
+from mapexploc.cli import app
 
 
 def test_cli_train_predict(tmp_path: Path, monkeypatch: Any) -> None:

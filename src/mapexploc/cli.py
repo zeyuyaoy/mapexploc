@@ -6,9 +6,10 @@ import json
 import logging
 from importlib.resources import files
 from pathlib import Path
-from typing import Any
+from typing import Any, NoReturn
 
 import typer
+
 from mapexploc.artifacts import load_model_artifact, save_model_artifact
 from mapexploc.config import load_config
 from mapexploc.data import load_example_dataset
@@ -28,9 +29,9 @@ app = typer.Typer(
 
 @app.callback()
 def callback(
-        version: bool = typer.Option(
-            False, "--version", help="Show the installed version and exit", is_eager=True
-        ),
+    version: bool = typer.Option(
+        False, "--version", help="Show the installed version and exit", is_eager=True
+    ),
 ) -> None:
     """Run MAP-ExPLoc workflows."""
     if version:
@@ -40,23 +41,23 @@ def callback(
         raise typer.Exit()
 
 
-def _fail(message: str) -> None:
+def _fail(message: str) -> NoReturn:
     typer.echo(message, err=True)
     raise typer.Exit(code=1)
 
 
 @app.command()
 def train(
-        config: Path = typer.Option(..., exists=True, dir_okay=False),
-        data_path: Path | None = typer.Option(
-            None,
-            "--data-path",
-            "--data",
-            help="CSV with sequence and label columns",
-        ),
-        output_model: Path = typer.Option(
-            Path("model.pkl"), "--output-model", "--output", help="Artifact output path"
-        ),
+    config: Path = typer.Option(..., exists=True, dir_okay=False),
+    data_path: Path | None = typer.Option(
+        None,
+        "--data-path",
+        "--data",
+        help="CSV with sequence and label columns",
+    ),
+    output_model: Path = typer.Option(
+        Path("model.pkl"), "--output-model", "--output", help="Artifact output path"
+    ),
 ) -> None:
     """Train and save a Random Forest localization model."""
     try:
@@ -71,7 +72,11 @@ def train(
             "rf__max_depth": [cfg.model.max_depth],
         }
         result = train_random_forest(
-            features, targets, param_grid, random_state=cfg.seed
+            features,
+            targets,
+            param_grid,
+            random_state=cfg.seed,
+            groups=frame["group"] if "group" in frame else None,
         )
         save_model_artifact(
             result["model"],
@@ -80,6 +85,8 @@ def train(
                 "sample_count": len(frame),
                 "best_params": result["best_params"],
                 "best_cv_score": result["best_cv_score"],
+                "evaluation_status": "development_selection_only",
+                "grouped_cv": "group" in frame,
             },
         )
     except (OSError, ValueError) as exc:
@@ -95,10 +102,10 @@ def train(
 
 @app.command()
 def predict(
-        sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
-        model_path: Path = typer.Option(
-            Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
-        ),
+    sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
+    model_path: Path = typer.Option(
+        Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
+    ),
 ) -> None:
     """Predict localization and confidence for one protein sequence."""
     try:
@@ -114,14 +121,14 @@ def predict(
 
 @app.command()
 def explain(
-        sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
-        model_path: Path = typer.Option(
-            Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
-        ),
-        output_dir: Path = typer.Option(
-            Path("results/shap"), help="Directory for explanation.json"
-        ),
-        top_n: int = typer.Option(12, min=1, max=25, help="Contributions to return"),
+    sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
+    model_path: Path = typer.Option(
+        Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
+    ),
+    output_dir: Path = typer.Option(
+        Path("results/shap"), help="Directory for explanation.json"
+    ),
+    top_n: int = typer.Option(12, min=1, max=25, help="Contributions to return"),
 ) -> None:
     """Write a local SHAP feature explanation as structured JSON."""
     try:
@@ -140,7 +147,7 @@ def explain(
 
 @app.command("baseline-download")
 def baseline_download(
-        directory: Path = typer.Option(Path("artifacts/human-baseline")),
+    directory: Path = typer.Option(Path("artifacts/human-baseline")),
 ) -> None:
     """Explicitly download a new public reviewed-human UniProt snapshot."""
     from mapexploc.baseline import download_snapshot
@@ -154,9 +161,9 @@ def baseline_download(
 
 @app.command("baseline-prepare")
 def baseline_prepare(
-        directory: Path = typer.Option(Path("artifacts/human-baseline")),
-        cap: int = typer.Option(500, min=10),
-        threads: int = typer.Option(4, min=1),
+    directory: Path = typer.Option(Path("artifacts/human-baseline")),
+    cap: int = typer.Option(500, min=10),
+    threads: int = typer.Option(4, min=1),
 ) -> None:
     """Curate evidence, group related sequences, and audit an 80/20 split."""
     from mapexploc.baseline import prepare_baseline
@@ -170,11 +177,11 @@ def baseline_prepare(
 
 @app.command("baseline-train")
 def baseline_train(
-        directory: Path = typer.Option(Path("artifacts/human-baseline")),
-        output_model: Path = typer.Option(Path("artifacts/human-baseline/model.joblib")),
-        jobs: int = typer.Option(4, min=1),
+    directory: Path = typer.Option(Path("artifacts/human-baseline")),
+    output_model: Path = typer.Option(Path("artifacts/human-baseline/model.joblib")),
+    jobs: int = typer.Option(4, min=1),
 ) -> None:
-    """Train on grouped CV and evaluate the untouched test partition."""
+    """Reproduce grouped training and the already-inspected historical holdout."""
     from mapexploc.baseline import train_baseline
 
     try:
@@ -182,7 +189,77 @@ def baseline_train(
     except (OSError, ValueError) as exc:
         _fail(str(exc))
     typer.echo(f"Held-out macro-F1: {report['evaluation']['macro_f1']:.3f}")
-    typer.echo(f"Saved validated artifact to {output_model}")
+    typer.echo(f"Saved schema-checked research artifact to {output_model}")
+
+
+@app.command("experiment-prepare")
+def experiment_prepare(
+    directory: Path = typer.Option(Path("artifacts/human-v2")),
+    reference_root: Path = typer.Option(Path(".")),
+    cap: int = typer.Option(1000, min=20),
+    threads: int = typer.Option(4, min=1, max=4),
+) -> None:
+    """Freeze a refreshed experiment and its independent confirmation eligibility."""
+    from mapexploc.experiments import prepare_experiment
+
+    try:
+        result = prepare_experiment(directory, reference_root, cap, threads)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(json.dumps(result, indent=2))
+
+
+@app.command("experiment-train")
+def experiment_train(
+    directory: Path = typer.Option(Path("artifacts/human-v2")),
+    jobs: int = typer.Option(4, min=1, max=4),
+) -> None:
+    """Run the fixed 441-fit grouped RF/Extra Trees comparison, with resume."""
+    from mapexploc.experiments import train_experiment
+
+    try:
+        result = train_experiment(directory, jobs)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(json.dumps(result["winner"], indent=2))
+
+
+@app.command("experiment-evaluate")
+def experiment_evaluate(
+    directory: Path = typer.Option(Path("artifacts/human-v2")),
+) -> None:
+    """Evaluate the frozen winner and record independent or historical status."""
+    from mapexploc.experiments import evaluate_experiment
+
+    try:
+        result = evaluate_experiment(directory)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(
+        json.dumps(
+            {
+                "status": result["evaluation_status"],
+                "macro_f1": result["evaluation"]["macro_f1"],
+                "promotion": result["promotion"],
+            },
+            indent=2,
+        )
+    )
+
+
+@app.command("model-promote")
+def model_promote(
+    directory: Path = typer.Option(Path("artifacts/human-v2")),
+    repository: Path = typer.Option(Path(".")),
+) -> None:
+    """Update the default only when all independent-confirmation gates pass."""
+    from mapexploc.experiments import promote_experiment
+
+    try:
+        result = promote_experiment(directory, repository)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(json.dumps(result, indent=2))
 
 
 def main() -> None:

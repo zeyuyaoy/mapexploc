@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
+
 from mapexploc.api import create_app
 from mapexploc.artifacts import save_model_artifact
 from mapexploc.features import build_feature_matrix
@@ -75,7 +76,7 @@ def test_validation_and_missing_model_errors(tmp_path: Path) -> None:
     missing_client = TestClient(create_app(model_path=tmp_path / "missing.pkl"))
     assert missing_client.get("/health").json()["status"] == "model_unavailable"
     assert (
-            missing_client.post("/predict", json={"sequences": ["AAAA"]}).status_code == 503
+        missing_client.post("/predict", json={"sequences": ["AAAA"]}).status_code == 503
     )
 
     client = TestClient(create_app(model=fitted_model()))
@@ -153,9 +154,9 @@ def test_batch_and_explanation_limits() -> None:
     client = TestClient(create_app(model=fitted_model()))
     for sequences in [[], ["AAA"] * 101, ["A" * 100001], ["A" * 100000] * 11]:
         assert (
-                client.post("/features", json={"sequences": sequences}).status_code == 422
+            client.post("/features", json={"sequences": sequences}).status_code == 422
         )
     assert (
-            client.post("/explain", json={"sequences": ["AAA"], "top_n": 26}).status_code
-            == 422
+        client.post("/explain", json={"sequences": ["AAA"], "top_n": 26}).status_code
+        == 422
     )

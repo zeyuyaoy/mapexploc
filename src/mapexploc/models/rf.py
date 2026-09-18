@@ -8,18 +8,22 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from ..evaluation import evaluate_classifier
+from ..validation import grouped_splits
+
 logger = logging.getLogger(__name__)
 
 
 def train_random_forest(
-        X_train: pd.DataFrame,
-        y_train: pd.Series,
-        param_grid: dict[str, list[Any]] | None = None,
-        cv: int = 3,
-        scoring: str = "f1_weighted",
-        n_jobs: int = -1,
-        use_smote: bool = True,
-        random_state: int = 42,
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    param_grid: dict[str, list[Any]] | None = None,
+    cv: int = 3,
+    scoring: str = "f1_macro",
+    n_jobs: int = -1,
+    use_smote: bool = False,
+    random_state: int = 42,
+    groups: pd.Series | np.ndarray | None = None,
 ) -> dict[str, Any]:
     """Train Random Forest classifier with hyperparameter tuning and class balancing.
 
@@ -32,6 +36,7 @@ def train_random_forest(
         n_jobs: Number of parallel jobs
         use_smote: Whether to use SMOTE for class balancing
         random_state: Random state for reproducibility
+        groups: Homology groups; omission is for exploratory/workflow use only
 
     Returns:
         Dictionary containing trained model, best parameters, and evaluation results
@@ -55,6 +60,8 @@ def train_random_forest(
 
     if X_train.empty:
         raise ValueError("Training features must not be empty")
+    if cv < 2:
+        raise ValueError("Cross-validation requires at least two folds")
     if len(X_train) != len(y_train):
         raise ValueError("Training features and labels must have the same row count")
     if not all(pd.api.types.is_numeric_dtype(dtype) for dtype in X_train.dtypes):
@@ -79,9 +86,22 @@ def train_random_forest(
     if can_cross_validate:
         cv = min(cv, min_class_size)
 
+    splits = (
+        grouped_splits(y_train, groups, cv, random_state)
+        if groups is not None
+        else None
+    )
+    if groups is None:
+        logger.warning(
+            "Ungrouped CV cannot establish generalization to unrelated proteins"
+        )
     # SMOTE runs inside each fold, so size its neighborhood for the smallest
     # expected training fold rather than for the complete dataset.
     min_fold_class_size = int(min_class_size * (cv - 1) / cv) if cv > 1 else 0
+    if splits is not None:
+        min_fold_class_size = min(
+            int(y_train.iloc[fit].value_counts().min()) for fit, _ in splits
+        )
     if use_smote and min_fold_class_size < 2:
         logger.warning(
             "Disabling SMOTE because the smallest training fold has fewer than "
@@ -90,7 +110,7 @@ def train_random_forest(
         use_smote = False
 
     # Create pipeline with optional SMOTE and scaling
-    steps = []
+    steps: list[tuple[str, Any]] = [("scaler", StandardScaler())]
     if use_smote:
         steps.append(
             (
@@ -103,7 +123,6 @@ def train_random_forest(
         )
     steps.extend(
         [
-            ("scaler", StandardScaler()),
             (
                 "rf",
                 RandomForestClassifier(
@@ -144,12 +163,13 @@ def train_random_forest(
         estimator=pipeline,
         param_distributions=param_grid,
         n_iter=n_iter,
-        cv=cv_splitter,
+        cv=splits if splits is not None else cv_splitter,
         scoring=scoring,
         n_jobs=n_jobs,
         verbose=1,
         random_state=random_state,
         return_train_score=True,
+        error_score="raise",
     )
 
     search.fit(X_train, y_train)
@@ -204,142 +224,14 @@ def rf_predict_proba(model: Any, X: pd.DataFrame) -> np.ndarray:
 
 
 def evaluate_rf(
-        model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
+    model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
 ) -> dict[str, Any]:
-    """Comprehensive Random Forest model evaluation.
+    """Evaluate without fitting using shared, fixed-class metrics and CSV reports.
 
-    Args:
-        model: Trained Random Forest model
-        X_val: Validation features
-        y_val: Validation labels
-        output_dir: Directory to save results
-
-    Returns:
-        Dictionary containing evaluation metrics
+    The caller must establish evaluation-set independence. Pass an empty
+    output_dir to return metrics without writing files.
     """
-    try:
-        from sklearn.metrics import (
-            accuracy_score,
-            auc,
-            average_precision_score,
-            brier_score_loss,
-            classification_report,
-            confusion_matrix,
-            f1_score,
-            precision_recall_curve,
-            roc_curve,
-        )
-    except ImportError:
-        logger.error("Required packages not installed")
-        raise ImportError(
-            "scikit-learn, matplotlib, and seaborn are required for evaluation"
-        )
-
-    import os
-
-    # Make predictions
-    y_pred = model.predict(X_val)
-    y_proba = model.predict_proba(X_val)
-
-    # Basic metrics
-    accuracy = accuracy_score(y_val, y_pred)
-    f1_weighted = f1_score(y_val, y_pred, average="weighted")
-
-    logger.info("Validation accuracy: %.4f", accuracy)
-    logger.info("Validation F1-weighted: %.4f", f1_weighted)
-
-    # Get classes
-    classes = model.named_steps["rf"].classes_
-
-    # Classification report
-    report = classification_report(y_val, y_pred, output_dict=True, zero_division=0)
-
-    # Confusion matrix
-    cm = confusion_matrix(y_val, y_pred, labels=classes)
-
-    # ROC analysis
-    roc_data = {}
-    pr_data = {}
-    brier_scores = {}
-
-    for i, cls in enumerate(classes):
-        y_class = (np.asarray(y_val) == cls).astype(int)
-        if np.unique(y_class).size < 2:
-            logger.warning("Skipping curves for class %s absent from one outcome", cls)
-            continue
-        fpr, tpr, _ = roc_curve(y_class, y_proba[:, i])
-        precision, recall, _ = precision_recall_curve(y_class, y_proba[:, i])
-        brier_score = brier_score_loss(y_class, y_proba[:, i])
-
-        roc_auc = auc(fpr, tpr)
-        avg_precision = average_precision_score(y_class, y_proba[:, i])
-
-        roc_data[cls] = {"fpr": fpr.tolist(), "tpr": tpr.tolist(), "auc": roc_auc}
-        pr_data[cls] = {
-            "precision": precision.tolist(),
-            "recall": recall.tolist(),
-            "avg_precision": avg_precision,
-        }
-        brier_scores[cls] = brier_score
-
-    # Feature importance
-    feature_importance = None
-    if hasattr(model.named_steps["rf"], "feature_importances_"):
-        feature_importance = model.named_steps["rf"].feature_importances_
-
-    # Save results
-    if output_dir:
-        os.makedirs(f"{output_dir}/csv", exist_ok=True)
-        os.makedirs(f"{output_dir}/figures", exist_ok=True)
-
-        # Save metrics
-        report_df = pd.DataFrame(report).transpose()
-        report_df.to_csv(f"{output_dir}/csv/rf_classification_report.csv")
-
-        cm_df = pd.DataFrame(cm, index=classes, columns=classes)
-        cm_df.to_csv(f"{output_dir}/csv/rf_confusion_matrix.csv")
-
-        # Save feature importance
-        if feature_importance is not None:
-            feat_df = pd.DataFrame(
-                {
-                    "feature": list(X_val.columns),
-                    "importance": feature_importance,
-                }
-            ).sort_values("importance", ascending=False)
-            feat_df.to_csv(f"{output_dir}/csv/rf_feature_importances.csv", index=False)
-
-        # Save ROC and PR data
-        roc_auc_df = pd.DataFrame(
-            [(cls, data["auc"]) for cls, data in roc_data.items()],
-            columns=["class", "auc"],
-        )
-        roc_auc_df.to_csv(f"{output_dir}/csv/rf_roc_auc_values.csv", index=False)
-
-        pr_avg_df = pd.DataFrame(
-            [(cls, data["avg_precision"]) for cls, data in pr_data.items()],
-            columns=["class", "avg_precision"],
-        )
-        pr_avg_df.to_csv(f"{output_dir}/csv/rf_pr_avg_precision.csv", index=False)
-
-        brier_df = pd.DataFrame.from_dict(
-            brier_scores, orient="index", columns=["brier_score"]
-        )
-        brier_df.to_csv(f"{output_dir}/csv/rf_brier_scores.csv")
-
-    return {
-        "accuracy": accuracy,
-        "f1_weighted": f1_weighted,
-        "classification_report": report,
-        "confusion_matrix": cm.tolist(),
-        "classes": classes.tolist(),
-        "roc_data": roc_data,
-        "pr_data": pr_data,
-        "brier_scores": brier_scores,
-        "feature_importance": (
-            feature_importance.tolist() if feature_importance is not None else None
-        ),
-    }
+    return evaluate_classifier(model, X_val, y_val, output_dir=output_dir, prefix="rf")
 
 
 __all__ = ["train_random_forest", "rf_predict", "rf_predict_proba", "evaluate_rf"]

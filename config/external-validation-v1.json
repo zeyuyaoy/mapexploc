@@ -1,0 +1,143 @@
+{
+  "study_id": "mapexploc-external-v1",
+  "status": "local_protocol_lock_not_public_registration",
+  "classes": [
+    "Cytoplasm",
+    "Membrane",
+    "Mitochondrion",
+    "Nucleus",
+    "Secreted"
+  ],
+  "prospective_cutoff": "2026-09-19T00:00:00+00:00",
+  "primary_estimand": "Macro-F1 of the exact frozen logistic system minus macro-F1 of the exact frozen served random-forest system, paired on all eligible single-label cases in the precommitted complete prospective assay source frame, at that frame's observed class prevalence.",
+  "practical_margin": 0.03,
+  "margin_interpretation": "An operational research-value threshold, not an established biological or clinical minimum important difference.",
+  "sampling": "consecutive_complete_frame",
+  "cohort_gates": {
+    "min_proteins_per_class": 100,
+    "min_joint_groups_per_class": 10,
+    "min_joint_groups": 20,
+    "max_group_fraction_per_class": 0.2,
+    "interpretation": "Feasibility floors, not power guarantees or class quotas. A separate dated source-frame commitment and precision justification are mandatory before annotation. No outcome-driven expansion."
+  },
+  "support": {
+    "taxon_id": 9606,
+    "canonical_full_native_sequence": true,
+    "assay_to_sequence_attribution_required": true,
+    "standard_amino_acids_only": true,
+    "length_range_inclusive": [
+      51,
+      5654
+    ],
+    "length_basis": "Observed minimum and maximum of the frozen 1741-protein development cohort, computed before external recruitment; this is not proof of multivariate support.",
+    "detection_breadth_required": "Evidence sufficient to distinguish the five target compartments in a named biological context; a single positive organelle assay with unobserved alternatives is partial evidence."
+  },
+  "label_mapping": {
+    "Cytoplasm": [
+      "Cytosol",
+      "Diffuse cytoplasmic soluble localization"
+    ],
+    "Membrane": [
+      "Plasma membrane",
+      "Cell surface with demonstrated plasma membrane association"
+    ],
+    "Mitochondrion": [
+      "Mitochondrial matrix",
+      "Mitochondrial intermembrane space",
+      "Mitochondrial inner membrane",
+      "Mitochondrial outer membrane",
+      "Mitochondrion"
+    ],
+    "Nucleus": [
+      "Nucleoplasm",
+      "Nucleolus",
+      "Nuclear speckles",
+      "Nuclear bodies",
+      "Nucleus"
+    ],
+    "Secreted": [
+      "Demonstrated extracellular secretion of the assayed protein"
+    ]
+  },
+  "label_rules": [
+    "Keep every supported location as a set; never resolve Cytoplasm/Nucleus by priority or probability.",
+    "Generic membrane, ER, Golgi, lysosome, peroxisome, vesicles, ambiguous nuclear envelope and unspecified cytoplasmic organelles remain other_locations or unresolved.",
+    "A signal peptide, extracellular database term, serum detection or conditioned-medium detection without lysis controls does not establish secretion.",
+    "Secretory transit alone does not add a stable ER/Golgi localization; demonstrated residence or context-dependent localization must be retained.",
+    "Missing measurements are not negative labels. Single-label means one adequately supported target in the predeclared context, never global biological exclusivity.",
+    "Isoform-specific or processed-fragment localization is outside primary unless the assay-to-exact-native-sequence relationship is unambiguous; never substitute a mature fragment for model input."
+  ],
+  "annotation": {
+    "independent_reviewers": 2,
+    "disagreement_adjudicators": 1,
+    "blind_to": [
+      "model predictions",
+      "model scores",
+      "previous curated class",
+      "case selection trigger",
+      "other reviewer's initial submission"
+    ],
+    "review_scope": "All external cases; all 2107 accepted internal records in a separate audit, ensuring every known Cytoplasm/Nucleus disagreement and note-bearing record is included.",
+    "post_unblinding": "Audit every external Cytoplasm/Nucleus disagreement with a separate blinded review team and decoys; archive original labels unchanged. Any revised-label analysis is explicitly secondary and cannot replace the primary endpoint."
+  },
+  "homology": {
+    "history_universe": "All 2107 accepted development and historical-related proteins, including all 1822 original baseline proteins",
+    "bridge_universe": "20431 frozen source sequences, including curation-rejected proteins",
+    "global_identity_min": 0.3,
+    "global_both_coverages_min": 0.8,
+    "local_identity_min": 0.3,
+    "local_alignment_residues_min": 80,
+    "local_shorter_sequence_coverage_min": 0.5,
+    "local_evalue_max": 0.00001,
+    "sequence_search": "MMseqs2 all-versus-all, sensitivity 7.5, E<=0.001 retrieval, alignment mode 3, low-complexity masking and composition correction, target-count output capacity; symmetrize accepted edges and use connected components.",
+    "remote_domains": "Mandatory Pfam/profile audit on both cohorts using one pinned database release and gathering thresholds; shared confidently assigned family with >=50 aligned residues and >=50% profile coverage is excluded from primary. Shared clans, repeats, low-complexity matches and uncertain domain evidence require blinded expert review; unresolved dependence is nonprimary. Record all assignments, including no-hits, and justify homology decisions.",
+    "optional_remote_sensitivity": "Precommit structure/profile-profile search versions and databases before annotation if used. No remote relationship may be declared absent merely because a tool is unavailable.",
+    "within_external": "Union gene, exact/close/local/remote family, study/raw-data, assay-run and batch dependence; same component must remain intact in uncertainty analysis.",
+    "limitations": "Finite sequence/profile searches do not prove absence of evolutionary relatedness. Generalization is conditional on the declared screening sensitivity."
+  },
+  "independence": {
+    "primary_route": "prospective_temporal",
+    "date_definition": "First acquisition of underlying assay data strictly after prospective_cutoff, not database update or publication date",
+    "exclusions": [
+      "same accession or exact sequence",
+      "same gene or unresolved gene mapping",
+      "homology or domain family overlap",
+      "shared supporting publication, preprint, DOI or reused raw assay dataset",
+      "shared specimen or assay batch",
+      "annotation copied from development labels",
+      "unresolved provenance"
+    ],
+    "older_assay_separated_data": "Separate future secondary protocol only; never substitute or pool it into this primary test when recruitment fails.",
+    "source_frame_commitment": "Freeze named sites/sources, acquisition end, census inclusion, context/sequence rules, dependency metadata and precision justification in an independently timestamped recruitment-plan before annotation."
+  },
+  "bootstrap": {
+    "method": "Paired percentile bootstrap of joint dependence components, retaining all proteins and both fixed-model predictions in sampled components",
+    "replications": 10000,
+    "seed": 20260919,
+    "confidence_level": 0.95,
+    "missing_class_replicates": "Keep and count all replicates; fixed five-class macro average with zero F1 for absent-class zero denominators; no redrawing.",
+    "max_missing_class_fraction": 0.01,
+    "scope": "Conditional uncertainty for these frozen systems and the specified cohort/assay sampling process, not training or annotation uncertainty"
+  },
+  "primary_decisions": {
+    "interval_upper_le_zero": "Overturns transport of the apparent gain to this external population; does not erase the historical internal observation",
+    "interval_upper_lt_0_03": "Rules out the prespecified material external gain",
+    "interval_lower_gt_0_03": "Supports material gain for these frozen systems in this primary population",
+    "interval_lower_gt_zero": "Supports positive gain, material magnitude uncertain",
+    "otherwise": "Inconclusive; gain is not independently confirmed",
+    "invalid_uncertainty_or_cohort": "No confirmatory claim; report failed feasibility/precision gates without relaxing them"
+  },
+  "secondary_descriptive": [
+    "absolute and per-class F1, recall, specificity, confusion matrices",
+    "AUROC, average precision, log loss, multiclass Brier, ten-bin reliability",
+    "multilocalized top-1 membership in the supported location set, not complete multilabel accuracy",
+    "coverage and every exclusion by source/context and adjudicated class",
+    "leave-one-joint-component-out paired differences and sign reversals",
+    "unresolved and other-compartment strata as missing/unsupported outcomes, not negatives",
+    "all Cytoplasm/Nucleus disagreements and note-dependent cases reviewed without altering the primary truth"
+  ],
+  "multiple_comparisons": "One primary paired interval. All other metrics, subgroups, relabeling sensitivities and third-party predictor comparisons are descriptive, with no secondary confirmatory p-values.",
+  "external_predictors": "Defer execution until compatible semantics, output rules, exact version, training-label/sequence release and homologous/remote/pretraining overlaps are documented. Use native thresholds frozen beforehand; do not renormalize ten independent multilabel probabilities into a five-class softmax. Unknown training overlap means a contaminated-or-unknown descriptive comparison, never independent SOTA evidence.",
+  "wet_lab_status": "No new endogenous localization assay or wet-lab outcome has been produced. Annotation adjudication is evidence assessment only.",
+  "change_control": "No retraining, tuning, recalibration, threshold selection, label repair or source replacement using external predictions. Any substantive amendment requires a dated pre-unblinding record and new cohort if outcomes were accessed. Never rerun this primary study to select a favorable result."
+}

@@ -11,6 +11,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from ..estimators import final_estimator
+
 logger = logging.getLogger(__name__)
 
 try:
@@ -45,7 +47,7 @@ class Explanation:
 
 
 class ShapExplainer:
-    """Explain a fitted Random Forest pipeline in engineered-feature space."""
+    """Explain a fitted tree-ensemble pipeline in engineered-feature space."""
 
     def __init__(self, model: Any, output_dir: str = "results/figures/shap_analysis"):
         if shap is None:
@@ -54,7 +56,7 @@ class ShapExplainer:
             )
         self.model = model
         self.output_dir = Path(output_dir)
-        self.rf_model = getattr(model, "named_steps", {}).get("rf", model)
+        self.rf_model = final_estimator(model)
         if not hasattr(self.rf_model, "estimators_"):
             raise TypeError(
                 "SHAP explanations currently require a fitted tree ensemble"
@@ -64,7 +66,7 @@ class ShapExplainer:
     def _transform(self, features: pd.DataFrame) -> pd.DataFrame:
         transformed: Any = features
         for name, step in getattr(self.model, "steps", ()):
-            if name == "rf":
+            if step is self.rf_model:
                 break
             if hasattr(step, "transform"):
                 transformed = step.transform(transformed)
@@ -74,7 +76,7 @@ class ShapExplainer:
 
     @staticmethod
     def _normalise_values(
-            values: Any, n_samples: int, n_features: int, n_classes: int
+        values: Any, n_samples: int, n_features: int, n_classes: int
     ) -> np.ndarray:
         if isinstance(values, list):
             return np.stack([np.asarray(value) for value in values], axis=1)
@@ -88,7 +90,7 @@ class ShapExplainer:
         raise ValueError(f"Unsupported SHAP value shape: {array.shape}")
 
     def explain_sample(
-            self, X_sample: pd.DataFrame, sample_size: int = 200, random_state: int = 42
+        self, X_sample: pd.DataFrame, sample_size: int = 200, random_state: int = 42
     ) -> dict[str, Any]:
         """Compute normalized SHAP values for a deterministic sample."""
         if X_sample.empty:
@@ -114,7 +116,7 @@ class ShapExplainer:
         }
 
     def explain_predictions(
-            self, features: pd.DataFrame, top_n: int = 12
+        self, features: pd.DataFrame, top_n: int = 12
     ) -> list[dict[str, Any]]:
         """Return top feature contributions for each predicted class."""
         explanation = self.explain_sample(features, sample_size=len(features))
@@ -174,11 +176,11 @@ class ShapExplainer:
             plt.close()
 
     def generate_all_plots(
-            self,
-            X_data: pd.DataFrame,
-            sample_size: int = 200,
-            max_individual: int = 10,
-            random_state: int = 42,
+        self,
+        X_data: pd.DataFrame,
+        sample_size: int = 200,
+        max_individual: int = 10,
+        random_state: int = 42,
     ) -> dict[str, Any]:
         """Generate the supported summary plot and return its SHAP values."""
         del max_individual  # Kept for compatibility with the earlier public signature.

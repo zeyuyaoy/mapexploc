@@ -1,0 +1,67 @@
+{
+  "attribution": "UniProt Consortium, UniProtKB/Swiss-Prot, CC BY 4.0 (https://www.uniprot.org/help/license)",
+  "changed_labels": 0,
+  "changed_sequences": 0,
+  "class_counts": {
+    "Cytoplasm": 395,
+    "Membrane": 507,
+    "Mitochondrion": 193,
+    "Nucleus": 778,
+    "Secreted": 234
+  },
+  "confirmation": {
+    "confirmation_counts": {
+      "Cytoplasm": 0,
+      "Membrane": 0,
+      "Mitochondrion": 0,
+      "Nucleus": 0,
+      "Secreted": 0
+    },
+    "eligible_counts": {
+      "Cytoplasm": 0,
+      "Membrane": 3,
+      "Mitochondrion": 0,
+      "Nucleus": 249,
+      "Secreted": 0
+    },
+    "minimum_count_shortfalls": {
+      "Cytoplasm": 20,
+      "Membrane": 17,
+      "Mitochondrion": 20,
+      "Nucleus": 0,
+      "Secreted": 20
+    },
+    "reason": "Insufficient independent groups for 20 confirmation proteins per class in an approximately 20% split",
+    "status": "unavailable"
+  },
+  "dataset_sha256": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a",
+  "exclusions": {
+    "accepted": 2107,
+    "conflicting_duplicate_sequences": 0,
+    "conflicting_locations": 1342,
+    "duplicate_sequences": 0,
+    "invalid_sequence": 4,
+    "isoform_or_product_specific": 664,
+    "no_experimental_location_evidence": 3763,
+    "no_location": 3089,
+    "over_class_cap": 0,
+    "unmapped_location": 9462
+  },
+  "experiment_id": "human-v2-fcd650fe52bf",
+  "limitations": "Human canonical proteins with one experimentally supported compartment only. Multilocalized, isoform-specific, unsupported and ambiguous annotations were excluded. Probabilities are uncalibrated; class-balanced curation does not represent natural prevalence. Sequence grouping at 30% identity and 80% bidirectional coverage does not exclude all remote or domain-level homology. SHAP describes engineered features, not biological causality.",
+  "partition_counts": {
+    "development": 1741,
+    "excluded_historical": 366
+  },
+  "release": "2026_03",
+  "retrieved_at": "2026-09-18T06:18:36.524243+00:00",
+  "source": "https://rest.uniprot.org/uniprotkb/stream?query=%28reviewed%3Atrue%29%20AND%20%28organism_id%3A9606%29&format=json&fields=accession,id,sequence,cc_subcellular_location,organism_id,reviewed",
+  "source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "split": {
+    "bidirectional_coverage": 0.8,
+    "cross_partition_hits": 0,
+    "historical_test_excluded": true,
+    "identity": 0.3,
+    "test_refitted": false
+  }
+}

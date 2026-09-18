@@ -41,7 +41,6 @@ Use `MAPEXPLOC_UI_URL` for another local UI port. `PLAYWRIGHT_CHROMIUM_EXECUTABL
 installed test Chromium. These tests verify actual downloaded CSV/JSON contents, FASTA upload, on-demand SHAP, keyboard
 controls and mobile overflow.
 
-Examples are generated from `src/mapexploc/examples/proteins.json` at the
-repository root. After editing that canonical file, run `pnpm examples:sync`.
-ESLint 10 tracks JSX references natively; capitalized unused variables are no
-longer excluded from lint. Vite uses the automatic JSX runtime.
+Examples are generated from `src/mapexploc/examples/proteins.json` at the repository root. After editing that canonical
+file, run `pnpm examples:sync`. ESLint 10 tracks JSX references natively; capitalized unused variables are no longer
+excluded from lint. Vite uses the automatic JSX runtime.

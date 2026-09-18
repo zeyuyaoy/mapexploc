@@ -1,0 +1,20 @@
+{
+  "python_tests_passed": 62,
+  "ui_tests_passed": 11,
+  "ruff": "passed src tests scripts",
+  "black": "passed src tests scripts",
+  "mypy": "passed strict src",
+  "mkdocs": "passed strict",
+  "dependency_consistency": "passed",
+  "ui_format_lint_build": "passed",
+  "wheel_and_sdist": "passed",
+  "installed_wheel_final_artifact_inference": "passed from outside repository",
+  "selected_outer_refit_max_probability_difference": 0,
+  "nested_run_resume_hash_verification": "passed all 3 runs",
+  "archive_inner_completion_hashes": "passed all 3 runs",
+  "served_artifact_sha256": "cd8ecb31c3c177efcf136fa84791839c6ca185ce3525a77aae9155a87b062082",
+  "limitations": [
+    "Old version 1 artifact emits expected sklearn 1.9.0-to-1.9.1 serialization warning",
+    "Software tests do not validate biological performance"
+  ]
+}

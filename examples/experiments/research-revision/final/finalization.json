@@ -1,0 +1,481 @@
+{
+  "artifact_bytes": 18308,
+  "artifact_sha256": "e760d2ec4ab99d64d495cbb81307c4bf4302e04366fd807745d4680c83e67943",
+  "calibrated": {
+    "balanced_accuracy": 0.5940422266282978,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.3697632058287796,
+        "precision": 0.4356223175965665,
+        "recall": 0.3212025316455696,
+        "support": 632.0
+      },
+      "Membrane": {
+        "f1-score": 0.7098293113596233,
+        "precision": 0.6798196166854565,
+        "recall": 0.7426108374384236,
+        "support": 812.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.6331658291457286,
+        "precision": 0.6539792387543253,
+        "recall": 0.6136363636363636,
+        "support": 308.0
+      },
+      "Nucleus": {
+        "f1-score": 0.7476570635196113,
+        "precision": 0.7053045186640472,
+        "recall": 0.7954209748892171,
+        "support": 1354.0
+      },
+      "Secreted": {
+        "f1-score": 0.5428156748911466,
+        "precision": 0.597444089456869,
+        "recall": 0.4973404255319149,
+        "support": 376.0
+      },
+      "accuracy": 0.6487650775416427,
+      "macro avg": {
+        "f1-score": 0.6006462169489779,
+        "precision": 0.6144339562314529,
+        "recall": 0.5940422266282978,
+        "support": 3482.0
+      },
+      "weighted avg": {
+        "f1-score": 0.6379991901347822,
+        "precision": 0.6342256562070234,
+        "recall": 0.6487650775416427,
+        "support": 3482.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        203,
+        102,
+        37,
+        275,
+        15
+      ],
+      [
+        45,
+        603,
+        11,
+        88,
+        65
+      ],
+      [
+        29,
+        26,
+        189,
+        37,
+        27
+      ],
+      [
+        169,
+        60,
+        29,
+        1077,
+        19
+      ],
+      [
+        20,
+        96,
+        23,
+        50,
+        187
+      ]
+    ],
+    "log_loss": 0.8943086185866891,
+    "macro_auroc": 0.8787025686530512,
+    "macro_average_precision": 0.6425482873334417,
+    "macro_f1": 0.6006462169489779,
+    "multiclass_brier": 0.47117355322610555,
+    "per_class_probability": {
+      "Cytoplasm": {
+        "auroc": 0.7746907617144126,
+        "average_precision": 0.3921284872951917,
+        "prevalence": 0.18150488225157954,
+        "specificity": 0.907719298245614
+      },
+      "Membrane": {
+        "auroc": 0.906736960572683,
+        "average_precision": 0.8012546241116406,
+        "prevalence": 0.23319931074095349,
+        "specificity": 0.8936329588014982
+      },
+      "Mitochondrion": {
+        "auroc": 0.9372744457810621,
+        "average_precision": 0.654270164724649,
+        "prevalence": 0.08845491097070649,
+        "specificity": 0.9684940138626339
+      },
+      "Nucleus": {
+        "auroc": 0.8811114520051976,
+        "average_precision": 0.7968298588541122,
+        "prevalence": 0.3888569787478461,
+        "specificity": 0.7885338345864662
+      },
+      "Secreted": {
+        "auroc": 0.8936992231919004,
+        "average_precision": 0.5682583016816147,
+        "prevalence": 0.10798391728891442,
+        "specificity": 0.9594333547971667
+      }
+    },
+    "reliability_bins": [
+      {
+        "accuracy": null,
+        "confidence": null,
+        "count": 0,
+        "lower": 0.0,
+        "upper": 0.1
+      },
+      {
+        "accuracy": null,
+        "confidence": null,
+        "count": 0,
+        "lower": 0.1,
+        "upper": 0.2
+      },
+      {
+        "accuracy": 0.24528301886792453,
+        "confidence": 0.27789420456431607,
+        "count": 53,
+        "lower": 0.2,
+        "upper": 0.3
+      },
+      {
+        "accuracy": 0.4016393442622951,
+        "confidence": 0.35769100929281816,
+        "count": 366,
+        "lower": 0.3,
+        "upper": 0.4
+      },
+      {
+        "accuracy": 0.44991789819376027,
+        "confidence": 0.44947617425279274,
+        "count": 609,
+        "lower": 0.4,
+        "upper": 0.5
+      },
+      {
+        "accuracy": 0.5707395498392283,
+        "confidence": 0.5464182812566704,
+        "count": 622,
+        "lower": 0.5,
+        "upper": 0.6
+      },
+      {
+        "accuracy": 0.6777163904235728,
+        "confidence": 0.6489479860408071,
+        "count": 543,
+        "lower": 0.6,
+        "upper": 0.7
+      },
+      {
+        "accuracy": 0.7940594059405941,
+        "confidence": 0.7515758536855894,
+        "count": 505,
+        "lower": 0.7,
+        "upper": 0.8
+      },
+      {
+        "accuracy": 0.8718535469107551,
+        "confidence": 0.8520032657927582,
+        "count": 437,
+        "lower": 0.8,
+        "upper": 0.9
+      },
+      {
+        "accuracy": 0.9221902017291066,
+        "confidence": 0.9438464928972293,
+        "count": 347,
+        "lower": 0.9,
+        "upper": 1.0
+      }
+    ],
+    "top_label_ece_10_bins": 0.024834883897662245,
+    "weighted_f1": 0.6379991901347822
+  },
+  "candidate": {
+    "C": 0.1,
+    "complexity": 3,
+    "family": "logistic",
+    "features": "terminal",
+    "id": "lr_terminal_0.1"
+  },
+  "decision_rule": "Retain only if loss reduction >=0.02 and paired interval excludes zero",
+  "final_temperature": 1.0,
+  "limitation": "Candidate was chosen using all development data; intervals are exploratory, not confirmatory",
+  "log_loss_reduction": 0.002042354976513283,
+  "outer_temperatures": [
+    {
+      "fold": 0,
+      "seed": 20260918,
+      "temperature": 1.1851023374131944
+    },
+    {
+      "fold": 1,
+      "seed": 20260918,
+      "temperature": 1.2282162430326697
+    },
+    {
+      "fold": 2,
+      "seed": 20260918,
+      "temperature": 1.17001664899818
+    },
+    {
+      "fold": 0,
+      "seed": 20260919,
+      "temperature": 1.1713851060411429
+    },
+    {
+      "fold": 1,
+      "seed": 20260919,
+      "temperature": 1.2645589615491826
+    },
+    {
+      "fold": 2,
+      "seed": 20260919,
+      "temperature": 1.1784275120133083
+    }
+  ],
+  "paired_bootstrap": {
+    "groups": 1510,
+    "limitation": "Conditional on fitted predictions; excludes full training and selection uncertainty",
+    "log_loss_difference_97_5_interval": [
+      -0.010894823593501649,
+      0.006240915866801804
+    ],
+    "macro_f1_95_interval": [
+      0.57473445407769,
+      0.6255300824796026
+    ],
+    "macro_f1_difference_97_5_interval": [
+      0.0,
+      0.0
+    ],
+    "method": "paired whole-group percentile; all repeats kept together",
+    "repetitions": 2000,
+    "replicates_missing_classes": 0,
+    "seed": 20260918
+  },
+  "primary_final_temperature": 1.1288423807190322,
+  "primary_protocol_sha256": "b6bee0cab8684e078cbf4ae8cff55be3baaa1e3643b0db742dae866a1d6e1fae",
+  "promoted": false,
+  "raw": {
+    "balanced_accuracy": 0.5940422266282978,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.3697632058287796,
+        "precision": 0.4356223175965665,
+        "recall": 0.3212025316455696,
+        "support": 632.0
+      },
+      "Membrane": {
+        "f1-score": 0.7098293113596233,
+        "precision": 0.6798196166854565,
+        "recall": 0.7426108374384236,
+        "support": 812.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.6331658291457286,
+        "precision": 0.6539792387543253,
+        "recall": 0.6136363636363636,
+        "support": 308.0
+      },
+      "Nucleus": {
+        "f1-score": 0.7476570635196113,
+        "precision": 0.7053045186640472,
+        "recall": 0.7954209748892171,
+        "support": 1354.0
+      },
+      "Secreted": {
+        "f1-score": 0.5428156748911466,
+        "precision": 0.597444089456869,
+        "recall": 0.4973404255319149,
+        "support": 376.0
+      },
+      "accuracy": 0.6487650775416427,
+      "macro avg": {
+        "f1-score": 0.6006462169489779,
+        "precision": 0.6144339562314529,
+        "recall": 0.5940422266282978,
+        "support": 3482.0
+      },
+      "weighted avg": {
+        "f1-score": 0.6379991901347822,
+        "precision": 0.6342256562070234,
+        "recall": 0.6487650775416427,
+        "support": 3482.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        203,
+        102,
+        37,
+        275,
+        15
+      ],
+      [
+        45,
+        603,
+        11,
+        88,
+        65
+      ],
+      [
+        29,
+        26,
+        189,
+        37,
+        27
+      ],
+      [
+        169,
+        60,
+        29,
+        1077,
+        19
+      ],
+      [
+        20,
+        96,
+        23,
+        50,
+        187
+      ]
+    ],
+    "log_loss": 0.8963509735632024,
+    "macro_auroc": 0.8788448773018424,
+    "macro_average_precision": 0.6441540210938699,
+    "macro_f1": 0.6006462169489779,
+    "multiclass_brier": 0.4711419474104836,
+    "per_class_probability": {
+      "Cytoplasm": {
+        "auroc": 0.7761564512547191,
+        "average_precision": 0.39381029066239726,
+        "prevalence": 0.18150488225157954,
+        "specificity": 0.907719298245614
+      },
+      "Membrane": {
+        "auroc": 0.9061783915425914,
+        "average_precision": 0.8002856222785216,
+        "prevalence": 0.23319931074095349,
+        "specificity": 0.8936329588014982
+      },
+      "Mitochondrion": {
+        "auroc": 0.9382165566002998,
+        "average_precision": 0.65956293730393,
+        "prevalence": 0.08845491097070649,
+        "specificity": 0.9684940138626339
+      },
+      "Nucleus": {
+        "auroc": 0.8805859969347297,
+        "average_precision": 0.7972402707087113,
+        "prevalence": 0.3888569787478461,
+        "specificity": 0.7885338345864662
+      },
+      "Secreted": {
+        "auroc": 0.8930869901768711,
+        "average_precision": 0.5698709845157893,
+        "prevalence": 0.10798391728891442,
+        "specificity": 0.9594333547971667
+      }
+    },
+    "reliability_bins": [
+      {
+        "accuracy": null,
+        "confidence": null,
+        "count": 0,
+        "lower": 0.0,
+        "upper": 0.1
+      },
+      {
+        "accuracy": null,
+        "confidence": null,
+        "count": 0,
+        "lower": 0.1,
+        "upper": 0.2
+      },
+      {
+        "accuracy": 0.21875,
+        "confidence": 0.281134800810722,
+        "count": 32,
+        "lower": 0.2,
+        "upper": 0.3
+      },
+      {
+        "accuracy": 0.39615384615384613,
+        "confidence": 0.3599559493739806,
+        "count": 260,
+        "lower": 0.3,
+        "upper": 0.4
+      },
+      {
+        "accuracy": 0.4296724470134875,
+        "confidence": 0.4541825291261079,
+        "count": 519,
+        "lower": 0.4,
+        "upper": 0.5
+      },
+      {
+        "accuracy": 0.5232142857142857,
+        "confidence": 0.5517678053229039,
+        "count": 560,
+        "lower": 0.5,
+        "upper": 0.6
+      },
+      {
+        "accuracy": 0.6130952380952381,
+        "confidence": 0.6506254404646767,
+        "count": 504,
+        "lower": 0.6,
+        "upper": 0.7
+      },
+      {
+        "accuracy": 0.7167381974248928,
+        "confidence": 0.7491981074198639,
+        "count": 466,
+        "lower": 0.7,
+        "upper": 0.8
+      },
+      {
+        "accuracy": 0.8219424460431655,
+        "confidence": 0.8488725661216684,
+        "count": 556,
+        "lower": 0.8,
+        "upper": 0.9
+      },
+      {
+        "accuracy": 0.9111111111111111,
+        "confidence": 0.9507466506170268,
+        "count": 585,
+        "lower": 0.9,
+        "upper": 1.0
+      }
+    ],
+    "top_label_ece_10_bins": 0.032257308389559515,
+    "weighted_f1": 0.6379991901347822
+  },
+  "reason": "Primary outer selection used a different model family in five of six folds",
+  "retain_calibration": false,
+  "script_sha256": "68dd94568860a3f6d18cde84da4adaf77dbf413484b863f82c22cb098346088e",
+  "source_sha256": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a",
+  "status": "post_selection_development_diagnostic"
+}

@@ -72,8 +72,8 @@ def _read_sequences(source: str | Path) -> tuple[list[str], list[str], bool]:
 
 
 def build_feature_matrix(
-        sequences: str | Path | Sequence[str] | pd.Series,
-        annotations: str | Path | pd.DataFrame | None = None,
+    sequences: str | Path | Sequence[str] | pd.Series,
+    annotations: str | Path | pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Build the fixed 423-column feature matrix used by MAP-ExPLoc.
 
@@ -146,7 +146,7 @@ def _extract_features(sequence: str) -> dict[str, Any]:
     sequence = normalize_protein_sequence(sequence)
     length = len(sequence)
     residue_counts = Counter(sequence)
-    pair_counts = Counter(sequence[index: index + 2] for index in range(length - 1))
+    pair_counts = Counter(sequence[index : index + 2] for index in range(length - 1))
     pair_total = max(length - 1, 1)
     analyser = ProteinAnalysis(sequence)  # type: ignore[no-untyped-call]
 

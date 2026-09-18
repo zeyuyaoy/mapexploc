@@ -1,8 +1,7 @@
-"""REST API for validated protein localization predictions and explanations."""
+"""Research inference API with input validation and model-level explanations."""
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from threading import Lock
 from typing import Any
@@ -10,8 +9,11 @@ from typing import Any
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
 from .adapter import BaseModelAdapter, FeatureModelAdapter, load_adapter
 from .artifacts import ModelArtifactError, load_model_artifact
+from .default_model import resolve_default_model
+from .estimators import final_estimator
 from .explainers.shap import ShapExplainer
 from .features import AMINO_ACIDS, build_feature_matrix, normalize_protein_sequence
 from .report import (
@@ -58,7 +60,10 @@ class ExplainRequest(PredictRequest):
 
 
 class _ModelRuntime:
-    def __init__(self, model: Any | None, model_path: Path | None):
+    def __init__(
+        self, model: Any | None, model_path: Path | None, use_default: bool = False
+    ):
+        self.use_default = use_default
         self.model_path = model_path
         self.model: Any | None = None
         self.adapter: BaseModelAdapter | None = None
@@ -84,11 +89,20 @@ class _ModelRuntime:
         with self.lock:
             if self.adapter is not None:
                 return self.adapter
-            if self.model_path is None:
+            if self.model_path is not None:
+                artifact = load_model_artifact(self.model_path)
+            elif self.use_default:
+                artifact = resolve_default_model().load()
+            else:
                 raise RuntimeError("No model is configured")
-            artifact = load_model_artifact(self.model_path)
             self._set_model(artifact.model)
-            self.metadata = artifact.metadata
+            self.metadata = dict(artifact.metadata)
+            if self.metadata.get("model_id"):
+                self.metadata.setdefault(
+                    "model_family", type(final_estimator(artifact.model)).__name__
+                )
+            if self.metadata.get("evaluation"):
+                self.metadata.setdefault("evaluation_status", "historical_holdout")
         assert self.adapter is not None
         return self.adapter
 
@@ -115,7 +129,7 @@ def _class_labels(adapter: BaseModelAdapter, probability_count: int) -> list[str
     labels = [str(label) for label in getattr(adapter, "classes", ())]
     if not labels and hasattr(adapter, "model"):
         model = getattr(adapter, "model")
-        estimator = getattr(model, "named_steps", {}).get("rf", model)
+        estimator = final_estimator(model)
         labels = [str(label) for label in getattr(estimator, "classes_", ())]
     if len(labels) != probability_count:
         labels = [f"class_{index}" for index in range(probability_count)]
@@ -123,7 +137,7 @@ def _class_labels(adapter: BaseModelAdapter, probability_count: int) -> list[str
 
 
 def _predict(
-        adapter: BaseModelAdapter, sequences: list[str]
+    adapter: BaseModelAdapter, sequences: list[str]
 ) -> tuple[list[str], list[PredictionReport], Any | None]:
     features = None
     if isinstance(adapter, FeatureModelAdapter):
@@ -142,7 +156,7 @@ def _predict(
     labels = _class_labels(adapter, probabilities.shape[1])
     reports = []
     for index, (sequence, prediction, row) in enumerate(
-            zip(sequences, predictions, probabilities)
+        zip(sequences, predictions, probabilities)
     ):
         reports.append(
             PredictionReport(
@@ -159,7 +173,12 @@ def _predict(
     return labels, reports, features
 
 
-def create_app(model: Any | None = None, model_path: Path | None = None) -> FastAPI:
+def create_app(
+    model: Any | None = None,
+    model_path: Path | None = None,
+    *,
+    use_default: bool = False,
+) -> FastAPI:
     """Create the service using a model object or trusted server-side artifact path."""
 
     service = FastAPI(
@@ -170,7 +189,7 @@ def create_app(model: Any | None = None, model_path: Path | None = None) -> Fast
             "feature-level SHAP explanations."
         ),
     )
-    runtime = _ModelRuntime(model, model_path)
+    runtime = _ModelRuntime(model, model_path, use_default)
 
     def require_adapter() -> BaseModelAdapter:
         try:
@@ -178,7 +197,11 @@ def create_app(model: Any | None = None, model_path: Path | None = None) -> Fast
         except (OSError, ModelArtifactError, TypeError, RuntimeError) as exc:
             raise HTTPException(
                 status_code=503,
-                detail="Prediction model is unavailable or incompatible",
+                detail=(
+                    "Prediction model is unavailable or incompatible. "
+                    "Set MAPEXPLOC_MODEL_PATH to a trusted compatible artifact "
+                    "or repair the repository default manifest."
+                ),
             ) from exc
 
     @service.get("/health", response_model=HealthResponse)
@@ -198,6 +221,9 @@ def create_app(model: Any | None = None, model_path: Path | None = None) -> Fast
             labels = [str(item) for item in getattr(adapter.model, "classes_", ())]
         public_keys = {
             "name",
+            "model_family",
+            "evaluation_status",
+            "experiment_id",
             "scope",
             "source",
             "release",
@@ -291,7 +317,6 @@ def create_app(model: Any | None = None, model_path: Path | None = None) -> Fast
     return service
 
 
-configured_path = Path(os.environ.get("MAPEXPLOC_MODEL_PATH", "model.pkl"))
-app = create_app(model_path=configured_path)
+app = create_app(use_default=True)
 
 __all__ = ["ExplainRequest", "PredictRequest", "app", "create_app"]

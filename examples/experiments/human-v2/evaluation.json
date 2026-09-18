@@ -1,0 +1,397 @@
+{
+  "artifact_bytes": 25942589,
+  "artifact_sha256": "28802e97d55d19e9864a2388e6e11e32e9ed46117db5caf8bf26002fbf8ae505",
+  "bootstrap": {
+    "macro_f1_95_interval": [
+      0.5274740287110052,
+      0.6504304692888103
+    ],
+    "macro_f1_difference_95_interval": [
+      0.031502844302589386,
+      0.12411221818630883
+    ],
+    "method": "paired whole-group percentile bootstrap",
+    "missing_class_policy": "retain with fixed five-class macro average",
+    "repetitions": 2000,
+    "replicates_missing_classes": 0,
+    "seed": 42
+  },
+  "confirmation": {
+    "confirmation_counts": {
+      "Cytoplasm": 0,
+      "Membrane": 0,
+      "Mitochondrion": 0,
+      "Nucleus": 0,
+      "Secreted": 0
+    },
+    "eligible_counts": {
+      "Cytoplasm": 0,
+      "Membrane": 3,
+      "Mitochondrion": 0,
+      "Nucleus": 249,
+      "Secreted": 0
+    },
+    "minimum_count_shortfalls": {
+      "Cytoplasm": 20,
+      "Membrane": 17,
+      "Mitochondrion": 20,
+      "Nucleus": 0,
+      "Secreted": 20
+    },
+    "reason": "Insufficient independent groups for 20 confirmation proteins per class in an approximately 20% split",
+    "status": "unavailable"
+  },
+  "dataset_sha256": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a",
+  "dummy_evaluation": {
+    "balanced_accuracy": 0.2,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 79.0
+      },
+      "Membrane": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 100.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 39.0
+      },
+      "Nucleus": {
+        "f1-score": 0.43103448275862066,
+        "precision": 0.27472527472527475,
+        "recall": 1.0,
+        "support": 100.0
+      },
+      "Secreted": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 46.0
+      },
+      "accuracy": 0.27472527472527475,
+      "macro avg": {
+        "f1-score": 0.08620689655172413,
+        "precision": 0.05494505494505495,
+        "recall": 0.2,
+        "support": 364.0
+      },
+      "weighted avg": {
+        "f1-score": 0.11841606669192875,
+        "precision": 0.07547397657287767,
+        "recall": 0.27472527472527475,
+        "support": 364.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        79,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        100,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        39,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        100,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        46,
+        0
+      ]
+    ],
+    "log_loss": 1.5709414235344639,
+    "macro_f1": 0.08620689655172413,
+    "multiclass_brier": 0.7911989698840662,
+    "top_label_ece_10_bins": 0.11413170402257128,
+    "weighted_f1": 0.11841606669192875
+  },
+  "evaluated_count": 364,
+  "evaluation": {
+    "balanced_accuracy": 0.6048578242524306,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.43661971830985913,
+        "precision": 0.49206349206349204,
+        "recall": 0.3924050632911392,
+        "support": 79.0
+      },
+      "Membrane": {
+        "f1-score": 0.7230046948356808,
+        "precision": 0.6814159292035398,
+        "recall": 0.77,
+        "support": 100.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.6666666666666666,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "support": 39.0
+      },
+      "Nucleus": {
+        "f1-score": 0.6331658291457286,
+        "precision": 0.6363636363636364,
+        "recall": 0.63,
+        "support": 100.0
+      },
+      "Secreted": {
+        "f1-score": 0.5416666666666666,
+        "precision": 0.52,
+        "recall": 0.5652173913043478,
+        "support": 46.0
+      },
+      "accuracy": 0.6126373626373627,
+      "macro avg": {
+        "f1-score": 0.6002247151249203,
+        "precision": 0.599301944859467,
+        "recall": 0.6048578242524306,
+        "support": 364.0
+      },
+      "weighted avg": {
+        "f1-score": 0.6072161450859519,
+        "precision": 0.6059642099717953,
+        "recall": 0.6126373626373627,
+        "support": 364.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        31,
+        15,
+        7,
+        19,
+        7
+      ],
+      [
+        5,
+        77,
+        0,
+        8,
+        10
+      ],
+      [
+        3,
+        3,
+        26,
+        4,
+        3
+      ],
+      [
+        21,
+        8,
+        4,
+        63,
+        4
+      ],
+      [
+        3,
+        10,
+        2,
+        5,
+        26
+      ]
+    ],
+    "log_loss": 1.049874589103072,
+    "macro_f1": 0.6002247151249203,
+    "multiclass_brier": 0.5348256079705207,
+    "top_label_ece_10_bins": 0.12867015796703296,
+    "weighted_f1": 0.6072161450859519
+  },
+  "evaluation_status": "historical_diagnostic",
+  "experiment_id": "human-v2-fcd650fe52bf",
+  "model_id": "human-v2-fcd650fe52bf-random_forest",
+  "promotion": {
+    "eligible": false,
+    "reasons": [
+      "Independent confirmation is unavailable",
+      "prediction_one_ms exceeds twice the reference",
+      "prediction_batch_ms exceeds twice the reference",
+      "shap_one_ms exceeds twice the reference"
+    ]
+  },
+  "reference_evaluation": {
+    "balanced_accuracy": 0.5292245036196604,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.31724137931034485,
+        "precision": 0.3484848484848485,
+        "recall": 0.2911392405063291,
+        "support": 79.0
+      },
+      "Membrane": {
+        "f1-score": 0.719626168224299,
+        "precision": 0.6754385964912281,
+        "recall": 0.77,
+        "support": 100.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.5316455696202531,
+        "precision": 0.525,
+        "recall": 0.5384615384615384,
+        "support": 39.0
+      },
+      "Nucleus": {
+        "f1-score": 0.6145833333333334,
+        "precision": 0.6413043478260869,
+        "recall": 0.59,
+        "support": 100.0
+      },
+      "Secreted": {
+        "f1-score": 0.42857142857142855,
+        "precision": 0.40384615384615385,
+        "recall": 0.45652173913043476,
+        "support": 46.0
+      },
+      "accuracy": 0.5521978021978022,
+      "macro avg": {
+        "f1-score": 0.5223335758119317,
+        "precision": 0.5188147893296635,
+        "recall": 0.5292245036196604,
+        "support": 364.0
+      },
+      "weighted avg": {
+        "f1-score": 0.5465150605790002,
+        "precision": 0.5446607707114219,
+        "recall": 0.5521978021978022,
+        "support": 364.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        23,
+        16,
+        13,
+        20,
+        7
+      ],
+      [
+        6,
+        77,
+        0,
+        6,
+        11
+      ],
+      [
+        8,
+        4,
+        21,
+        1,
+        5
+      ],
+      [
+        22,
+        6,
+        5,
+        59,
+        8
+      ],
+      [
+        7,
+        11,
+        1,
+        6,
+        21
+      ]
+    ],
+    "log_loss": 1.18669830053852,
+    "macro_f1": 0.5223335758119317,
+    "multiclass_brier": 0.5965525301904363,
+    "top_label_ece_10_bins": 0.1616945512666218,
+    "weighted_f1": 0.5465150605790002
+  },
+  "reference_sha256": "cd8ecb31c3c177efcf136fa84791839c6ca185ce3525a77aae9155a87b062082",
+  "runtime": {
+    "batch_size": 100,
+    "candidate": {
+      "end_to_end_batch_ms": 52.37070802832022,
+      "end_to_end_one_ms": 21.39900001930073,
+      "prediction_batch_ms": 24.608542036730796,
+      "prediction_one_ms": 18.87183397775516,
+      "shap_one_ms": 42.56745899328962
+    },
+    "cpu_count": 12,
+    "feature_one_ms": 2.278457977809012,
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "protocol": "Warm five-repetition median, alternating model order, identical inputs, one estimator worker",
+    "reference": {
+      "end_to_end_batch_ms": 34.92300002835691,
+      "end_to_end_one_ms": 8.109625021461397,
+      "prediction_batch_ms": 7.754999969620258,
+      "prediction_one_ms": 6.081875006202608,
+      "shap_one_ms": 9.106333018280566
+    },
+    "repetitions": 5,
+    "software_versions": {
+      "biopython": "1.88",
+      "joblib": "1.6.0",
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "python": "3.14.6",
+      "scikit-learn": "1.9.1",
+      "shap": "0.52.0"
+    }
+  },
+  "software_versions": {
+    "biopython": "1.88",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  },
+  "test_refitted": false,
+  "validation": {
+    "class_order": true,
+    "reload": true,
+    "schema": true,
+    "shap_additivity": true
+  }
+}
