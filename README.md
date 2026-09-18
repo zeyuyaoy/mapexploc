@@ -79,7 +79,7 @@ The research logistic model uses **63 features**: the 23 global descriptors abov
 | Selected logistic configuration  | Post-selection out-of-fold diagnostic on the same development cohort |   0.6006 |
 
 > [!WARNING]
-> Scores are not interchangeable. The matched forest comparator in nested validation scored 0.5462. Terminal composition contributes predictive information, but Cytoplasm recall remains weak and probabilities are uncalibrated. 
+> Scores are not interchangeable. The matched forest comparator in nested validation scored 0.5462. Terminal composition contributes predictive information, but Cytoplasm recall remains weak and probabilities are uncalibrated.
 > Additionally, the models predict one curated annotation, not exclusive or multiple biological localizations; transfer beyond the studied cohort is unestablished.
 
 See [methods, results and limitations](docs/index.md) and [reproduction instructions](docs/research-software.md) for the data, leakage controls, uncertainty estimates and commands.

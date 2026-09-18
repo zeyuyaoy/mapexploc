@@ -59,10 +59,11 @@ Outer seeds are 20260918/20260919; inner seed is outer seed + zero-based fold + 
 
 #### Historical baseline and new data
 
-The served artifact's environment is `examples/models/scientific-environment.txt` (**Python 3.13.14**, scikit-learn 1.9.0). In a separate matching environment:
+The served artifact's environment is `examples/models/scientific-environment.txt` (**Python 3.13.14**, scikit-learn 1.9.0). Use this separate environment for tests that load the frozen baseline; the research environment uses scikit-learn 1.9.1 and triggers model-version warnings. Do not suppress those warnings or overwrite either saved model to remove them. In the baseline environment:
 
 ```bash
-python -m pip install -e . -c examples/models/scientific-environment.txt
+python -m pip install -e '.[dev]' -c examples/models/scientific-environment.txt
+python -m pytest tests/
 mapexploc baseline-train --directory examples/baseline \
   --output-model artifacts/reproduced-human.joblib --jobs 4
 ```
