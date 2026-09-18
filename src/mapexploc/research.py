@@ -788,7 +788,9 @@ def predict_research(path: Path, sequences: list[str]) -> np.ndarray:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--source", type=Path, default=Path("examples/experiments/human-v2/dataset.csv")
+        "--source",
+        type=Path,
+        default=Path("examples/experiments/research-revision/dataset.csv"),
     )
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--jobs", type=int, default=3)

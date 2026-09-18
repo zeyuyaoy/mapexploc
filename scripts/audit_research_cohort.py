@@ -20,7 +20,9 @@ from mapexploc.research import (
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--source", type=Path, default=Path("examples/experiments/human-v2/dataset.csv")
+        "--source",
+        type=Path,
+        default=Path("examples/experiments/research-revision/dataset.csv"),
     )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -45,7 +47,10 @@ def main() -> None:
                 {"accession": row.accession, "label": row.label, "notes": notes}
             )
     manifest = read_json(Path("examples/baseline/manifest.json"))
-    preparation = read_json(args.source.parent / "preparation.json")
+    preparation_path = args.source.parent / "source-preparation.json"
+    if not preparation_path.exists():
+        preparation_path = args.source.parent / "preparation.json"
+    preparation = read_json(preparation_path)
     audit.update(
         {
             "dataset_sha256": checksum(args.source),

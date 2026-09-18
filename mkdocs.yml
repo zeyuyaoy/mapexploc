@@ -1,30 +1,11 @@
 site_name: MAP-ExPLoc
 repo_url: https://github.com/zeyuyaoy/mapexploc
 nav:
-  - Home: index.md
-  - First Analysis: quickstart.md
-  - Model Card: model-card.md
-  - Reproduce Baseline: baseline.md
-  - Model Comparison: model-improvement.md
-  - Scientific Revision: research-revision.md
-  - External Validation Study: external-validation.md
-  - Research Software Standards: research-software.md
-  - Research Protocol: research-plan.md
-  - API Reference: api.md
-  - Adapter Guide: adapter-guide.md
-  - Explainer Guide: explainer-guide.md
-  - Reporting Schema: reporting-schema.md
-  - UI Usage: ui.md
-  - Troubleshooting: troubleshooting.md
+  - Methods and Evidence: index.md
+  - Reproduce and Extend: research-software.md
 plugins:
   - search
-  - mkdocstrings:
-      handlers:
-        python:
-          options:
-            docstring_style: numpy
 markdown_extensions:
-  - admonition
   - toc
   - tables
 theme:

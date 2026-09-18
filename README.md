@@ -1,74 +1,93 @@
-# MAP-ExPLoc
+### Explainable Subcellular Localization Predictor
 
-An explainable protein subcellular-localization toolkit for research and education, originating in the 2025 ISCB YBS
-Student Challenge. Its Python package, CLI, FastAPI service and React interface share a deterministic **423-feature
-schema**.
+MAP-ExPLoc is a sequence-based machine-learning pipeline for predicting human protein subcellular-localization annotations. It combines classical feature engineering with 2 interpretable models: a Random Forest with Shapley Additive exPlanations (SHAP) for interactive prediction, and a compact logistic-regression model selected through grouped internal validation for research use.
 
-## Start here
+> [!NOTE]
+> This project won the [2025 ISCB YBS Student Challenge](https://www.iscb.org/ybs2025/programme-agenda/student-challenge) at [ISMB/ECCB 2025](https://www.iscb.org/ismbeccb2025/home).
 
-Use **Python 3.12+**, **Node 24**, and **pnpm 11.18.0**. Follow the [quickstart](docs/quickstart.md) to install the
-package, configure the evaluated model and start the interface. Choose **Try an example → Analyze sequences**, then
-explore Prediction, Sequence and Explanation tabs.
+#### Features
 
-Repository startup selects the evaluated human baseline through a checksum-verified `config/default-model.json`.
-`MAPEXPLOC_MODEL_PATH` explicitly overrides it. Installed wheels require a trusted model path; the UI never selects or
-downloads a model itself.
+- Five subcellular-localization classes: Cytoplasm, Membrane, Mitochondrion, Nucleus and Secreted
+- Curated human UniProtKB/Swiss-Prot sequences with experimental localization evidence
+- Random Forest predictions with signed, per-feature SHAP contributions
+- A 63-feature multinomial logistic model for computational research
+- Python, command-line and web interfaces, including batch FASTA input and CSV/JSON exports
+- Reproducible feature extraction, similarity-grouped validation and saved per-protein results
 
-## Scientific reference
+> [!WARNING]
+> Explanations describe feature contributions, not causal sequence motifs.
 
-The supplied Random Forest was trained on 1,458 curated human proteins and tested on 364, with similarity groups kept
-apart. Held-out macro-F1 is **0.522** versus **0.086** for a prior dummy classifier. Cytoplasm and Secreted remain weak
-classes. Probabilities are uncalibrated; SHAP describes engineered features, not causal biological mechanisms. This is a
-demonstration baseline, not a validated biological localization service.
+#### Installation
 
-The expanded-data comparison reached **0.600** macro-F1 on the same previously inspected benchmark. It lacked
-independent confirmation and exceeded latency gates, so the served default remains version 1.
+1. Clone the repository:
 
-The subsequent internal study selected a **63-feature logistic-regression research candidate**, with fixed-configuration
-development macro-F1 **0.6006**. This is a different population and evaluation design from the historical scores above;
-do not subtract them to estimate improvement. The exact fitted candidate is frozen for a single external study.
-Independent annotation adjudication, external scoring and new wet-lab confirmation remain pending. The service still
-uses the forest.
+   ```bash
+   git clone https://github.com/zeyuyaoy/mapexploc.git
+   cd mapexploc
+   ```
 
-- [Model card](docs/model-card.md): scope, measured performance and limitations.
-- [Baseline reproduction](docs/baseline.md): frozen data, provenance and scientific environment.
-- [Model comparison](docs/model-improvement.md): executed CPU experiments, results and promotion decision.
-- [Scientific revision](docs/research-revision.md): nested validation, simpler baselines, calibration, ablations, cohort
-  audit and reproducible research outputs.
-- [External validation study](docs/external-validation.md): frozen logistic model, blinded adjudication, independence
-  screening and one primary falsification test.
+2. Create and activate the Conda environment:
 
-## Guides
+   ```bash
+   conda env create --file environment.yml
+   conda activate mapexploc
+   ```
 
-- [Documentation index](docs/index.md) and [dependency profiles](REQUIREMENTS.md).
-- [CLI smoke test](docs/quickstart.md#smoke-test-the-cli) and [Python API](docs/api.md).
-- [HTTP schema](docs/reporting-schema.md), [interface guide](docs/ui.md) and [troubleshooting](docs/troubleshooting.md).
+   Alternatively, install with Python 3.12 or newer:
 
-Small offline examples ship in package distributions. The curated scientific dataset and model remain repository assets.
-Only the 20 standard amino acids are accepted; whitespace and case are normalized.
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   python -m pip install -e .
+   ```
 
-## Development checks
+3. Start the prediction API:
 
-Install the development profile described in [dependency profiles](REQUIREMENTS.md), then run:
+   ```bash
+   python -m uvicorn mapexploc.api:app --host 127.0.0.1 --port 8000
+   ```
 
-```bash
-python -m pytest
-python -m ruff check src tests scripts
-python -m black --check src tests scripts
-python -m mypy src
-python -m mkdocs build --strict
-pnpm --dir ui check
-uv build
-```
+   Open `http://127.0.0.1:8000/docs` for interactive requests. Repository startup
+   selects the supplied Random Forest; the research logistic model has a separate
+   [inference workflow](docs/research-software.md#use-the-fitted-models).
 
-Ordinary tests use small synthetic fits and selection workflows; they do not download scientific data or launch the full
-scientific experiments. Generated outputs belong under `artifacts/` or `results/`; curated reference assets under
-`examples/` remain versioned.
+#### Requirements
 
-See [research software standards](docs/research-software.md) for evidence status, metric conventions, artifact change
-control and the maintenance record.
+- Python 3.12 or newer
+- Core scientific libraries: scikit-learn, SHAP, pandas, NumPy, SciPy and Biopython
+- Matplotlib for optional plots: `python -m pip install -e '.[plots]'`
+- Node 24 and pnpm 11.18.0 for the optional web interface
 
-## License
+Installation resolves dependencies from [pyproject.toml](pyproject.toml). Note that reproducing recorded scientific results requires the [study-specific environments](docs/research-software.md).
 
-Code: [MIT](LICENSE). UniProt-derived data: UniProt Consortium, [CC BY 4.0](https://www.uniprot.org/help/license). See
-the model card for attribution and source hashes.
+#### Feature Engineering
+
+The Random Forest uses **423 features**:
+
+- Amino-acid composition: 20 frequencies
+- Overlapping dipeptide composition: 400 frequencies
+- Sequence length, GRAVY hydrophobicity and isoelectric point
+
+The research logistic model uses **63 features**: the 23 global descriptors above, excluding dipeptides, plus amino-acid composition in the first and last 50 residues. Length is log-transformed and inputs standardized using training data only.
+
+#### Results
+
+| Model or procedure               | Evaluation                                                           | Macro-F1 |
+|----------------------------------|----------------------------------------------------------------------|---------:|
+| Served Random Forest             | Original 364-protein holdout                                         |   0.5223 |
+| Nested model-selection procedure | Grouped internal validation on 1,741 proteins                        |   0.6094 |
+| Selected logistic configuration  | Post-selection out-of-fold diagnostic on the same development cohort |   0.6006 |
+
+> [!WARNING]
+> Scores are not interchangeable. The matched forest comparator in nested validation scored 0.5462. Terminal composition contributes predictive information, but Cytoplasm recall remains weak and probabilities are uncalibrated. 
+> Additionally, the models predict one curated annotation, not exclusive or multiple biological localizations; transfer beyond the studied cohort is unestablished.
+
+See [methods, results and limitations](docs/index.md) and [reproduction instructions](docs/research-software.md) for the data, leakage controls, uncertainty estimates and commands.
+
+#### License
+
+Code is licensed under the [MIT License](LICENSE). UniProt-derived sequences and annotations are attributed to the UniProt Consortium under [CC BY 4.0](https://www.uniprot.org/help/license).
+
+#### Contributing
+
+Open an issue for a bug report or proposed feature, or submit a pull request against `main`. Include relevant tests and document changes to data selection, features or evaluation so their scientific effects can be assessed.
