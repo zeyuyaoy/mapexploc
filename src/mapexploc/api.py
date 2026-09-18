@@ -1,72 +1,297 @@
-"""Small REST layer exposing prediction and explanation endpoints."""
+"""REST API for validated protein localization predictions and explanations."""
 
 from __future__ import annotations
 
-import pickle
+import os
 from pathlib import Path
-from typing import Dict, List
+from threading import Lock
+from typing import Any
 
-from fastapi import FastAPI
-from pydantic import BaseModel
+import numpy as np
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from .adapter import BaseModelAdapter, FeatureModelAdapter, load_adapter
+from .artifacts import ModelArtifactError, load_model_artifact
+from .explainers.shap import ShapExplainer
+from .features import AMINO_ACIDS, build_feature_matrix, normalize_protein_sequence
+from .report import (
+    ClassProbability,
+    ExplainResponse,
+    ExplanationReport,
+    FeatureContribution,
+    FeaturesResponse,
+    HealthResponse,
+    ModelResponse,
+    PredictionReport,
+    PredictResponse,
+    SequenceFeatures,
+)
 
-from .adapter import BaseModelAdapter, load_adapter
+MAX_BATCH_SIZE = 100
+MAX_BATCH_RESIDUES = 1_000_000
 
 
 class PredictRequest(BaseModel):
-    """Request model for prediction endpoint."""
+    """A bounded batch of unambiguous protein sequences."""
 
-    sequences: List[str]
-    model_path: Path | None = None
+    model_config = ConfigDict(extra="forbid")
+    sequences: list[str] = Field(min_length=1, max_length=MAX_BATCH_SIZE)
+
+    @field_validator("sequences")
+    @classmethod
+    def validate_sequences(cls, sequences: list[str]) -> list[str]:
+        """Normalize sequence case and whitespace before inference."""
+        return [normalize_protein_sequence(sequence) for sequence in sequences]
+
+    @model_validator(mode="after")
+    def validate_batch_size(self) -> PredictRequest:
+        """Bound total work independently of the item-count limit."""
+        if sum(map(len, self.sequences)) > MAX_BATCH_RESIDUES:
+            raise ValueError(f"Batch exceeds the {MAX_BATCH_RESIDUES:,}-residue limit")
+        return self
 
 
 class ExplainRequest(PredictRequest):
-    """Request model for explanation endpoint, extends PredictRequest."""
+    """Prediction request with a bounded number of returned contributions."""
 
-    background: List[str] | None = None
-
-
-def create_app(model: BaseModelAdapter | None = None) -> FastAPI:
-    """Create and configure a FastAPI application with prediction and explanation.
-
-    Parameters
-    ----------
-    model : BaseModelAdapter | None, optional
-        Pre-loaded model adapter. If None, models will be loaded from request paths.
-
-    Returns
-    -------
-    FastAPI
-        Configured FastAPI application with /predict and /explain endpoints.
-    """
-    app = FastAPI(title="MAP-ExPLoc")
-    adapter = model
-
-    @app.post("/predict")  # type: ignore[misc]
-    def predict(req: PredictRequest) -> Dict[str, List[int]]:
-        nonlocal adapter
-        if adapter is None:
-            adapter = load_adapter(_load_model(req.model_path))
-        preds = adapter.predict(req.sequences)
-        return {"predictions": preds.tolist()}
-
-    @app.post("/explain")  # type: ignore[misc]
-    def explain_endpoint(req: ExplainRequest) -> str:
-        nonlocal adapter
-        if adapter is None:
-            adapter = load_adapter(_load_model(req.model_path))
-
-        # For now, return a placeholder response since full SHAP integration
-        # requires proper sequence-to-feature conversion
-        return '{"message": "SHAP explanation not fully implemented yet"}'
-
-    return app
+    top_n: int = Field(default=12, ge=1, le=25)
 
 
-def _load_model(path: Path | None) -> BaseModelAdapter:
-    """Load model from pickle file."""
-    if path is None:
-        path = Path("model.pkl")
-    return pickle.loads(Path(path).read_bytes())  # type: ignore[no-any-return]
+class _ModelRuntime:
+    def __init__(self, model: Any | None, model_path: Path | None):
+        self.model_path = model_path
+        self.model: Any | None = None
+        self.adapter: BaseModelAdapter | None = None
+        self.explainer: ShapExplainer | None = None
+        self.metadata: dict[str, Any] = {}
+        self.lock = Lock()
+        if model is not None:
+            self._set_model(model)
+
+    def _set_model(self, model: Any) -> None:
+        if isinstance(model, FeatureModelAdapter):
+            self.adapter = model
+            self.model = model.model
+        elif hasattr(model, "named_steps") or hasattr(model, "n_features_in_"):
+            self.model = model
+            self.adapter = FeatureModelAdapter(model)
+        else:
+            self.adapter = load_adapter(model)
+
+    def get_adapter(self) -> BaseModelAdapter:
+        if self.adapter is not None:
+            return self.adapter
+        with self.lock:
+            if self.adapter is not None:
+                return self.adapter
+            if self.model_path is None:
+                raise RuntimeError("No model is configured")
+            artifact = load_model_artifact(self.model_path)
+            self._set_model(artifact.model)
+            self.metadata = artifact.metadata
+        assert self.adapter is not None
+        return self.adapter
+
+    def model_available(self) -> bool:
+        try:
+            self.get_adapter()
+        except (OSError, ValueError, TypeError, RuntimeError):
+            return False
+        return True
+
+    def get_explainer(self) -> ShapExplainer:
+        """Create the tree explainer once and reuse it across requests."""
+        self.get_adapter()
+        if self.model is None:
+            raise TypeError("Explanations require a feature-based tree model")
+        if self.explainer is None:
+            with self.lock:
+                if self.explainer is None:
+                    self.explainer = ShapExplainer(self.model)
+        return self.explainer
 
 
-__all__ = ["create_app"]
+def _class_labels(adapter: BaseModelAdapter, probability_count: int) -> list[str]:
+    labels = [str(label) for label in getattr(adapter, "classes", ())]
+    if not labels and hasattr(adapter, "model"):
+        model = getattr(adapter, "model")
+        estimator = getattr(model, "named_steps", {}).get("rf", model)
+        labels = [str(label) for label in getattr(estimator, "classes_", ())]
+    if len(labels) != probability_count:
+        labels = [f"class_{index}" for index in range(probability_count)]
+    return labels
+
+
+def _predict(
+        adapter: BaseModelAdapter, sequences: list[str]
+) -> tuple[list[str], list[PredictionReport], Any | None]:
+    features = None
+    if isinstance(adapter, FeatureModelAdapter):
+        features = adapter.prepare(sequences)
+        predictions = np.asarray(adapter.model.predict(features))
+        probabilities = np.asarray(adapter.model.predict_proba(features), dtype=float)
+    else:
+        predictions = np.asarray(adapter.predict(sequences))
+        probabilities = np.asarray(adapter.predict_proba(sequences), dtype=float)
+    if predictions.shape != (len(sequences),):
+        raise ValueError("Model returned an invalid prediction shape")
+    if probabilities.ndim != 2 or probabilities.shape[0] != len(sequences):
+        raise ValueError("Model returned an invalid probability shape")
+    if not np.isfinite(probabilities).all():
+        raise ValueError("Model returned non-finite probabilities")
+    labels = _class_labels(adapter, probabilities.shape[1])
+    reports = []
+    for index, (sequence, prediction, row) in enumerate(
+            zip(sequences, predictions, probabilities)
+    ):
+        reports.append(
+            PredictionReport(
+                index=index,
+                sequence_length=len(sequence),
+                prediction=str(prediction),
+                confidence=float(np.max(row)),
+                probabilities=[
+                    ClassProbability(label=label, probability=float(value))
+                    for label, value in zip(labels, row)
+                ],
+            )
+        )
+    return labels, reports, features
+
+
+def create_app(model: Any | None = None, model_path: Path | None = None) -> FastAPI:
+    """Create the service using a model object or trusted server-side artifact path."""
+
+    service = FastAPI(
+        title="MAP-ExPLoc",
+        version="0.1.0",
+        description=(
+            "Research-use protein subcellular localization predictions with "
+            "feature-level SHAP explanations."
+        ),
+    )
+    runtime = _ModelRuntime(model, model_path)
+
+    def require_adapter() -> BaseModelAdapter:
+        try:
+            return runtime.get_adapter()
+        except (OSError, ModelArtifactError, TypeError, RuntimeError) as exc:
+            raise HTTPException(
+                status_code=503,
+                detail="Prediction model is unavailable or incompatible",
+            ) from exc
+
+    @service.get("/health", response_model=HealthResponse)
+    def health() -> HealthResponse:
+        available = runtime.model_available()
+        return HealthResponse(
+            status="ready" if available else "model_unavailable",
+            model_available=available,
+            model_loaded=runtime.adapter is not None,
+        )
+
+    @service.get("/model", response_model=ModelResponse)
+    def model_info() -> ModelResponse:
+        adapter = require_adapter()
+        labels = list(getattr(adapter, "classes", ()))
+        if not labels and hasattr(adapter, "model"):
+            labels = [str(item) for item in getattr(adapter.model, "classes_", ())]
+        public_keys = {
+            "name",
+            "scope",
+            "source",
+            "release",
+            "retrieved_at",
+            "source_sha256",
+            "dataset_sha256",
+            "sample_count",
+            "class_counts",
+            "seed",
+            "split",
+            "evaluation",
+            "runtime",
+            "best_params",
+            "best_cv_score",
+            "limitations",
+            "attribution",
+            "software_versions",
+            "model_id",
+        }
+        metadata = {
+            key: value for key, value in runtime.metadata.items() if key in public_keys
+        }
+        return ModelResponse(
+            model_classes=labels, metadata_available=bool(metadata), metadata=metadata
+        )
+
+    @service.post("/features", response_model=FeaturesResponse)
+    def sequence_features(request: PredictRequest) -> FeaturesResponse:
+        matrix = build_feature_matrix(request.sequences)
+        return FeaturesResponse(
+            results=[
+                SequenceFeatures(
+                    index=index,
+                    sequence_length=int(row["length"]),
+                    composition={aa: float(row[f"aa_{aa}"]) for aa in AMINO_ACIDS},
+                    gravy=float(row["gravy"]),
+                    isoelectric_point=float(row["isoelectric_point"]),
+                )
+                for index, (_, row) in enumerate(matrix.iterrows())
+            ]
+        )
+
+    @service.post("/predict", response_model=PredictResponse)
+    def predict(request: PredictRequest) -> PredictResponse:
+        try:
+            labels, reports, _ = _predict(require_adapter(), request.sequences)
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=500, detail="Model inference failed"
+            ) from exc
+        return PredictResponse(model_classes=labels, results=reports)
+
+    @service.post("/explain", response_model=ExplainResponse)
+    def explain(request: ExplainRequest) -> ExplainResponse:
+        adapter = require_adapter()
+        if runtime.model is None:
+            raise HTTPException(
+                status_code=501,
+                detail="Explanations require a feature-based tree model",
+            )
+        try:
+            labels, predictions, features = _predict(adapter, request.sequences)
+            if features is None:
+                raise TypeError("Explanations require a feature-based tree model")
+            explanations = runtime.get_explainer().explain_predictions(
+                features, top_n=request.top_n
+            )
+        except (ImportError, TypeError) as exc:
+            raise HTTPException(
+                status_code=501,
+                detail="Explanations are unavailable for the configured model",
+            ) from exc
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=500, detail="Model explanation failed"
+            ) from exc
+
+        reports = [
+            ExplanationReport(
+                **prediction.model_dump(),
+                base_value=float(explanation["base_value"]),
+                feature_contributions=[
+                    FeatureContribution(**contribution)
+                    for contribution in explanation["feature_contributions"]
+                ],
+            )
+            for prediction, explanation in zip(predictions, explanations)
+        ]
+        return ExplainResponse(model_classes=labels, results=reports)
+
+    return service
+
+
+configured_path = Path(os.environ.get("MAPEXPLOC_MODEL_PATH", "model.pkl"))
+app = create_app(model_path=configured_path)
+
+__all__ = ["ExplainRequest", "PredictRequest", "app", "create_app"]

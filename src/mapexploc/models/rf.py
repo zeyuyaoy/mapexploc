@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -12,15 +12,15 @@ logger = logging.getLogger(__name__)
 
 
 def train_random_forest(
-    X_train: pd.DataFrame,
-    y_train: pd.Series,
-    param_grid: Optional[Dict[str, List[Any]]] = None,
-    cv: int = 3,
-    scoring: str = "f1_weighted",
-    n_jobs: int = -1,
-    use_smote: bool = True,
-    random_state: int = 42,
-) -> Dict[str, Any]:
+        X_train: pd.DataFrame,
+        y_train: pd.Series,
+        param_grid: dict[str, list[Any]] | None = None,
+        cv: int = 3,
+        scoring: str = "f1_weighted",
+        n_jobs: int = -1,
+        use_smote: bool = True,
+        random_state: int = 42,
+) -> dict[str, Any]:
     """Train Random Forest classifier with hyperparameter tuning and class balancing.
 
     Args:
@@ -53,6 +53,19 @@ def train_random_forest(
         )
         raise ImportError("scikit-learn and imbalanced-learn are required")
 
+    if X_train.empty:
+        raise ValueError("Training features must not be empty")
+    if len(X_train) != len(y_train):
+        raise ValueError("Training features and labels must have the same row count")
+    if not all(pd.api.types.is_numeric_dtype(dtype) for dtype in X_train.dtypes):
+        raise ValueError("Training features must all be numeric")
+    if not np.isfinite(X_train.to_numpy(dtype=float)).all():
+        raise ValueError("Training features must not contain NaN or infinite values")
+    if y_train.isna().any():
+        raise ValueError("Training labels must not contain missing values")
+    if y_train.nunique() < 2:
+        raise ValueError("Training data must contain at least two localization classes")
+
     if param_grid is None:
         param_grid = {
             "rf__n_estimators": [100, 200],
@@ -61,18 +74,33 @@ def train_random_forest(
             "rf__min_samples_leaf": [1, 2],
         }
 
-    # Check if dataset is too small for SMOTE
-    min_class_size = y_train.value_counts().min()
-    if use_smote and min_class_size < 6:  # SMOTE needs k=5 neighbors by default
+    min_class_size = int(y_train.value_counts().min())
+    can_cross_validate = min_class_size >= 2
+    if can_cross_validate:
+        cv = min(cv, min_class_size)
+
+    # SMOTE runs inside each fold, so size its neighborhood for the smallest
+    # expected training fold rather than for the complete dataset.
+    min_fold_class_size = int(min_class_size * (cv - 1) / cv) if cv > 1 else 0
+    if use_smote and min_fold_class_size < 2:
         logger.warning(
-            f"Disabling SMOTE due to small class size ({min_class_size} samples)"
+            "Disabling SMOTE because the smallest training fold has fewer than "
+            "two samples for a class"
         )
         use_smote = False
 
     # Create pipeline with optional SMOTE and scaling
     steps = []
     if use_smote:
-        steps.append(("smote", SMOTE(random_state=random_state)))
+        steps.append(
+            (
+                "smote",
+                SMOTE(
+                    random_state=random_state,
+                    k_neighbors=min(5, min_fold_class_size - 1),
+                ),
+            )
+        )
     steps.extend(
         [
             ("scaler", StandardScaler()),
@@ -86,6 +114,22 @@ def train_random_forest(
     )
 
     pipeline = ImbPipeline(steps)
+
+    if not can_cross_validate:
+        params = next(iter(ParameterGrid(param_grid)))
+        logger.warning(
+            "Fitting without cross-validation because at least one class has only "
+            "one sample; use a larger dataset for meaningful model selection"
+        )
+        pipeline.set_params(**params)
+        pipeline.fit(X_train, y_train)
+        return {
+            "model": pipeline,
+            "best_params": params,
+            "best_cv_score": None,
+            "cv_results": [],
+            "search": None,
+        }
 
     # Randomized search with stratified cross-validation
     cv_splitter = StratifiedKFold(n_splits=cv, shuffle=True, random_state=random_state)
@@ -142,7 +186,7 @@ def rf_predict(model: Any, X: pd.DataFrame) -> np.ndarray:
         Predicted labels
     """
     logger.debug("Running Random Forest inference on %d samples", len(X))
-    return model.predict(X)
+    return np.asarray(model.predict(X))
 
 
 def rf_predict_proba(model: Any, X: pd.DataFrame) -> np.ndarray:
@@ -156,12 +200,12 @@ def rf_predict_proba(model: Any, X: pd.DataFrame) -> np.ndarray:
         Predicted class probabilities
     """
     logger.debug("Running Random Forest probability inference on %d samples", len(X))
-    return model.predict_proba(X)
+    return np.asarray(model.predict_proba(X))
 
 
 def evaluate_rf(
-    model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
-) -> Dict[str, Any]:
+        model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
+) -> dict[str, Any]:
     """Comprehensive Random Forest model evaluation.
 
     Args:
@@ -185,7 +229,6 @@ def evaluate_rf(
             precision_recall_curve,
             roc_curve,
         )
-        from sklearn.preprocessing import label_binarize
     except ImportError:
         logger.error("Required packages not installed")
         raise ImportError(
@@ -215,28 +258,21 @@ def evaluate_rf(
     cm = confusion_matrix(y_val, y_pred, labels=classes)
 
     # ROC analysis
-    y_val_bin = label_binarize(y_val, classes=classes)
-
     roc_data = {}
     pr_data = {}
     brier_scores = {}
 
     for i, cls in enumerate(classes):
-        if len(classes) > 2:  # Multi-class
-            fpr, tpr, _ = roc_curve(y_val_bin[:, i], y_proba[:, i])
-            precision, recall, _ = precision_recall_curve(
-                y_val_bin[:, i], y_proba[:, i]
-            )
-            brier_score = brier_score_loss(y_val_bin[:, i], y_proba[:, i])
-        else:  # Binary
-            fpr, tpr, _ = roc_curve(y_val_bin, y_proba[:, 1])
-            precision, recall, _ = precision_recall_curve(y_val_bin, y_proba[:, 1])
-            brier_score = brier_score_loss(y_val_bin, y_proba[:, 1])
+        y_class = (np.asarray(y_val) == cls).astype(int)
+        if np.unique(y_class).size < 2:
+            logger.warning("Skipping curves for class %s absent from one outcome", cls)
+            continue
+        fpr, tpr, _ = roc_curve(y_class, y_proba[:, i])
+        precision, recall, _ = precision_recall_curve(y_class, y_proba[:, i])
+        brier_score = brier_score_loss(y_class, y_proba[:, i])
 
         roc_auc = auc(fpr, tpr)
-        avg_precision = average_precision_score(
-            y_val_bin[:, i] if len(classes) > 2 else y_val_bin, y_proba[:, i]
-        )
+        avg_precision = average_precision_score(y_class, y_proba[:, i])
 
         roc_data[cls] = {"fpr": fpr.tolist(), "tpr": tpr.tolist(), "auc": roc_auc}
         pr_data[cls] = {
@@ -267,7 +303,7 @@ def evaluate_rf(
         if feature_importance is not None:
             feat_df = pd.DataFrame(
                 {
-                    "feature": range(len(feature_importance)),
+                    "feature": list(X_val.columns),
                     "importance": feature_importance,
                 }
             ).sort_values("importance", ascending=False)

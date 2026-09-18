@@ -1,0 +1,341 @@
+{
+  "artifact_bytes": 5004497,
+  "artifact_sha256": "cd8ecb31c3c177efcf136fa84791839c6ca185ce3525a77aae9155a87b062082",
+  "attribution": "UniProt Consortium, UniProtKB/Swiss-Prot, CC BY 4.0 (https://www.uniprot.org/help/license)",
+  "best_cv_score": 0.5681819578779644,
+  "best_params": {
+    "rf__max_depth": 24,
+    "rf__min_samples_leaf": 3,
+    "rf__n_estimators": 128
+  },
+  "class_cap": 500,
+  "class_counts": {
+    "Cytoplasm": 395,
+    "Membrane": 500,
+    "Mitochondrion": 193,
+    "Nucleus": 500,
+    "Secreted": 234
+  },
+  "cv_results": [
+    {
+      "mean_macro_f1": 0.5460323968850718,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.010651899737318005
+    },
+    {
+      "mean_macro_f1": 0.5435925011756195,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.01185336685145158
+    },
+    {
+      "mean_macro_f1": 0.5517936258370427,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.01831592294700799
+    },
+    {
+      "mean_macro_f1": 0.5468396494365594,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.020316063522041194
+    },
+    {
+      "mean_macro_f1": 0.5359859204613617,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.01310131104292176
+    },
+    {
+      "mean_macro_f1": 0.545604500700446,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.01564289142254725
+    },
+    {
+      "mean_macro_f1": 0.5681819578779644,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.021164574331328748
+    },
+    {
+      "mean_macro_f1": 0.5674403150243984,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.021232384668459846
+    }
+  ],
+  "dataset_sha256": "56fb89f09b33ec32a0d1c443612840f77f49e8e6eb67621901663640124729a3",
+  "evaluation": {
+    "balanced_accuracy": 0.5292245036196604,
+    "classes": [
+      "Cytoplasm",
+      "Membrane",
+      "Mitochondrion",
+      "Nucleus",
+      "Secreted"
+    ],
+    "classification_report": {
+      "Cytoplasm": {
+        "f1-score": 0.31724137931034485,
+        "precision": 0.3484848484848485,
+        "recall": 0.2911392405063291,
+        "support": 79.0
+      },
+      "Membrane": {
+        "f1-score": 0.719626168224299,
+        "precision": 0.6754385964912281,
+        "recall": 0.77,
+        "support": 100.0
+      },
+      "Mitochondrion": {
+        "f1-score": 0.5316455696202531,
+        "precision": 0.525,
+        "recall": 0.5384615384615384,
+        "support": 39.0
+      },
+      "Nucleus": {
+        "f1-score": 0.6145833333333334,
+        "precision": 0.6413043478260869,
+        "recall": 0.59,
+        "support": 100.0
+      },
+      "Secreted": {
+        "f1-score": 0.42857142857142855,
+        "precision": 0.40384615384615385,
+        "recall": 0.45652173913043476,
+        "support": 46.0
+      },
+      "accuracy": 0.5521978021978022,
+      "macro avg": {
+        "f1-score": 0.5223335758119317,
+        "precision": 0.5188147893296635,
+        "recall": 0.5292245036196604,
+        "support": 364.0
+      },
+      "weighted avg": {
+        "f1-score": 0.5465150605790002,
+        "precision": 0.5446607707114219,
+        "recall": 0.5521978021978022,
+        "support": 364.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        23,
+        16,
+        13,
+        20,
+        7
+      ],
+      [
+        6,
+        77,
+        0,
+        6,
+        11
+      ],
+      [
+        8,
+        4,
+        21,
+        1,
+        5
+      ],
+      [
+        22,
+        6,
+        5,
+        59,
+        8
+      ],
+      [
+        7,
+        11,
+        1,
+        6,
+        21
+      ]
+    ],
+    "dummy": {
+      "balanced_accuracy": 0.2,
+      "classes": [
+        "Cytoplasm",
+        "Membrane",
+        "Mitochondrion",
+        "Nucleus",
+        "Secreted"
+      ],
+      "classification_report": {
+        "Cytoplasm": {
+          "f1-score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 79.0
+        },
+        "Membrane": {
+          "f1-score": 0.43103448275862066,
+          "precision": 0.27472527472527475,
+          "recall": 1.0,
+          "support": 100.0
+        },
+        "Mitochondrion": {
+          "f1-score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 39.0
+        },
+        "Nucleus": {
+          "f1-score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 100.0
+        },
+        "Secreted": {
+          "f1-score": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 46.0
+        },
+        "accuracy": 0.27472527472527475,
+        "macro avg": {
+          "f1-score": 0.08620689655172413,
+          "precision": 0.05494505494505495,
+          "recall": 0.2,
+          "support": 364.0
+        },
+        "weighted avg": {
+          "f1-score": 0.11841606669192875,
+          "precision": 0.07547397657287767,
+          "recall": 0.27472527472527475,
+          "support": 364.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          79,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          100,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          39,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          100,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          46,
+          0,
+          0,
+          0
+        ]
+      ],
+      "log_loss": 1.5421999618013738,
+      "macro_f1": 0.08620689655172413,
+      "multiclass_brier": 0.7745081375371472,
+      "top_label_ece_10_bins": 0.0003768522287040388,
+      "weighted_f1": 0.11841606669192875
+    },
+    "exceeds_dummy_macro_f1": true,
+    "log_loss": 1.18669830053852,
+    "macro_f1": 0.5223335758119317,
+    "multiclass_brier": 0.5965525301904363,
+    "top_label_ece_10_bins": 0.1616945512666218,
+    "weighted_f1": 0.5465150605790002
+  },
+  "exclusions": {
+    "accepted": 2107,
+    "conflicting_duplicate_sequences": 0,
+    "conflicting_locations": 1342,
+    "duplicate_sequences": 0,
+    "invalid_sequence": 4,
+    "isoform_or_product_specific": 664,
+    "no_experimental_location_evidence": 3763,
+    "no_location": 3089,
+    "over_class_cap": 285,
+    "unmapped_location": 9462
+  },
+  "limitations": "Human canonical proteins with one experimentally supported compartment only. Multilocalized, isoform-specific, unsupported and ambiguous annotations were excluded. Probabilities are uncalibrated; class-balanced curation does not represent natural prevalence. Sequence grouping at 30% identity and 80% bidirectional coverage does not exclude all remote or domain-level homology. SHAP describes engineered features, not biological causality.",
+  "mmseqs_version": "18-8cc5c",
+  "model_id": "human-2026_03-56fb89f09b33",
+  "name": "MAP-ExPLoc human baseline",
+  "release": "2026_03",
+  "retrieved_at": "2026-09-18T04:45:40.032133+00:00",
+  "runtime": {
+    "batch_size": 100,
+    "cpu_count": 12,
+    "feature_one_ms": 4.882833978626877,
+    "machine": "arm64",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "prediction_batch_100_ms": 5.208582966588438,
+    "prediction_one_ms": 5.5932909599505365,
+    "shap_one_ms": 12.545667006634176,
+    "timing_repetitions": 5,
+    "training_jobs": 4,
+    "training_seconds": 9.602294749987777
+  },
+  "sample_count": 1458,
+  "scope": "Reviewed human canonical proteins; single-compartment classification",
+  "seed": 42,
+  "software_versions": {
+    "biopython": "1.88",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "shap": "0.52.0"
+  },
+  "source": "https://rest.uniprot.org/uniprotkb/stream?query=%28reviewed%3Atrue%29%20AND%20%28organism_id%3A9606%29&format=json&fields=accession,id,sequence,cc_subcellular_location,organism_id,reviewed",
+  "source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "split": {
+    "bidirectional_coverage": 0.8,
+    "cross_partition_hits": 0,
+    "groups": 1568,
+    "identity": 0.3,
+    "test_count": 364,
+    "test_refitted": false,
+    "train_count": 1458
+  }
+}

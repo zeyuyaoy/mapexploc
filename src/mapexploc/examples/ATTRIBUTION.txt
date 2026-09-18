@@ -1,0 +1,4 @@
+Human examples: UniProt Consortium, UniProtKB/Swiss-Prot release 2026_03, CC BY 4.0.
+https://www.uniprot.org/help/license
+Canonical sequences from the frozen held-out dataset; not chosen for correct prediction.
+Smoke CSV: synthetic workflow fixture, not biological reference labels.

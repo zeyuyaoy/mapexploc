@@ -1,160 +1,173 @@
-"""Feature extraction utilities for protein sequences."""
+"""Deterministic feature extraction for protein sequences."""
 
 from __future__ import annotations
 
-import logging
+from collections import Counter
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import numpy as np
 import pandas as pd
 from Bio import SeqIO
 from Bio.SeqUtils.ProtParam import ProteinAnalysis
 
-logger = logging.getLogger(__name__)
-
-# Standard amino acids
 AMINO_ACIDS = "ACDEFGHIKLMNPQRSTVWY"
+MAX_SEQUENCE_LENGTH = 100_000
+DIPEPTIDES = tuple(a + b for a in AMINO_ACIDS for b in AMINO_ACIDS)
+FEATURE_NAMES = (
+    "length",
+    *(f"aa_{aa}" for aa in AMINO_ACIDS),
+    *(f"dp_{pair}" for pair in DIPEPTIDES),
+    "gravy",
+    "isoelectric_point",
+)
+FASTA_SUFFIXES = {".fa", ".faa", ".fasta", ".fna"}
+
+
+def normalize_protein_sequence(sequence: str) -> str:
+    """Normalize and validate one unambiguous protein sequence.
+
+    Whitespace and FASTA-style line wrapping are accepted. Ambiguous residues are
+    rejected rather than silently discarded because changing the sequence would
+    make both the prediction and its explanation misleading.
+    """
+
+    if not isinstance(sequence, str):
+        raise TypeError("Protein sequences must be strings")
+    normalized = "".join(sequence.split()).upper()
+    if not normalized:
+        raise ValueError("Protein sequence must not be empty")
+    if len(normalized) > MAX_SEQUENCE_LENGTH:
+        raise ValueError(
+            f"Protein sequence exceeds the {MAX_SEQUENCE_LENGTH:,}-residue limit"
+        )
+    invalid = sorted(set(normalized).difference(AMINO_ACIDS))
+    if invalid:
+        residues = ", ".join(invalid)
+        raise ValueError(f"Protein sequence contains unsupported residues: {residues}")
+    return normalized
+
+
+def _read_sequences(source: str | Path) -> tuple[list[str], list[str], bool]:
+    path = Path(source)
+    if path.exists():
+        if not path.is_file():
+            raise ValueError(f"Sequence source is not a file: {path}")
+        if path.suffix.lower() not in FASTA_SUFFIXES:
+            raise ValueError(
+                f"Unsupported sequence file format: {path.suffix or '<none>'}"
+            )
+        records = list(SeqIO.parse(path, "fasta"))  # type: ignore[no-untyped-call]
+        if not records:
+            raise ValueError(f"No FASTA records found in {path}")
+        ids = [record.id for record in records]
+        if len(ids) != len(set(ids)):
+            raise ValueError("FASTA record identifiers must be unique")
+        return [str(record.seq) for record in records], ids, True
+
+    if isinstance(source, Path) or path.suffix.lower() in FASTA_SUFFIXES:
+        raise FileNotFoundError(f"Sequence file not found: {path}")
+    return [str(source)], ["seq_0"], False
 
 
 def build_feature_matrix(
-    sequences: Union[str, Path, List[str], pd.Series],
-    annotations: Optional[Union[str, Path, pd.DataFrame]] = None,
+        sequences: str | Path | Sequence[str] | pd.Series,
+        annotations: str | Path | pd.DataFrame | None = None,
 ) -> pd.DataFrame:
+    """Build the fixed 423-column feature matrix used by MAP-ExPLoc.
+
+    ``sequences`` may be a raw sequence, a FASTA path, or a batch of sequences.
+    FASTA annotations are joined by a recognized identifier column when one is
+    present; otherwise same-length annotations are joined positionally.
     """
-    Build a feature matrix from protein sequences.
 
-    Args:
-        sequences: Path to a FASTA file, or a list/Series of protein sequences.
-        annotations: Optional path to annotations CSV or DataFrame.
-                     If provided, will be merged with features.
-
-    Returns:
-        DataFrame containing extracted features.
-    """
-    # 1. Load sequences
-    seq_list: List[str] = []
-    ids: List[str] = []
-
+    from_fasta = False
     if isinstance(sequences, (str, Path)):
-        path = Path(sequences)
-        if path.suffix in (".fasta", ".fa", ".fna"):
-            # Load from FASTA
-            for record in SeqIO.parse(path, "fasta"):
-                seq_list.append(str(record.seq))
-                ids.append(record.id)
-        else:
-            # Assume it's a raw string if it's not a file path or if it's a
-            # short string?
-            # But the type hint says Union[str, Path...].
-            # If it's a string that looks like a path but doesn't exist,
-            # we might have issues.
-            # Given the context, if it's a string, it's likely a path.
-            # But if the user passes a single sequence as a string?
-            # Unlikely for "build_feature_matrix".
-            raise ValueError(f"Unsupported file format or path not found: {sequences}")
-    elif isinstance(sequences, (list, pd.Series, np.ndarray)):
-        seq_list = [str(s) for s in sequences]
-        ids = [f"seq_{i}" for i in range(len(seq_list))]
+        seq_list, ids, from_fasta = _read_sequences(sequences)
+    elif isinstance(sequences, (list, tuple, pd.Series, np.ndarray)):
+        seq_list = [str(sequence) for sequence in sequences]
+        ids = [f"seq_{index}" for index in range(len(seq_list))]
+        if not seq_list:
+            raise ValueError("At least one protein sequence is required")
     else:
-        raise TypeError(f"Unsupported type for sequences: {type(sequences)}")
+        raise TypeError(f"Unsupported sequence source: {type(sequences).__name__}")
 
-    # 2. Extract features
-    features_list = []
-    for seq in seq_list:
-        features_list.append(_extract_features(seq))
+    normalized = [normalize_protein_sequence(sequence) for sequence in seq_list]
+    frame = pd.DataFrame(
+        [_extract_features(sequence) for sequence in normalized],
+        columns=FEATURE_NAMES,
+        index=ids,
+    )
+    frame.index.name = "sequence_id"
 
-    df = pd.DataFrame(features_list)
+    if annotations is None:
+        return frame
+    annotation_frame = (
+        pd.read_csv(annotations)
+        if isinstance(annotations, (str, Path))
+        else annotations.copy() if isinstance(annotations, pd.DataFrame) else None
+    )
+    if annotation_frame is None:
+        raise TypeError(f"Unsupported annotations source: {type(annotations).__name__}")
 
-    # Add IDs if we loaded from FASTA and have annotations to merge
-    if ids:
-        df.index = ids
+    id_column = next(
+        (
+            column
+            for column in ("sequence_id", "entry_name", "accession", "id")
+            if column in annotation_frame.columns
+        ),
+        None,
+    )
+    if from_fasta and id_column is not None:
+        if annotation_frame[id_column].duplicated().any():
+            raise ValueError(f"Annotation identifiers in '{id_column}' must be unique")
+        indexed = annotation_frame.set_index(id_column)
+        missing = frame.index.difference(indexed.index)
+        if len(missing):
+            raise ValueError(
+                "Annotations are missing FASTA identifiers: " + ", ".join(missing[:5])
+            )
+        return frame.join(indexed, how="left")
 
-    # 3. Merge annotations if provided
-    if annotations is not None:
-        if isinstance(annotations, (str, Path)):
-            ann_df = pd.read_csv(annotations)
-        elif isinstance(annotations, pd.DataFrame):
-            ann_df = annotations
-        else:
-            raise TypeError(f"Unsupported type for annotations: {type(annotations)}")
-
-        # If annotations have an ID column that matches our FASTA IDs, merge on it.
-        # Otherwise, if lengths match, merge by index?
-        # The notebook usage implies a merge.
-        # "df = build_feature_matrix(INPUT_FASTA, INPUT_ANN)"
-        # Usually annotations.csv has "accession" or "id".
-
-        # For now, let's assume simple concatenation if lengths match
-        # and no common index
-        if len(ann_df) == len(df):
-            # Reset index to allow concat if indices don't match
-            df = df.reset_index(drop=True)
-            ann_df = ann_df.reset_index(drop=True)
-            df = pd.concat([df, ann_df], axis=1)
-        else:
-            logger.warning("Annotation length mismatch. Skipping merge.")
-
-    return df
+    if len(annotation_frame) != len(frame):
+        raise ValueError(
+            "Annotations must have the same row count as sequences when no matching "
+            "identifier column is available"
+        )
+    return pd.concat(
+        [frame.reset_index(drop=False), annotation_frame.reset_index(drop=True)], axis=1
+    ).set_index("sequence_id")
 
 
-def _extract_features(sequence: str) -> Dict[str, Any]:
-    """Extract biochemical features from a single sequence."""
-    # Clean sequence (remove non-standard AA if necessary, or handle them)
-    # BioPython's ProteinAnalysis handles standard AA.
-    # We should probably remove 'X', 'U', 'Z', 'B', 'J', 'O' or treat them.
-    # For simplicity, let's replace them or ignore.
+def _extract_features(sequence: str) -> dict[str, Any]:
+    """Extract amino-acid, dipeptide, and physicochemical features."""
 
-    # Simple cleaning: remove non-standard
-    clean_seq = "".join([aa for aa in sequence if aa in AMINO_ACIDS])
+    sequence = normalize_protein_sequence(sequence)
+    length = len(sequence)
+    residue_counts = Counter(sequence)
+    pair_counts = Counter(sequence[index: index + 2] for index in range(length - 1))
+    pair_total = max(length - 1, 1)
+    analyser = ProteinAnalysis(sequence)  # type: ignore[no-untyped-call]
 
-    if not clean_seq:
-        # Return zeros if empty
-        return {
-            "length": 0,
-            "gravy": 0.0,
-            "isoelectric_point": 0.0,
-            **{f"aa_{aa}": 0.0 for aa in AMINO_ACIDS},
-            # Dipeptides omitted for brevity in empty case? Or should be 0.
-        }
-
-    analyser = ProteinAnalysis(clean_seq)
-
-    # AA Composition
-    aa_percent = analyser.amino_acids_percent
-
-    features: Dict[str, Any] = {}
-
-    # Length
-    features["length"] = len(sequence)  # Use original length?
-
-    # AA Composition Features
-    for aa in AMINO_ACIDS:
-        features[f"aa_{aa}"] = aa_percent.get(aa, 0.0)
-
-    # Dipeptide Composition (400 features)
-    # ProteinAnalysis doesn't have a direct method for dipeptide frequency?
-    # It has get_amino_acids_percent.
-    # We can implement it manually.
-
-    for aa1 in AMINO_ACIDS:
-        for aa2 in AMINO_ACIDS:
-            dipeptide = aa1 + aa2
-            # Count occurrences
-            count = sequence.count(dipeptide)
-            # Frequency
-            freq = count / (len(sequence) - 1) if len(sequence) > 1 else 0
-            features[f"dp_{dipeptide}"] = freq
-
-    # Physico-chemical properties
-    try:
-        features["gravy"] = analyser.gravy()
-    except Exception:
-        features["gravy"] = 0.0
-
-    try:
-        features["isoelectric_point"] = analyser.isoelectric_point()
-    except Exception:
-        features["isoelectric_point"] = 0.0  # Default or NaN
-
+    features: dict[str, Any] = {"length": length}
+    features.update(
+        {f"aa_{aa}": residue_counts.get(aa, 0) / length for aa in AMINO_ACIDS}
+    )
+    features.update(
+        {f"dp_{pair}": pair_counts.get(pair, 0) / pair_total for pair in DIPEPTIDES}
+    )
+    features["gravy"] = float(analyser.gravy())  # type: ignore[no-untyped-call]
+    features["isoelectric_point"] = float(
+        analyser.isoelectric_point()  # type: ignore[no-untyped-call]
+    )
     return features
+
+
+__all__ = [
+    "AMINO_ACIDS",
+    "FEATURE_NAMES",
+    "MAX_SEQUENCE_LENGTH",
+    "build_feature_matrix",
+    "normalize_protein_sequence",
+]

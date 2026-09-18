@@ -4,31 +4,24 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any, Dict, List
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 # Allowed localizations mapping (simplified terms)
 ALLOWED_LOCS = {
-    "Cell membrane",
-    "Cell wall",
-    "Chloroplast",
     "Cytoplasm",
-    "Endoplasmic reticulum",
-    "Extracellular",
-    "Golgi apparatus",
+    "Endoplasmic Reticulum",
+    "Golgi Apparatus",
     "Lysosome",
     "Membrane",
     "Mitochondrion",
     "Nucleus",
     "Periplasm",
     "Peroxisome",
-    "Ribosome",
     "Secreted",
     "Vacuole",
     "Cell Surface",
-    "Endoplasmic Reticulum",
-    "Golgi Apparatus",
     "Plastid",
     "Virion",
     "Other",
@@ -67,7 +60,7 @@ _SYNONYM_MAP = {
 }
 
 
-def _clean_and_primary(subcell_locs: List[str]) -> str:
+def _clean_and_primary(subcell_locs: list[str]) -> str:
     """Extract primary localization from Swiss-Prot subcellular location entries.
 
     This function:
@@ -79,8 +72,20 @@ def _clean_and_primary(subcell_locs: List[str]) -> str:
     if not subcell_locs:
         return "Other"
 
-    # Join all locations and clean
-    text = " ".join(subcell_locs).lower()
+    cleaned_entries = []
+    for entry in subcell_locs:
+        codes = re.findall(r"ECO:\d+", entry)
+        if codes and "ECO:0000269" not in codes:
+            return "Other"
+        entry = re.sub(r"^SUBCELLULAR LOCATION:\s*", "", entry, flags=re.IGNORECASE)
+        entry = re.sub(r"\{ECO:[^}]+\}", "", entry)
+        entry = re.split(r"\bNote=", entry, maxsplit=1, flags=re.IGNORECASE)[0]
+        entry = entry.strip().rstrip(".")
+        if entry:
+            cleaned_entries.append(entry)
+    text = " ".join(cleaned_entries).lower()
+    if not text:
+        return "Other"
 
     # Skip multi-compartment entries
     if ";" in text or "," in text:
@@ -100,7 +105,7 @@ def _clean_and_primary(subcell_locs: List[str]) -> str:
         return "Other"
 
     # Extract location name (before any parentheses or additional info)
-    location = re.split(r"[({]", text)[0].strip()
+    location = re.split(r"[({]", text)[0].strip().rstrip(".")
 
     # Apply synonym mapping
     if location in _SYNONYM_MAP:
@@ -113,7 +118,7 @@ def _clean_and_primary(subcell_locs: List[str]) -> str:
     return location if location in ALLOWED_LOCS else "Other"
 
 
-def extract_protein_data(dat_file_path: str) -> List[Dict[str, Any]]:
+def extract_protein_data(dat_file_path: str) -> list[dict[str, Any]]:
     """Extract protein data from Swiss-Prot DAT file.
 
     Returns list of dictionaries with keys:
@@ -134,8 +139,8 @@ def extract_protein_data(dat_file_path: str) -> List[Dict[str, Any]]:
 
     logger.info("Extracting protein data from %s", dat_file_path)
 
-    with open(dat_file_path, "r", encoding="utf-8") as handle:
-        for record in SwissProt.parse(handle):
+    with open(dat_file_path, encoding="utf-8") as handle:
+        for record in SwissProt.parse(handle):  # type: ignore[no-untyped-call]
             # Extract subcellular localization
             subcell_locs = []
             for comment in record.comments:

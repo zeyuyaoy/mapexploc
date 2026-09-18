@@ -7,12 +7,13 @@ predictions with SHAP.
 
 from importlib.metadata import PackageNotFoundError, version
 
-from .adapter import BaseModelAdapter, load_adapter
+from .adapter import BaseModelAdapter, FeatureModelAdapter, load_adapter
 from .api import create_app
+from .artifacts import load_model_artifact, save_model_artifact
 from .config import ModelConfig, Settings, load_config
 from .data import iter_sequences, load_example_dataset
 from .explainers.shap import ShapExplainer
-from .features import build_feature_matrix
+from .features import build_feature_matrix, normalize_protein_sequence
 from .models import (
     evaluate_knn,
     evaluate_rf,
@@ -33,7 +34,10 @@ except PackageNotFoundError:  # pragma: no cover
 __all__ = [
     "__version__",
     "BaseModelAdapter",
+    "FeatureModelAdapter",
     "load_adapter",
+    "load_model_artifact",
+    "save_model_artifact",
     "ShapExplainer",
     "create_app",
     "Settings",
@@ -42,6 +46,7 @@ __all__ = [
     "load_example_dataset",
     "iter_sequences",
     "build_feature_matrix",
+    "normalize_protein_sequence",
     "extract_protein_data",
     "_clean_and_primary",
     "ALLOWED_LOCS",

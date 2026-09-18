@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
+from importlib.resources import files
 from pathlib import Path
-from typing import Any, Dict, List
-
-import pandas as pd
+from typing import Any
 
 from mapexploc.config import load_config
 from mapexploc.data import load_example_dataset
@@ -15,16 +14,16 @@ from mapexploc.models.rf import rf_predict, train_random_forest
 
 def test_training_pipeline(tmp_path: Path) -> None:
     cfg = load_config(Path("config/default.yml"))
-    df = load_example_dataset(Path("examples/data/example_sequences.csv"))
+    df = load_example_dataset(
+        Path(str(files("mapexploc").joinpath("examples/smoke.csv")))
+    )
 
-    # Duplicate data to ensure enough samples for CV
-    # (StratifiedKFold requires >= n_splits samples per class)
-    df = pd.concat([df] * 5, ignore_index=True)
+    # This tiny fixture tests the no-CV workflow, not predictive performance.
 
     X = build_feature_matrix(df["sequence"])
 
     # Construct param_grid from config
-    param_grid: Dict[str, List[Any]] = {
+    param_grid: dict[str, list[Any]] = {
         "rf__n_estimators": [cfg.model.n_estimators],
         "rf__max_depth": [cfg.model.max_depth],
     }

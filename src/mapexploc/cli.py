@@ -1,129 +1,194 @@
-"""Command-line interface for MAP-ExPLoc."""
+"""Command-line workflows for training, predicting, and explaining."""
 
 from __future__ import annotations
 
+import json
 import logging
+from importlib.resources import files
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-import joblib
-import pandas as pd
 import typer
-
+from mapexploc.artifacts import load_model_artifact, save_model_artifact
 from mapexploc.config import load_config
+from mapexploc.data import load_example_dataset
 from mapexploc.explainers.shap import ShapExplainer
 from mapexploc.features import build_feature_matrix
-from mapexploc.models.rf import rf_predict, train_random_forest
+from mapexploc.models.rf import rf_predict, rf_predict_proba, train_random_forest
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = typer.Typer(help="MAP-ExPLoc: Explainable Subcellular Localization Predictor")
+app = typer.Typer(
+    help="MAP-ExPLoc: explainable protein subcellular localization",
+    no_args_is_help=True,
+    invoke_without_command=True,
+)
 
 
-@app.command()  # type: ignore[misc]
-def train(
-    config: Path = typer.Option(..., help="Path to configuration file"),
-    data_path: Optional[Path] = typer.Option(
-        None,
-        help=(
-            "Path to training data CSV. "
-            "Defaults to examples/data/example_sequences.csv"
+@app.callback()
+def callback(
+        version: bool = typer.Option(
+            False, "--version", help="Show the installed version and exit", is_eager=True
         ),
-    ),
-    output_model: Path = typer.Option(
-        Path("model.pkl"), help="Path to save the trained model"
-    ),
 ) -> None:
-    """Train a Random Forest model."""
-    cfg = load_config(config)
+    """Run MAP-ExPLoc workflows."""
+    if version:
+        from mapexploc import __version__
 
-    if data_path is None:
-        data_path = Path("examples/data/example_sequences.csv")
-        if not data_path.exists():
-            typer.echo(
-                f"Default data file not found at {data_path}. "
-                "Please specify --data-path.",
-                err=True,
-            )
-            raise typer.Exit(code=1)
-
-    logger.info("Loading data from %s", data_path)
-    df = pd.read_csv(data_path)
-
-    logger.info("Building feature matrix...")
-    X = build_feature_matrix(df["sequence"])
-    y = df["label"]
-
-    logger.info("Training model...")
-
-    # Construct param_grid from config
-    # The model config contains single values, so we wrap them in lists
-    # and add the 'rf__' prefix required by the pipeline
-    param_grid: Dict[str, List[Any]] = {
-        "rf__n_estimators": [cfg.model.n_estimators],
-        "rf__max_depth": [cfg.model.max_depth],
-    }
-
-    # train_random_forest returns a dict with 'model' key
-    result = train_random_forest(X, y, param_grid)
-    model = result["model"]
-
-    logger.info("Saving model to %s", output_model)
-    joblib.dump(model, output_model)
+        typer.echo(__version__)
+        raise typer.Exit()
 
 
-@app.command()  # type: ignore[misc]
+def _fail(message: str) -> None:
+    typer.echo(message, err=True)
+    raise typer.Exit(code=1)
+
+
+@app.command()
+def train(
+        config: Path = typer.Option(..., exists=True, dir_okay=False),
+        data_path: Path | None = typer.Option(
+            None,
+            "--data-path",
+            "--data",
+            help="CSV with sequence and label columns",
+        ),
+        output_model: Path = typer.Option(
+            Path("model.pkl"), "--output-model", "--output", help="Artifact output path"
+        ),
+) -> None:
+    """Train and save a Random Forest localization model."""
+    try:
+        cfg = load_config(config)
+        if data_path is None:
+            data_path = Path(str(files("mapexploc").joinpath("examples/smoke.csv")))
+        frame = load_example_dataset(data_path)
+        features = build_feature_matrix(frame["sequence"])
+        targets = frame["label"].astype(str)
+        param_grid: dict[str, list[Any]] = {
+            "rf__n_estimators": [cfg.model.n_estimators],
+            "rf__max_depth": [cfg.model.max_depth],
+        }
+        result = train_random_forest(
+            features, targets, param_grid, random_state=cfg.seed
+        )
+        save_model_artifact(
+            result["model"],
+            output_model,
+            metadata={
+                "sample_count": len(frame),
+                "best_params": result["best_params"],
+                "best_cv_score": result["best_cv_score"],
+            },
+        )
+    except (OSError, ValueError) as exc:
+        _fail(f"Training failed: {exc}")
+    typer.echo(f"Saved model artifact to {output_model}")
+    if result["best_cv_score"] is None:
+        typer.echo(
+            "Warning: the dataset was too small for cross-validation; this artifact "
+            "is suitable for workflow testing, not scientific use.",
+            err=True,
+        )
+
+
+@app.command()
 def predict(
-    sequence: str = typer.Argument(..., help="Protein sequence to predict"),
-    model_path: Path = typer.Option(..., help="Path to trained model file"),
+        sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
+        model_path: Path = typer.Option(
+            Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
+        ),
 ) -> None:
-    """Predict localization for a single protein sequence."""
-    if not model_path.exists():
-        typer.echo(f"Model file not found: {model_path}", err=True)
-        raise typer.Exit(code=1)
-
-    model = joblib.load(model_path)
-
-    # Build features
-    X = build_feature_matrix([sequence])
-
-    # Predict
-    pred = rf_predict(model, X)
-    typer.echo(f"Prediction: {pred[0]}")
+    """Predict localization and confidence for one protein sequence."""
+    try:
+        model = load_model_artifact(model_path).model
+        features = build_feature_matrix([sequence])
+        prediction = str(rf_predict(model, features)[0])
+        probabilities = rf_predict_proba(model, features)[0]
+    except (OSError, ValueError, TypeError) as exc:
+        _fail(f"Prediction failed: {exc}")
+    typer.echo(f"Prediction: {prediction}")
+    typer.echo(f"Confidence: {float(probabilities.max()):.3f}")
 
 
-@app.command()  # type: ignore[misc]
+@app.command()
 def explain(
-    sequence: str = typer.Argument(..., help="Protein sequence to explain"),
-    model_path: Path = typer.Option(..., help="Path to trained model file"),
-    output_dir: Path = typer.Option(
-        Path("results/shap"), help="Directory to save SHAP plots"
-    ),
+        sequence: str = typer.Argument(..., help="Unambiguous protein sequence"),
+        model_path: Path = typer.Option(
+            Path("model.pkl"), exists=True, dir_okay=False, help="Trusted model artifact"
+        ),
+        output_dir: Path = typer.Option(
+            Path("results/shap"), help="Directory for explanation.json"
+        ),
+        top_n: int = typer.Option(12, min=1, max=25, help="Contributions to return"),
 ) -> None:
-    """Explain prediction for a single protein sequence using SHAP."""
-    if not model_path.exists():
-        typer.echo(f"Model file not found: {model_path}", err=True)
-        raise typer.Exit(code=1)
+    """Write a local SHAP feature explanation as structured JSON."""
+    try:
+        model = load_model_artifact(model_path).model
+        features = build_feature_matrix([sequence])
+        report = ShapExplainer(model, output_dir=str(output_dir)).explain_predictions(
+            features, top_n=top_n
+        )[0]
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "explanation.json"
+        output_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    except (OSError, ValueError, TypeError, ImportError) as exc:
+        _fail(f"Explanation failed: {exc}")
+    typer.echo(f"Wrote explanation to {output_path}")
 
-    model = joblib.load(model_path)
 
-    # Initialize explainer
-    explainer = ShapExplainer(model, output_dir=str(output_dir))
-
-    # Build features
-    X = build_feature_matrix([sequence])
+@app.command("baseline-download")
+def baseline_download(
+        directory: Path = typer.Option(Path("artifacts/human-baseline")),
+) -> None:
+    """Explicitly download a new public reviewed-human UniProt snapshot."""
+    from mapexploc.baseline import download_snapshot
 
     try:
-        # Use sample_size=1 since we only have 1 sample
-        _ = explainer.explain_sample(X, sample_size=1)
-        typer.echo("Explanation generated.")
-        typer.echo(f"SHAP values saved to {output_dir}")
-    except Exception as e:
-        logger.error("Failed to generate explanation: %s", e)
-        raise typer.Exit(code=1)
+        download_snapshot(directory)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(f"Downloaded snapshot to {directory}")
+
+
+@app.command("baseline-prepare")
+def baseline_prepare(
+        directory: Path = typer.Option(Path("artifacts/human-baseline")),
+        cap: int = typer.Option(500, min=10),
+        threads: int = typer.Option(4, min=1),
+) -> None:
+    """Curate evidence, group related sequences, and audit an 80/20 split."""
+    from mapexploc.baseline import prepare_baseline
+
+    try:
+        manifest = prepare_baseline(directory, cap=cap, threads=threads)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(f"Prepared {sum(manifest['class_counts'].values())} curated proteins")
+
+
+@app.command("baseline-train")
+def baseline_train(
+        directory: Path = typer.Option(Path("artifacts/human-baseline")),
+        output_model: Path = typer.Option(Path("artifacts/human-baseline/model.joblib")),
+        jobs: int = typer.Option(4, min=1),
+) -> None:
+    """Train on grouped CV and evaluate the untouched test partition."""
+    from mapexploc.baseline import train_baseline
+
+    try:
+        report = train_baseline(directory, output_model, jobs=jobs)
+    except (OSError, ValueError) as exc:
+        _fail(str(exc))
+    typer.echo(f"Held-out macro-F1: {report['evaluation']['macro_f1']:.3f}")
+    typer.echo(f"Saved validated artifact to {output_model}")
+
+
+def main() -> None:
+    """Console-script entry point."""
+    app()
 
 
 if __name__ == "__main__":
-    app()
+    main()

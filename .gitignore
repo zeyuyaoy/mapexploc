@@ -1,9 +1,41 @@
+# Python environments, caches and build output
 __pycache__/
 *.py[cod]
 *.egg-info/
-dist/
-build/
-model.pkl
 .venv/
-.ipynb_checkpoints/
+.venv-*/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+.coverage
+.coverage.*
+htmlcov/
+site/
+
+# Frontend dependencies and generated checks
+node_modules/
+.pnpm-store/
+ui/coverage/
+ui/test-results/
+ui/playwright-report/
+
+# Generated research outputs; curated examples remain versioned
+/artifacts/
+/results/
+/model.pkl
+
+# Local configuration and logs; retain shareable configuration templates
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.*.example
+!.env.*.template
+*.log
+
+# Editor and operating-system files
+.idea/
+.DS_Store

@@ -1,0 +1,3 @@
+include mkdocs.yml
+recursive-include config *.yml
+recursive-include docs *.md *.png

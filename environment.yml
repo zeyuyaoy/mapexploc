@@ -1,47 +1,8 @@
-name: eslp
+name: mapexploc
 channels:
   - conda-forge
-  - defaults
 dependencies:
-  # Core package dependencies
-  - python>=3.8
-  - numpy>=1.21.0
-  - pandas>=1.3.0
-  - scikit-learn>=1.0.0
-  - pyyaml
-
-  # Optional dependencies for full functionality
-  - shap
-  - fastapi
-  - uvicorn
-
-  # CLI and typing dependencies
-  - pydantic>=1.10
-  - typer>=0.9
-
-  # Development and notebook dependencies
-  - jupyter
-  - ipykernel
-  - ipywidgets
-  - matplotlib
-  - seaborn
-  - imbalanced-learn
-  - umap-learn
-  - joblib
-
-  # Testing and code quality
-  - pytest
-  - black
-  - ruff
-  - mypy
-  - pre-commit
-  - types-pyyaml
-
-  # Documentation
-  - mkdocs
-  - mkdocs-material
-  - mkdocstrings[python]
-
-  # Optional bioinformatics tools (if needed)
-  # - biopython
-  # - cd-hit
+  - python=3.12
+  - pip
+  - pip:
+      - -e .[dev,docs,plots]

@@ -1,21 +1,17 @@
 site_name: MAP-ExPLoc
-repo_url: https://github.com/cytronicoder/explainable-localization-predictor
+repo_url: https://github.com/zeyuyaoy/mapexploc
 nav:
   - Home: index.md
-  - Quickstart: quickstart.md
+  - First Analysis: quickstart.md
+  - Model Card: model-card.md
+  - Reproduce Baseline: baseline.md
+  - Model Improvement Plan: model-improvement.md
   - API Reference: api.md
   - Adapter Guide: adapter-guide.md
   - Explainer Guide: explainer-guide.md
   - Reporting Schema: reporting-schema.md
   - UI Usage: ui.md
-  - Migration: migration.md
-  - Tutorials:
-      - Preprocessing: tutorials/preprocessing.md
-      - k-NN: tutorials/knn.md
-      - Random Forest: tutorials/rf.md
-      - SHAP: tutorials/shap.md
-      - Exploratory: tutorials/exploratory.md
-      - YBS Challenge: tutorials/ybs.md
+  - Troubleshooting: troubleshooting.md
 plugins:
   - search
   - mkdocstrings:

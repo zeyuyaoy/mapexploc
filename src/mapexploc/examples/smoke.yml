@@ -1,0 +1,4 @@
+seed: 42
+model:
+  n_estimators: 100
+  max_depth: 10

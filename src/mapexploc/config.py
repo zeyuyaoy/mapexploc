@@ -7,8 +7,8 @@ import random
 from pathlib import Path
 
 import numpy as np
-import yaml  # type: ignore[import-untyped]
-from pydantic import BaseModel
+import yaml
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
@@ -16,15 +16,15 @@ logger = logging.getLogger(__name__)
 class ModelConfig(BaseModel):
     """Hyperparameters for the RandomForest model."""
 
-    n_estimators: int = 100
-    max_depth: int | None = None
+    n_estimators: int = Field(default=100, gt=0)
+    max_depth: int | None = Field(default=None, gt=0)
 
 
 class Settings(BaseModel):
     """Application settings."""
 
     seed: int = 42
-    model: ModelConfig = ModelConfig()
+    model: ModelConfig = Field(default_factory=ModelConfig)
 
 
 def set_seed(seed: int) -> None:

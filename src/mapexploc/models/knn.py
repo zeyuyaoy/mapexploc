@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -25,19 +25,23 @@ def validate_features(features: pd.DataFrame) -> None:
         raise ValueError("Features DataFrame is empty")
     if features.isna().all().any():
         raise ValueError("Features DataFrame contains all-NaN columns")
+    if not all(pd.api.types.is_numeric_dtype(dtype) for dtype in features.dtypes):
+        raise ValueError("Features DataFrame must contain only numeric columns")
+    if not np.isfinite(features.to_numpy(dtype=float)).all():
+        raise ValueError("Features DataFrame contains NaN or infinite values")
 
 
 def train_knn(
-    features: pd.DataFrame,
-    targets: pd.Series,
-    test_features: Optional[pd.DataFrame] = None,
-    test_targets: Optional[pd.Series] = None,
-    param_grid: Optional[Dict[str, Any]] = None,
-    cv: int = 5,
-    n_jobs: int = -1,
-    scoring: str = "f1_macro",
-    random_state: int = 42,
-) -> Dict[str, Any]:
+        features: pd.DataFrame,
+        targets: pd.Series,
+        test_features: pd.DataFrame | None = None,
+        test_targets: pd.Series | None = None,
+        param_grid: dict[str, Any] | None = None,
+        cv: int = 5,
+        n_jobs: int = -1,
+        scoring: str = "f1_macro",
+        random_state: int = 42,
+) -> dict[str, Any]:
     """
     Train a k-NN classifier with hyperparameter tuning using grid search.
 
@@ -62,7 +66,7 @@ def train_knn(
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Dictionary containing trained model, best parameters, and evaluation results
     """
     logger.info(
@@ -78,6 +82,14 @@ def train_knn(
     else:
         X_train = features
         y_train = targets
+
+    validate_features(X_train)
+    if len(X_train) != len(y_train):
+        raise ValueError("Training features and labels must have the same row count")
+    if len(X_train) < 2:
+        raise ValueError("k-NN training requires at least two samples")
+    if y_train.isna().any():
+        raise ValueError("Training labels must not contain missing values")
 
     # Adjust CV folds if needed
     n_samples = len(X_train)
@@ -176,7 +188,7 @@ def knn_predict(model: Any, X: pd.DataFrame) -> np.ndarray:
         Predicted labels
     """
     logger.debug("Running k-NN inference on %d samples", len(X))
-    return model.predict(X)
+    return np.asarray(model.predict(X))
 
 
 def knn_predict_proba(model: Any, X: pd.DataFrame) -> np.ndarray:
@@ -190,12 +202,12 @@ def knn_predict_proba(model: Any, X: pd.DataFrame) -> np.ndarray:
         Predicted class probabilities
     """
     logger.debug("Running k-NN probability inference on %d samples", len(X))
-    return model.predict_proba(X)
+    return np.asarray(model.predict_proba(X))
 
 
 def evaluate_knn(
-    model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
-) -> Dict[str, Any]:
+        model: Any, X_val: pd.DataFrame, y_val: pd.Series, output_dir: str = "results"
+) -> dict[str, Any]:
     """Comprehensive k-NN model evaluation.
 
     Args:
@@ -216,7 +228,6 @@ def evaluate_knn(
             f1_score,
             roc_curve,
         )
-        from sklearn.preprocessing import label_binarize
     except ImportError:
         logger.error("scikit-learn is required for evaluation")
         raise ImportError("scikit-learn is required for evaluation")
@@ -225,6 +236,7 @@ def evaluate_knn(
 
     # Make predictions
     y_pred = model.predict(X_val)
+    y_proba = model.predict_proba(X_val)
 
     # Basic metrics
     accuracy = accuracy_score(y_val, y_pred)
@@ -241,17 +253,14 @@ def evaluate_knn(
     cm = confusion_matrix(y_val, y_pred, labels=classes)
 
     # ROC analysis (for multi-class)
-    y_val_bin = label_binarize(y_val, classes=classes)
-    y_pred_bin = label_binarize(y_pred, classes=classes)
-
     roc_data = {}
     for i, cls in enumerate(classes):
-        if y_val_bin.shape[1] > 1:  # Multi-class case
-            fpr, tpr, _ = roc_curve(y_val_bin[:, i], y_pred_bin[:, i])
-            roc_auc = auc(fpr, tpr)
-        else:  # Binary case
-            fpr, tpr, _ = roc_curve(y_val_bin, y_pred_bin)
-            roc_auc = auc(fpr, tpr)
+        y_class = (np.asarray(y_val) == cls).astype(int)
+        if np.unique(y_class).size < 2:
+            logger.warning("Skipping ROC for class %s absent from one outcome", cls)
+            continue
+        fpr, tpr, _ = roc_curve(y_class, y_proba[:, i])
+        roc_auc = auc(fpr, tpr)
 
         roc_data[cls] = {"fpr": fpr.tolist(), "tpr": tpr.tolist(), "auc": roc_auc}
 

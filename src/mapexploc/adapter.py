@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional, Protocol, Sequence, runtime_checkable
+from collections.abc import Sequence
+from typing import Any, Protocol, runtime_checkable
 
 import numpy as np
+import pandas as pd
+from .features import build_feature_matrix
 
 
 @runtime_checkable
@@ -23,8 +26,8 @@ class BaseModelAdapter(Protocol):
         """Return class probabilities for ``batch``."""
 
     def embed(
-        self, batch: Sequence[str]
-    ) -> Optional[np.ndarray]:  # pragma: no cover - optional
+            self, batch: Sequence[str]
+    ) -> np.ndarray | None:  # pragma: no cover - optional
         """Return embeddings for ``batch`` if available."""
         raise NotImplementedError
 
@@ -44,11 +47,43 @@ class _SimpleAdapter:
         """Return class probabilities for batch by delegating to wrapped model."""
         return np.asarray(self.model.predict_proba(batch))
 
-    def embed(self, batch: Sequence[str]) -> Optional[np.ndarray]:
+    def embed(self, batch: Sequence[str]) -> np.ndarray | None:
         """Return embeddings for batch if the wrapped model supports it."""
         if hasattr(self.model, "embed"):
             return np.asarray(self.model.embed(batch))
         return None
+
+
+class FeatureModelAdapter:
+    """Adapt a fitted feature-based classifier to accept protein sequences."""
+
+    def __init__(self, model: Any):
+        if not hasattr(model, "predict") or not hasattr(model, "predict_proba"):
+            raise TypeError("Feature model does not expose predict/predict_proba")
+        self.model = model
+
+    def prepare(self, batch: Sequence[str]) -> pd.DataFrame:
+        """Build one reusable feature matrix for a sequence batch."""
+        return build_feature_matrix(list(batch))
+
+    def predict(self, batch: Sequence[str]) -> np.ndarray:
+        """Featureize and predict class labels for a sequence batch."""
+        return np.asarray(self.model.predict(self.prepare(batch)))
+
+    def predict_proba(self, batch: Sequence[str]) -> np.ndarray:
+        """Featureize and predict class probabilities for a sequence batch."""
+        return np.asarray(self.model.predict_proba(self.prepare(batch)))
+
+    def embed(self, batch: Sequence[str]) -> np.ndarray | None:
+        """Return the engineered feature representation."""
+        return np.asarray(self.prepare(batch).to_numpy(), dtype=float)
+
+    @property
+    def classes(self) -> tuple[str, ...]:
+        """Return fitted class labels in probability-column order."""
+        estimator = getattr(self.model, "named_steps", {}).get("rf", self.model)
+        labels = getattr(estimator, "classes_", getattr(self.model, "classes_", ()))
+        return tuple(str(label) for label in labels)
 
 
 def load_adapter(model: Any) -> BaseModelAdapter:
@@ -65,4 +100,4 @@ def load_adapter(model: Any) -> BaseModelAdapter:
     raise TypeError("Model does not expose predict/predict_proba")
 
 
-__all__ = ["BaseModelAdapter", "load_adapter"]
+__all__ = ["BaseModelAdapter", "FeatureModelAdapter", "load_adapter"]
