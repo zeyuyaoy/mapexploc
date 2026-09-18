@@ -1,0 +1,103 @@
+{
+  "best_cv_score": 0.5681819578779644,
+  "best_params": {
+    "rf__max_depth": 24,
+    "rf__min_samples_leaf": 3,
+    "rf__n_estimators": 128
+  },
+  "comparisons": [
+    {
+      "mean_macro_f1": 0.5460323968850718,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.010651899737318005
+    },
+    {
+      "mean_macro_f1": 0.5435925011756195,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.01185336685145158
+    },
+    {
+      "mean_macro_f1": 0.5517936258370427,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.01831592294700799
+    },
+    {
+      "mean_macro_f1": 0.5468396494365594,
+      "params": {
+        "rf__max_depth": 12,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.020316063522041194
+    },
+    {
+      "mean_macro_f1": 0.5359859204613617,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.01310131104292176
+    },
+    {
+      "mean_macro_f1": 0.545604500700446,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 1,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.01564289142254725
+    },
+    {
+      "mean_macro_f1": 0.5681819578779644,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 128
+      },
+      "std_macro_f1": 0.021164574331328748
+    },
+    {
+      "mean_macro_f1": 0.5674403150243984,
+      "params": {
+        "rf__max_depth": 24,
+        "rf__min_samples_leaf": 3,
+        "rf__n_estimators": 256
+      },
+      "std_macro_f1": 0.021232384668459846
+    }
+  ],
+  "dataset_sha256": "56fb89f09b33ec32a0d1c443612840f77f49e8e6eb67621901663640124729a3",
+  "params_reproduced": true,
+  "recorded_cv_score": 0.5681819578779644,
+  "recorded_params": {
+    "rf__max_depth": 24,
+    "rf__min_samples_leaf": 3,
+    "rf__n_estimators": 128
+  },
+  "score_reproduced_at_1e_12": true,
+  "seconds": 25.864526082994416,
+  "software": {
+    "biopython": "1.88",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  },
+  "test_evaluated": false,
+  "train_rows": 1458
+}

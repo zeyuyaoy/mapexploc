@@ -1,0 +1,12 @@
+site_name: MAP-ExPLoc
+repo_url: https://github.com/zeyuyaoy/mapexploc
+nav:
+  - Methods and Evidence: index.md
+  - Reproduce and Extend: research-software.md
+plugins:
+  - search
+markdown_extensions:
+  - toc
+  - tables
+theme:
+  name: material

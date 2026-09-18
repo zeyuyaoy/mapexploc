@@ -1,17 +1,8 @@
-name: eslp
+name: mapexploc
 channels:
-  - bioconda
   - conda-forge
 dependencies:
-  - biopython
-  - cd-hit
-  - imbalanced-learn
-  - ipykernel
-  - ipywidgets
-  - matplotlib
-  - numpy=2.2
-  - pandas
-  - scikit-learn
-  - seaborn
-  - shap
-  - umap-learn
+  - python=3.12
+  - pip
+  - pip:
+      - -e .[dev,docs,plots]

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "artifact_path": "examples/models/human-baseline.joblib",
+  "model_id": "human-2026_03-56fb89f09b33",
+  "sha256": "cd8ecb31c3c177efcf136fa84791839c6ca185ce3525a77aae9155a87b062082"
+}

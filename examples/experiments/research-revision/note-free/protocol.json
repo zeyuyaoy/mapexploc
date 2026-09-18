@@ -1,0 +1,155 @@
+{
+  "candidates": [
+    {
+      "complexity": 0,
+      "family": "dummy",
+      "features": "length",
+      "id": "dummy"
+    },
+    {
+      "C": 1.0,
+      "complexity": 1,
+      "family": "logistic",
+      "features": "length",
+      "id": "length"
+    },
+    {
+      "C": 0.01,
+      "complexity": 2,
+      "family": "logistic",
+      "features": "global",
+      "id": "lr_global_0.01"
+    },
+    {
+      "C": 0.1,
+      "complexity": 2,
+      "family": "logistic",
+      "features": "global",
+      "id": "lr_global_0.1"
+    },
+    {
+      "C": 1.0,
+      "complexity": 2,
+      "family": "logistic",
+      "features": "global",
+      "id": "lr_global_1"
+    },
+    {
+      "C": 0.01,
+      "complexity": 3,
+      "family": "logistic",
+      "features": "terminal",
+      "id": "lr_terminal_0.01"
+    },
+    {
+      "C": 0.1,
+      "complexity": 3,
+      "family": "logistic",
+      "features": "terminal",
+      "id": "lr_terminal_0.1"
+    },
+    {
+      "C": 1.0,
+      "complexity": 3,
+      "family": "logistic",
+      "features": "terminal",
+      "id": "lr_terminal_1"
+    },
+    {
+      "C": 0.01,
+      "complexity": 4,
+      "family": "logistic",
+      "features": "full",
+      "id": "lr_full_0.01"
+    },
+    {
+      "C": 0.1,
+      "complexity": 4,
+      "family": "logistic",
+      "features": "full",
+      "id": "lr_full_0.1"
+    },
+    {
+      "C": 1.0,
+      "complexity": 4,
+      "family": "logistic",
+      "features": "full",
+      "id": "lr_full_1"
+    },
+    {
+      "complexity": 5,
+      "family": "rf",
+      "features": "global",
+      "id": "rf_global",
+      "params": {
+        "class_weight": "balanced",
+        "max_depth": 24,
+        "max_features": 0.5,
+        "min_samples_leaf": 3,
+        "n_estimators": 128
+      }
+    },
+    {
+      "complexity": 6,
+      "family": "rf",
+      "features": "terminal",
+      "id": "rf_terminal",
+      "params": {
+        "class_weight": "balanced",
+        "max_depth": 24,
+        "max_features": 0.5,
+        "min_samples_leaf": 3,
+        "n_estimators": 128
+      }
+    },
+    {
+      "complexity": 7,
+      "family": "rf",
+      "features": "full",
+      "id": "reference",
+      "params": {
+        "class_weight": "balanced",
+        "max_depth": 24,
+        "max_features": "sqrt",
+        "min_samples_leaf": 3,
+        "n_estimators": 128
+      }
+    },
+    {
+      "complexity": 8,
+      "family": "rf",
+      "features": "full",
+      "id": "rf_expanded",
+      "params": {
+        "class_weight": "balanced",
+        "max_depth": null,
+        "max_features": 0.5,
+        "min_samples_leaf": 1,
+        "n_estimators": 512
+      }
+    }
+  ],
+  "code_sha256": "c5abed42cb115aa029399a81a3031fd2516826998af07cef13d59fbd06cab147",
+  "cohort": "note_free",
+  "evaluation_status": "internal_development_only",
+  "grouping": "sequence",
+  "inner_folds": 3,
+  "jobs": 2,
+  "outer_folds": 3,
+  "protocol": 1,
+  "scipy": "1.18.1",
+  "seeds": [
+    20260918
+  ],
+  "software": {
+    "biopython": "1.88",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  },
+  "source": "/Users/zeyuyao/Documents/GitHub/mapexploc/examples/experiments/human-v2/dataset.csv",
+  "source_sha256": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a"
+}

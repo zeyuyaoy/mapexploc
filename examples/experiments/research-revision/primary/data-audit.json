@@ -1,0 +1,24 @@
+{
+  "analysis_groups": 1510,
+  "class_counts": {
+    "Cytoplasm": 316,
+    "Membrane": 406,
+    "Mitochondrion": 154,
+    "Nucleus": 677,
+    "Secreted": 188
+  },
+  "development_before_filter": 1741,
+  "development_rows": 1741,
+  "duplicate_accessions": 0,
+  "duplicate_sequences": 0,
+  "feature_missingness": 0,
+  "largest_analysis_group": 26,
+  "largest_sequence_group": 26,
+  "location_note_records": 313,
+  "mixed_label_groups": 9,
+  "research_feature_count": 463,
+  "reserved_overlap": 0,
+  "reserved_rows": 366,
+  "sequence_groups": 1510,
+  "source_rows": 2107
+}

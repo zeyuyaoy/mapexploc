@@ -1,4 +1,0 @@
-# SHAP analysis class figures are stored in separate repository
-# as there are simply too many files to track and they are not
-# needed for the main project functionality.
-shap_analysis/*/

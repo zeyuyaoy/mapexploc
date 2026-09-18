@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mapexploc"
+version = "0.1.0"
+description = "Explainable Subcellular Localization Predictor"
+readme = "README.md"
+authors = [{ name = "MAP-ExPLoc contributors" }]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.5.2",
+    "pandas>=3.0.5",
+    "scikit-learn>=1.9.0",
+    "pydantic>=2.13.5",
+    "pyyaml>=6.0.3",
+    "typer>=0.27.2",
+    "shap>=0.52.0",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.53.0",
+    "imbalanced-learn>=0.14.2",
+    "biopython>=1.88",
+    "joblib>=1.6.0",
+    "scipy>=1.18.1",
+    "threadpoolctl>=3.7.0",
+]
+
+[project.urls]
+Repository = "https://github.com/zeyuyaoy/mapexploc"
+
+[project.optional-dependencies]
+docs = ["mkdocs>=1.6.1,<2", "mkdocstrings[python]>=1.0.6", "mkdocs-material>=9.7.7"]
+dev = [
+    "build>=1.2",
+    "pytest>=9.1.1",
+    "black>=26.5.1",
+    "ruff>=0.16.8",
+    "mypy>=2.3.1",
+    "pre-commit>=4.6.2",
+    "types-pyyaml>=6.0.12.20260906",
+    "httpx2>=2.13.0",
+]
+plots = ["matplotlib>=3.11.2"]
+
+[project.scripts]
+mapexploc = "mapexploc.cli:main"
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.mypy]
+strict = true
+pretty = true
+packages = ["mapexploc"]
+
+[[tool.mypy.overrides]]
+module = [
+    "Bio.*",
+    "imblearn.*",
+    "joblib.*",
+    "matplotlib.*",
+    "pandas.*",
+    "shap.*",
+    "sklearn.*",
+    "scipy.*",
+    "threadpoolctl.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mapexploc = ["examples/*.csv", "examples/*.json", "examples/*.fasta", "examples/*.yml", "examples/*.txt"]

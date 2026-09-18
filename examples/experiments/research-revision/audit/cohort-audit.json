@@ -1,0 +1,112 @@
+{
+  "accepted_curated": 2107,
+  "class_counts": {
+    "Cytoplasm": 316,
+    "Membrane": 406,
+    "Mitochondrion": 154,
+    "Nucleus": 677,
+    "Secreted": 188
+  },
+  "combined_sequence_study_groups": 1248,
+  "dataset_sha256": "4950098b3496ea5ce4c62b3cf1c4c1ee06d93b4552bc0b770df321da6125b29a",
+  "development_before_filter": 1741,
+  "development_rows": 1741,
+  "duplicate_accessions": 0,
+  "duplicate_sequences": 0,
+  "exclusions": {
+    "accepted": 2107,
+    "conflicting_duplicate_sequences": 0,
+    "conflicting_locations": 1342,
+    "duplicate_sequences": 0,
+    "invalid_sequence": 4,
+    "isoform_or_product_specific": 664,
+    "no_experimental_location_evidence": 3763,
+    "no_location": 3089,
+    "over_class_cap": 0,
+    "unmapped_location": 9462
+  },
+  "expanded_source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "identical_source_snapshots": true,
+  "largest_combined_group": 89,
+  "largest_sequence_group": 26,
+  "largest_supporting_studies": [
+    [
+      "25838379",
+      51
+    ],
+    [
+      "28892042",
+      41
+    ],
+    [
+      "25278503",
+      38
+    ],
+    [
+      "23636399",
+      29
+    ],
+    [
+      "25593309",
+      14
+    ],
+    [
+      "28781166",
+      13
+    ],
+    [
+      "31429579",
+      13
+    ],
+    [
+      "28502770",
+      12
+    ],
+    [
+      "11564863",
+      11
+    ],
+    [
+      "28076346",
+      11
+    ]
+  ],
+  "length_summary": {
+    "25%": 257.0,
+    "50%": 419.0,
+    "75%": 675.0,
+    "count": 1741.0,
+    "max": 5654.0,
+    "mean": 548.6536473291212,
+    "min": 51.0,
+    "std": 497.72696558428026
+  },
+  "limitations": [
+    "No site, assay, tissue, gene or fragment-status fields in snapshot",
+    "Missing localization is not a negative label",
+    "Notes present does not mean labels are wrong; notes absent does not establish exclusive localization",
+    "Only accepted records form the homology graph; remote/domain/bridge links may remain"
+  ],
+  "location_note_records": 313,
+  "mixed_label_groups": 9,
+  "note_free_class_counts": {
+    "Cytoplasm": 257,
+    "Membrane": 328,
+    "Mitochondrion": 150,
+    "Nucleus": 536,
+    "Secreted": 157
+  },
+  "notes_present_class_counts": {
+    "Cytoplasm": 59,
+    "Membrane": 78,
+    "Mitochondrion": 4,
+    "Nucleus": 141,
+    "Secreted": 31
+  },
+  "original_source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "reserved_overlap": 0,
+  "reserved_rows": 366,
+  "sequence_groups": 1510,
+  "source_rows": 2107,
+  "supporting_studies_shared_with_reserved": 67
+}

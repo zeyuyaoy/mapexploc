@@ -1,0 +1,42 @@
+{
+  "attribution": "UniProt Consortium, UniProtKB/Swiss-Prot, CC BY 4.0 (https://www.uniprot.org/help/license)",
+  "class_cap": 500,
+  "class_counts": {
+    "Cytoplasm": 395,
+    "Membrane": 500,
+    "Mitochondrion": 193,
+    "Nucleus": 500,
+    "Secreted": 234
+  },
+  "dataset_sha256": "56fb89f09b33ec32a0d1c443612840f77f49e8e6eb67621901663640124729a3",
+  "exclusions": {
+    "accepted": 2107,
+    "conflicting_duplicate_sequences": 0,
+    "conflicting_locations": 1342,
+    "duplicate_sequences": 0,
+    "invalid_sequence": 4,
+    "isoform_or_product_specific": 664,
+    "no_experimental_location_evidence": 3763,
+    "no_location": 3089,
+    "over_class_cap": 285,
+    "unmapped_location": 9462
+  },
+  "limitations": "Human canonical proteins with one experimentally supported compartment only. Multilocalized, isoform-specific, unsupported and ambiguous annotations were excluded. Probabilities are uncalibrated; class-balanced curation does not represent natural prevalence. Sequence grouping at 30% identity and 80% bidirectional coverage does not exclude all remote or domain-level homology. SHAP describes engineered features, not biological causality.",
+  "mmseqs_version": "18-8cc5c",
+  "name": "MAP-ExPLoc human baseline",
+  "release": "2026_03",
+  "retrieved_at": "2026-09-18T04:45:40.032133+00:00",
+  "scope": "Reviewed human canonical proteins; single-compartment classification",
+  "seed": 42,
+  "source": "https://rest.uniprot.org/uniprotkb/stream?query=%28reviewed%3Atrue%29%20AND%20%28organism_id%3A9606%29&format=json&fields=accession,id,sequence,cc_subcellular_location,organism_id,reviewed",
+  "source_sha256": "14be5581ec2412c7da60889232c2b9922b98373ef5a76d1350c460054447e967",
+  "split": {
+    "bidirectional_coverage": 0.8,
+    "cross_partition_hits": 0,
+    "groups": 1568,
+    "identity": 0.3,
+    "test_count": 364,
+    "test_refitted": false,
+    "train_count": 1458
+  }
+}
