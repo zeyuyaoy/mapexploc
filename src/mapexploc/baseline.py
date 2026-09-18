@@ -479,10 +479,12 @@ def train_baseline(
         "artifact_sha256": checksum(output_model),
         "cv_results": cv_report,
     }
-    write_json(output_model.with_suffix(".report.json"), report)
     predictions = test[["accession", "label", "group"]].copy()
     predictions["prediction"] = predicted
     for index, label in enumerate(classes):
         predictions[f"probability_{label}"] = probabilities[:, index]
-    predictions.to_csv(output_model.with_suffix(".predictions.csv"), index=False)
+    predictions_path = output_model.with_suffix(".predictions.csv")
+    predictions.to_csv(predictions_path, index=False)
+    report["predictions_sha256"] = checksum(predictions_path)
+    write_json(output_model.with_suffix(".report.json"), report)
     return report

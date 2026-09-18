@@ -39,12 +39,23 @@ def verify_manifest(root: Path, name: str) -> None:
 def verify_assets(root: Path) -> None:
     default = json.loads(required_file(root, "config/default-model.json").read_text())
     verify_hash(required_file(root, default["artifact_path"]), default["sha256"])
-    for name in (
-        "examples/baseline/dataset.csv",
-        "examples/models/human-baseline.joblib",
-        "examples/models/human-baseline.predictions.csv",
-    ):
-        required_file(root, name)
+    baseline = json.loads(
+        required_file(root, "examples/baseline/manifest.json").read_text()
+    )
+    report = json.loads(
+        required_file(root, "examples/models/human-baseline.report.json").read_text()
+    )
+    dataset = required_file(root, "examples/baseline/dataset.csv")
+    verify_hash(dataset, baseline["dataset_sha256"])
+    verify_hash(dataset, report["dataset_sha256"])
+    verify_hash(
+        required_file(root, "examples/models/human-baseline.joblib"),
+        report["artifact_sha256"],
+    )
+    verify_hash(
+        required_file(root, "examples/models/human-baseline.predictions.csv"),
+        report["predictions_sha256"],
+    )
     study = required_file(
         root, "examples/experiments/research-revision/checksums.json"
     ).parent

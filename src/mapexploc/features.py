@@ -51,7 +51,11 @@ def normalize_protein_sequence(sequence: str) -> str:
 
 def _read_sequences(source: str | Path) -> tuple[list[str], list[str], bool]:
     path = Path(source)
-    if path.exists():
+    try:
+        exists = path.exists()
+    except (OSError, ValueError):
+        exists = False
+    if exists:
         if not path.is_file():
             raise ValueError(f"Sequence source is not a file: {path}")
         if path.suffix.lower() not in FASTA_SUFFIXES:

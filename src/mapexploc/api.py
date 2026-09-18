@@ -15,7 +15,12 @@ from .artifacts import ModelArtifactError, load_model_artifact
 from .default_model import resolve_default_model
 from .estimators import final_estimator
 from .explainers.shap import ShapExplainer
-from .features import AMINO_ACIDS, build_feature_matrix, normalize_protein_sequence
+from .features import (
+    AMINO_ACIDS,
+    FEATURE_NAMES,
+    build_feature_matrix,
+    normalize_protein_sequence,
+)
 from .report import (
     ClassProbability,
     ExplainResponse,
@@ -247,7 +252,12 @@ def create_app(
             key: value for key, value in runtime.metadata.items() if key in public_keys
         }
         return ModelResponse(
-            model_classes=labels, metadata_available=bool(metadata), metadata=metadata
+            model_classes=labels,
+            feature_count=(
+                len(FEATURE_NAMES) if isinstance(adapter, FeatureModelAdapter) else None
+            ),
+            metadata_available=bool(metadata),
+            metadata=metadata,
         )
 
     @service.post("/features", response_model=FeaturesResponse)

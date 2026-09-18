@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
@@ -114,6 +115,7 @@ def test_public_metadata_is_allowlisted_and_legacy_is_explicit(tmp_path: Path) -
     )
     client = TestClient(create_app(model_path=path))
     payload = client.get("/model").json()
+    assert payload["feature_count"] == 423
     assert payload["metadata"] == {"name": "Test fixture"}
     assert payload["metadata_available"] is True
     assert len(payload["model_classes"]) == 3
@@ -160,3 +162,24 @@ def test_batch_and_explanation_limits() -> None:
         client.post("/explain", json={"sequences": ["AAA"], "top_n": 26}).status_code
         == 422
     )
+
+
+@pytest.mark.parametrize("with_embed", [False, True])
+def test_sequence_native_model_has_no_engineered_feature_count(with_embed) -> None:
+    class SequenceModel:
+        classes_ = ["alpha"]
+
+        def predict(self, batch):
+            return np.array(["alpha"] * len(batch))
+
+        def predict_proba(self, batch):
+            return np.ones((len(batch), 1))
+
+    model = SequenceModel()
+    if with_embed:
+        model.embed = lambda batch: None
+    client = TestClient(create_app(model=model))
+    response = client.get("/model")
+    assert response.status_code == 200
+    assert response.json()["feature_count"] is None
+    assert client.post("/predict", json={"sequences": ["AAAA"]}).status_code == 200

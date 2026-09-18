@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from mapexploc.features import FEATURE_NAMES, build_feature_matrix
+from mapexploc.features import FEATURE_NAMES, MAX_SEQUENCE_LENGTH, build_feature_matrix
 from mapexploc.preprocessing import _clean_and_primary
 
 
@@ -58,3 +58,19 @@ def test_explicit_nonexperimental_location_is_not_promoted() -> None:
     assert (
         _clean_and_primary(["SUBCELLULAR LOCATION: Nucleus. {ECO:0000250}"]) == "Other"
     )
+
+
+def test_long_raw_sequence_reaches_sequence_validation() -> None:
+    frame = build_feature_matrix("A" * MAX_SEQUENCE_LENGTH)
+    assert frame.loc["seq_0", "length"] == MAX_SEQUENCE_LENGTH
+    with pytest.raises(ValueError, match="100,000-residue limit"):
+        build_feature_matrix("A" * (MAX_SEQUENCE_LENGTH + 1))
+
+
+@pytest.mark.parametrize("error", [OSError("probe failed"), ValueError("invalid path")])
+def test_path_probe_errors_allow_raw_sequences(monkeypatch, error) -> None:
+    def fail_exists(self):
+        raise error
+
+    monkeypatch.setattr(Path, "exists", fail_exists)
+    assert build_feature_matrix("AAAA").loc["seq_0", "length"] == 4

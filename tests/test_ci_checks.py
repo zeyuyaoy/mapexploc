@@ -33,6 +33,21 @@ def assets(tmp_path: Path) -> Path:
     (tmp_path / "config/default-model.json").write_text(
         json.dumps({"artifact_path": model, "sha256": digest(tmp_path / model)})
     )
+    dataset_hash = digest(tmp_path / "examples/baseline/dataset.csv")
+    (tmp_path / "examples/baseline/manifest.json").write_text(
+        json.dumps({"dataset_sha256": dataset_hash})
+    )
+    (tmp_path / "examples/models/human-baseline.report.json").write_text(
+        json.dumps(
+            {
+                "dataset_sha256": dataset_hash,
+                "artifact_sha256": digest(tmp_path / model),
+                "predictions_sha256": digest(
+                    tmp_path / "examples/models/human-baseline.predictions.csv"
+                ),
+            }
+        )
+    )
     study = tmp_path / "examples/experiments/research-revision"
     for run in ("primary", "study-groups", "note-free"):
         directory = study / run
@@ -74,6 +89,8 @@ def test_missing_required_asset_fails(assets: Path, name: str) -> None:
     "name",
     [
         "examples/models/human-baseline.joblib",
+        "examples/baseline/dataset.csv",
+        "examples/models/human-baseline.predictions.csv",
         "examples/experiments/research-revision/dataset.csv",
         "examples/experiments/research-revision/primary/result.json",
         "examples/experiments/research-revision/study-groups/complete.json",

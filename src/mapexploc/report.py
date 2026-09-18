@@ -95,6 +95,6 @@ class ModelResponse(BaseModel):
     """Public model provenance; never includes server filesystem paths."""
 
     model_classes: list[str]
-    feature_count: int = 423
+    feature_count: int | None = None
     metadata_available: bool
     metadata: dict[str, Any]

@@ -153,6 +153,8 @@ def test_baseline_trains_only_training_partition(
 
     monkeypatch.setattr(baseline, "GridSearchCV", SmallSearch)
     report = train_baseline(tmp_path, tmp_path / "model.joblib", jobs=1)
+    assert report["predictions_sha256"] == checksum(tmp_path / "model.predictions.csv")
+    assert json.loads((tmp_path / "model.report.json").read_text()) == report
     assert seen == [len(train)]
     assert report["sample_count"] == len(train)
     assert sum(

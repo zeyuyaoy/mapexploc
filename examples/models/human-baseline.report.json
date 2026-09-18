@@ -302,6 +302,7 @@
   "mmseqs_version": "18-8cc5c",
   "model_id": "human-2026_03-56fb89f09b33",
   "name": "MAP-ExPLoc human baseline",
+  "predictions_sha256": "3114d47c6a638dfa0190313aef762d11d34bc0ebebec6dce20a43f7e941ecf0d",
   "release": "2026_03",
   "retrieved_at": "2026-09-18T04:45:40.032133+00:00",
   "runtime": {
