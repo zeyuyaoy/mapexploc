@@ -153,10 +153,12 @@ export default function App() {
       if (
         prediction.results?.length !== records.length ||
         !Array.isArray(prediction.model_classes)
-      )
-        throw new Error(
+      ) {
+        setError(
           "The service returned an incomplete prediction. Please retry.",
         );
+        return;
+      }
       setAnalysis({
         records,
         prediction,
