@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -10,6 +9,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
+import json
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator

@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 import argparse
-import json
 import os
-import subprocess
 import tempfile
 import tomllib
 import venv
 from pathlib import Path
 
-# These are part of the installed package's documented offline interface.
+import json
+import subprocess
+
+# Required by the documented offline workflows.
 REQUIRED_EXAMPLES = {
     "ATTRIBUTION.txt",
     "human_examples.fasta",
@@ -121,7 +122,7 @@ def main() -> None:
         explanation = json.loads((output / "explanation.json").read_text())
         if not explanation:
             raise ValueError("Explanation output is empty")
-        # This separate distribution imports only documented public contracts.
+        # Test public contracts from a separate installed package.
         run(
             python,
             "-m",
@@ -166,8 +167,7 @@ def main() -> None:
         )
         if not (external_output / "report.html").is_file():
             raise ValueError("External adapter did not produce an HTML report")
-        # Keep the legacy gate, then exercise the same independently installed
-        # adapter through the versioned methodology/report contract.
+        # Test legacy and versioned reports with the same external adapter.
         analysis_config.write_text(
             json.dumps(
                 {

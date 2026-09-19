@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
-import json
 import selectors
-import subprocess
 import threading
 import weakref
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Literal
 
+import json
 import numpy as np
+import subprocess
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .contracts import AdapterDescriptor, validate_batch, validate_probabilities
@@ -53,11 +53,10 @@ _ACTIVE: weakref.ReferenceType[DeepLocAdapter] | None = None
 
 
 class DeepLocAdapter:
-    """Native preprocessing and weights stay entirely inside the persistent worker.
+    """Run native preprocessing and inference in a persistent worker.
 
-    Configuration is trusted operator input, never accepted from HTTP requests.
-    Use as a context manager or call close() when an analysis is finished.
-    """
+    Configuration is trusted operator input, never HTTP input.
+    Use a context manager or call close() after analysis."""
 
     def __init__(self, configuration: DeepLocConfiguration):
         self.configuration = configuration

@@ -22,7 +22,6 @@ def test_training_pipeline(tmp_path: Path) -> None:
 
     X = build_feature_matrix(df["sequence"])
 
-    # Construct param_grid from config
     param_grid: dict[str, list[Any]] = {
         "rf__n_estimators": [cfg.model.n_estimators],
         "rf__max_depth": [cfg.model.max_depth],

@@ -3,11 +3,9 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 import platform
 import shutil
-import subprocess
 import time
 import urllib.request
 from collections import Counter
@@ -17,8 +15,10 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
+import json
 import numpy as np
 import pandas as pd
+import subprocess
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedGroupKFold
@@ -37,8 +37,7 @@ SOURCE_URL = (
     "organism_id,reviewed"
 )
 CLASSES = ("Cytoplasm", "Membrane", "Mitochondrion", "Nucleus", "Secreted")
-# Deliberately explicit: generic membranes and organelle membranes are not plasma
-# membranes. Unmapped compartments are excluded, not silently collapsed.
+# Exclude unmapped compartments; do not treat all membranes as plasma membrane.
 LOCATION_MAP = {
     "Cytoplasm": "Cytoplasm",
     "Cytosol": "Cytoplasm",

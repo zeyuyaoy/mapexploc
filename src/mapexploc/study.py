@@ -60,8 +60,8 @@ def eligible_features(record: dict[str, Any]) -> dict[str, list[dict[str, Any]]]
         ):
             continue
         if feature["location"].get("sequence") not in (
-            None,
-            record["primaryAccession"],
+                None,
+                record["primaryAccession"],
         ):
             continue
         kind = feature["type"]
@@ -100,17 +100,17 @@ def eligible_features(record: dict[str, Any]) -> dict[str, list[dict[str, Any]]]
             and end == len(sequence)
         ):
             family = "er_retention"
-            motif = sequence[start - 1 : end]
+            motif = sequence[start - 1: end]
             subtype = (
                 "KDEL_like"
                 if motif.endswith(("KDEL", "HDEL", "RDEL"))
                 else (
                     "dilysine"
                     if len(motif) >= 4
-                    and (
-                        motif[-4:-2] == "KK"
-                        or (len(motif) >= 5 and motif[-5] == "K" and motif[-3] == "K")
-                    )
+                       and (
+                           motif[-4:-2] == "KK"
+                           or (len(motif) >= 5 and motif[-5] == "K" and motif[-3] == "K")
+                       )
                     else None
                 )
             )
@@ -139,8 +139,7 @@ def required_groups() -> int:
 
 
 def split_group(group: str, seed: int = 20260919) -> str:
-    # split before representative choice
-    # evaluation data never constructs references
+    # Split before choosing representatives; exclude evaluation data from references.
     bucket = (
         int.from_bytes(hashlib.sha256(f"{seed}:{group}".encode()).digest()[:4], "big")
         % 10
@@ -169,8 +168,8 @@ def audit_manifests(
             if pid in historical or group in set(historical.values()):
                 raise ValueError("Historical cohort groups must be excluded")
             for seen, key in (
-                (seen_groups, group),
-                (seen_sequences, member["sequence_sha256"]),
+                    (seen_groups, group),
+                    (seen_sequences, member["sequence_sha256"]),
             ):
                 if key in seen and seen[key] != split:
                     raise ValueError("Cross-split sequence/group leakage")

@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import json
 import logging
 from importlib.resources import files
 from pathlib import Path
 from typing import Any, NoReturn
 
+import json
 import typer
 
 from mapexploc.artifacts import load_model_artifact, save_model_artifact

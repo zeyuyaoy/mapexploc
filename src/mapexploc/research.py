@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import platform
 import time
 import warnings
@@ -17,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import joblib
+import json
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize_scalar
@@ -87,10 +87,10 @@ def candidates() -> list[dict[str, Any]]:
                 }
             )
     for name, feature, trees, depth, leaf, fraction, rank in (
-        ("rf_global", "global", 128, 24, 3, 0.5, 5),
-        ("rf_terminal", "terminal", 128, 24, 3, 0.5, 6),
-        ("reference", "full", 128, 24, 3, "sqrt", 7),
-        ("rf_expanded", "full", 512, None, 1, 0.5, 8),
+            ("rf_global", "global", 128, 24, 3, 0.5, 5),
+            ("rf_terminal", "terminal", 128, 24, 3, 0.5, 6),
+            ("reference", "full", 128, 24, 3, "sqrt", 7),
+            ("rf_expanded", "full", 512, None, 1, 0.5, 8),
     ):
         result.append(
             {
@@ -174,7 +174,7 @@ def temperature_scale(probabilities: np.ndarray, temperature: float) -> np.ndarr
 
 
 def fit_temperature(y: Any, probabilities: np.ndarray) -> float:
-    score(y, probabilities)  # Validate alignment and probabilities before optimizing.
+    score(y, probabilities)  # Validate alignment and probabilities before optimization.
     indices = np.array([list(CLASSES).index(label) for label in y])
 
     def loss(t: float) -> float:
@@ -202,8 +202,8 @@ def choose(results: list[dict[str, Any]]) -> dict[str, Any]:
         r
         for r in results
         if r["metrics"]["macro_f1"] >= top["macro_f1"] - 0.01
-        and r["metrics"]["log_loss"] <= top["log_loss"] + 0.02
-        and all(
+           and r["metrics"]["log_loss"] <= top["log_loss"] + 0.02
+           and all(
             r["metrics"]["classification_report"][c]["f1-score"]
             >= top["classification_report"][c]["f1-score"] - 0.05
             for c in CLASSES
@@ -464,7 +464,7 @@ def summarize(
     metrics = {name: score(labels, p) for name, p in arrays.items()}
     per_seed = {
         str(seed): {
-            name: score(frame.label, p[i * len(frame) : (i + 1) * len(frame)])
+            name: score(frame.label, p[i * len(frame): (i + 1) * len(frame)])
             for name, p in arrays.items()
         }
         for i, seed in enumerate(repeats)
@@ -489,7 +489,7 @@ def summarize(
         "location_note": frame.has_location_note.to_numpy(),
         "note_free": ~frame.has_location_note.to_numpy(),
         "sequence_singleton": frame.group.map(frame.group.value_counts()).to_numpy()
-        == 1,
+                              == 1,
     }
     subgroups = {}
     for name, mask in masks.items():
@@ -504,7 +504,7 @@ def summarize(
                 for m in ("selected", "reference", "calibrated")
             },
         }
-    # Equal total weight per independent group, as a sensitivity to large families.
+    # Weight groups equally to assess sensitivity to large families.
     _, inverse, counts = np.unique(group_rows, return_inverse=True, return_counts=True)
     weights = 1 / counts[inverse]
     from sklearn.metrics import f1_score
@@ -668,9 +668,9 @@ def run_research(
             predictions["calibrated"] = temperature_scale(
                 np.array(predictions[winner_id]), t
             ).tolist()
-            # Truncation stress is deliberately outside model selection.
+            # Keep truncation stress tests outside model selection.
             truncated = frame.sequence.iloc[valid].map(
-                lambda s: s[min(25, len(s) - 1) :]
+                lambda s: s[min(25, len(s) - 1):]
             )
             stress = score(
                 y[valid], fitted[winner_id].predict_proba(research_features(truncated))
@@ -697,7 +697,7 @@ def run_research(
                 flush=True,
             )
         report = summarize(frame, records, groups)
-        # Frozen full-development selection; outer outcomes never choose parameters.
+        # Select on development data only; never use outer-fold outcomes.
         final_splits = grouped_splits(y, groups, 3, seeds[0] + 100)
         futures = [
             pool.submit(inner_fit, c, x, y, final_splits, seeds[0]) for c in configs
@@ -823,7 +823,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # Keep serialized transformer functions importable in another Python process.
+    # Keep serialized transformers importable across processes.
     from mapexploc.research import main as entrypoint
 
     entrypoint()

@@ -4,9 +4,10 @@ No explanation files are accepted. Reruns validate an existing immutable bundle.
 """
 
 import argparse
+from pathlib import Path
+
 import json
 import subprocess
-from pathlib import Path
 
 from mapexploc.baseline import search_similar, similarity_groups
 from mapexploc.execution import atomic_json, fingerprint

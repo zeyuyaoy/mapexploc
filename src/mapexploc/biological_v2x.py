@@ -30,10 +30,10 @@ def interval_contrast(
             j
             for j, g in enumerate(local.features)
             if g.start is not None
-            and g.end is not None
-            and g.category == feature.category
-            and g.end - g.start == feature.end - feature.start
-            and not any(start < g.end and g.start < end for start, end in intervals)
+               and g.end is not None
+               and g.category == feature.category
+               and g.end - g.start == feature.end - feature.start
+               and not any(start < g.end and g.start < end for start, end in intervals)
         ]
         if not candidates:
             continue
@@ -112,8 +112,8 @@ def evaluate_family(
                     str(f.category)
                     for f in local.features
                     if f.start is not None
-                    and f.end is not None
-                    and any(a <= f.start and f.end <= b for a, b in intervals)
+                       and f.end is not None
+                       and any(a <= f.start and f.end <= b for a, b in intervals)
                 }
             )
         )
@@ -131,7 +131,7 @@ def evaluate_family(
         }
     matched = []
     for group in strata.values():
-        # Membership is fixed from coordinates before statistical effects are used.
+        # Fix membership from coordinates before examining effects.
         if len(group) < 2 or any(
             interval_contrast(local, ci, annotations[donor.protein.protein_id]) is None
             for local in group

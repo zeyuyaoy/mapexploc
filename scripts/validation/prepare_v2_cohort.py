@@ -6,11 +6,11 @@ substitute for the archived snapshot identified in the release manifest.
 
 import argparse
 import hashlib
-import json
-import subprocess
 from pathlib import Path
 
+import json
 import pandas as pd
+import subprocess
 
 from mapexploc.annotations import import_uniprot
 from mapexploc.baseline import search_similar, similarity_groups
@@ -45,9 +45,9 @@ def main():
                 and 20 <= (end.get("value") or 0) <= 40
                 and all(p.get("modifier", "EXACT") == "EXACT" for p in [start, end])
                 and any(
-                    e.get("evidenceCode") == "ECO:0000269"
-                    for e in feature.get("evidences", [])
-                )
+                e.get("evidenceCode") == "ECO:0000269"
+                for e in feature.get("evidences", [])
+            )
             ):
                 eligible.append(record)
                 break
@@ -104,7 +104,7 @@ def main():
                 release="snapshot-sha256:" + snapshot,
                 retrieved_at=args.retrieved_at,
                 source_url="https://rest.uniprot.org/uniprotkb/"
-                + record["primaryAccession"],
+                           + record["primaryAccession"],
             )
         )
     manifest = {
@@ -147,7 +147,7 @@ def main():
         accessions, sequences = set(frame.ACC), set(frame.Sequence)
         sources[name] = {
             "url": "https://services.healthtech.dtu.dk/services/DeepLoc-2.1/data/"
-            + url,
+                   + url,
             "sha256": file_sha256(path),
             "rows": len(frame),
             "matches": [

@@ -1,11 +1,11 @@
 """Exact, accession, global-homology and local-domain supervision audit."""
 
 import argparse
-import json
-import subprocess
 from pathlib import Path
 
+import json
 import pandas as pd
+import subprocess
 
 from mapexploc.baseline import search_similar
 from mapexploc.execution import atomic_json

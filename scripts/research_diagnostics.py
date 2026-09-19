@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import argparse
-import json
 import time
 from pathlib import Path
 
 import joblib
+import json
 import numpy as np
 import pandas as pd
 from threadpoolctl import threadpool_limits
@@ -110,12 +110,12 @@ def main() -> None:
                             "block": block,
                             "permutation": repeat,
                             "macro_f1_decrease": baseline["macro_f1"]
-                            - metrics["macro_f1"],
+                                                 - metrics["macro_f1"],
                             "log_loss_increase": metrics["log_loss"]
-                            - baseline["log_loss"],
+                                                 - baseline["log_loss"],
                         }
                     )
-            # Five negative controls on first repeat only; not a permutation p-value.
+            # Five first-repeat controls; these do not yield a permutation p-value.
             if fold["seed"] == SEEDS[0]:
                 for repeat in range(5):
                     shuffled = block_shuffle(y[train], groups[train], SEEDS[0] + repeat)
@@ -200,7 +200,7 @@ def main() -> None:
     errors = errors.sort_values(
         ["incorrect_repeats", "mean_confidence"], ascending=False
     )
-    # Exploratory class intervals, keeping repeat predictions in their group.
+    # Keep repeated predictions together when estimating class intervals.
     gt = selected_rows.label.map({c: i for i, c in enumerate(CLASSES)}).to_numpy()
     guessed = selected_rows.predicted.map(
         {c: i for i, c in enumerate(CLASSES)}

@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import re
 from pathlib import Path
+
+import json
 
 
 def required_file(root: Path, name: str) -> Path:
@@ -59,7 +60,7 @@ def verify_assets(root: Path) -> None:
     study = required_file(
         root, "examples/experiments/research-revision/checksums.json"
     ).parent
-    # Require these independently so removing manifest entries cannot skip a run.
+    # Require these files even if their manifest entries are removed.
     required_file(study, "dataset.csv")
     required_file(study, "final/model.joblib")
     verify_manifest(study, "checksums.json")

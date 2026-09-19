@@ -13,8 +13,8 @@ class MethodConfiguration(AnalysisConfiguration):
         "whole_shuffle"
     )
     region_strategy: Literal["legacy", "windows_10", "windows_5"] = "legacy"
-    reference_seed: int = Field(default=42, ge=0, le=2**32 - 1)
-    diagnostic_seed: int = Field(default=2026, ge=0, le=2**32 - 1)
+    reference_seed: int = Field(default=42, ge=0, le=2 ** 32 - 1)
+    diagnostic_seed: int = Field(default=2026, ge=0, le=2 ** 32 - 1)
     reference_pool: list[str] = Field(default_factory=list)
     reference_pool_id: str | None = None
     reference_sensitivity: bool = False

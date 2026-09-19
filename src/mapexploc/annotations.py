@@ -57,12 +57,10 @@ def import_uniprot(
     retrieved_at: str,
     source_url: str,
 ) -> list[Annotation]:
-    """Import a frozen UniProt JSON record; never fetch or infer an alignment.
+    """Import frozen UniProt annotations without fetching or aligning sequences.
 
-    Features with unknown endpoints have no drawable interval and are rejected.
-    Approximate numeric endpoints are retained and marked ineligible for exact
-    coordinate statistics. Unsupported feature types are outside this importer.
-    """
+    Reject unknown endpoints. Retain approximate numeric endpoints but exclude
+    them from exact-coordinate statistics. Ignore unsupported feature types."""
     sequence = normalize_protein_sequence(sequence)
     if record["sequence"]["value"] != sequence:
         raise ValueError("UniProt sequence/isoform does not exactly match input")

@@ -90,14 +90,14 @@ def engineered_definitions() -> list[FeatureDefinition]:
 def runtime_versions() -> dict[str, str]:
     versions = {"python": platform.python_version(), "platform": platform.platform()}
     for package in (
-        "mapexploc",
-        "numpy",
-        "scipy",
-        "pandas",
-        "shap",
-        "scikit-learn",
-        "pydantic",
-        "biopython",
+            "mapexploc",
+            "numpy",
+            "scipy",
+            "pandas",
+            "shap",
+            "scikit-learn",
+            "pydantic",
+            "biopython",
     ):
         try:
             versions[package] = version(package)
@@ -114,12 +114,11 @@ def run_analysis(
     *,
     execution: ExecutionOptions | None = None,
 ) -> AnalysisReport:
-    """Explain every supplied protein and every native class; never silently sample.
+    """Explain all supplied proteins and native classes without sampling.
 
-    A multi-protein run declares its cohort identity and selection in configuration.
-    Positional annotations and evaluation labels never enter model inference or
-    mask construction. Installed adapters need only the public adapter contract.
-    """
+    Cohort identity and selection belong in configuration. Annotations and
+    evaluation labels never enter inference or masking. Adapters need only
+    the public contract."""
     started = time.monotonic()
     adapter = load_adapter(adapter)
     config = (
@@ -225,8 +224,7 @@ def run_analysis(
             }
         else:
             data = explain_regions(prediction_adapter, protein.sequence, config)
-        # record residuals against the original served batch, including harmless
-        # floating-point differences between native batch shapes
+        # Include native batching differences in reconstruction residuals.
         data["residuals"] = (
             np.asarray(data["base_values"])
             + np.asarray(data["attributions"]).sum(axis=1)
@@ -329,7 +327,7 @@ def run_analysis(
                 peak_host_bytes=max(
                     (m.get("peak_host_bytes", 0) for m in measurements), default=0
                 )
-                or None,
+                                or None,
                 peak_scope=(
                     "worker_lifetime_high_water_mark"
                     if measurements
@@ -351,40 +349,40 @@ def run_analysis(
                 )
             ],
             structured_warnings=[
-                StructuredWarning(
-                    code="historical_biological_evidence",
-                    message=(
-                        "Historical 30-protein signal-peptide result: matched-null"
-                        " p=0.077922; one unstable sensitivity check. No stronger"
-                        " biological conclusion is established by software validation."
-                    ),
-                )
-            ]
-            + (
-                [
-                    StructuredWarning(
-                        code="development_method",
-                        message=(
-                            "This method profile is experimental; no replacement"
-                            " default has been qualified."
-                        ),
-                    )
-                ]
-                if config.method_profile == "v2x-development"
-                else []
-            )
-            + (
-                [
-                    StructuredWarning(
-                        code="small_cohort",
-                        message=(
-                            "Fewer than 20 independent groups; global summaries are"
-                            " exploratory."
-                        ),
-                    )
-                ]
-                if len({p.group or sequence_sha256(p.sequence) for p in records}) < 20
-                else []
-            ),
+                                    StructuredWarning(
+                                        code="historical_biological_evidence",
+                                        message=(
+                                            "Historical 30-protein signal-peptide result: matched-null"
+                                            " p=0.077922; one unstable sensitivity check. No stronger"
+                                            " biological conclusion is established by software validation."
+                                        ),
+                                    )
+                                ]
+                                + (
+                                    [
+                                        StructuredWarning(
+                                            code="development_method",
+                                            message=(
+                                                "This method profile is experimental; no replacement"
+                                                " default has been qualified."
+                                            ),
+                                        )
+                                    ]
+                                    if config.method_profile == "v2x-development"
+                                    else []
+                                )
+                                + (
+                                    [
+                                        StructuredWarning(
+                                            code="small_cohort",
+                                            message=(
+                                                "Fewer than 20 independent groups; global summaries are"
+                                                " exploratory."
+                                            ),
+                                        )
+                                    ]
+                                    if len({p.group or sequence_sha256(p.sequence) for p in records}) < 20
+                                    else []
+                                ),
         )
     return AnalysisReport(**payload)

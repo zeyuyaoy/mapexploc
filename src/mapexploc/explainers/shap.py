@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import json
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
@@ -96,7 +96,7 @@ class ShapExplainer:
             return data
         if isinstance(step, ColumnTransformer):
             parts = []
-            # fitted column selections also resolve callable selectors and remainder
+            # Fitted selections resolve callable selectors and remainder columns.
             for name, child, _ in step.transformers_:
                 indices = step._transformer_to_input_indices[name]
                 if not indices:
@@ -138,7 +138,7 @@ class ShapExplainer:
         for _, step in getattr(self.model, "steps", ()):
             if step is self.rf_model:
                 break
-            # training-only resamplers do not operate during inference
+            # Skip resamplers used only during training.
             from imblearn.base import BaseSampler
 
             if isinstance(step, BaseSampler):
@@ -150,8 +150,7 @@ class ShapExplainer:
     def _normalise_values(
         values: Any, n_samples: int, n_features: int, n_classes: int
     ) -> np.ndarray:
-        # the supported SHAP API returns output-last arrays or a legacy class list
-        # never infer output-first layout from coincidentally equal axis sizes
+        # Accept output-last arrays or class lists; equal axis sizes are ambiguous.
         if isinstance(values, list):
             if len(values) != n_classes or any(
                 np.asarray(v).shape != (n_samples, n_features) for v in values
@@ -194,7 +193,7 @@ class ShapExplainer:
         values = self._normalise_values(
             raw_values, len(transformed), transformed.shape[1], class_count
         )
-        # Reordered/selected transformed columns retain original biological identity.
+        # Preserve feature identity after selection or reordering.
         mapped_values = np.zeros((len(sampled), class_count, sampled.shape[1]))
         for i, name in enumerate(transformed.columns):
             mapped_values[:, :, sampled.columns.get_loc(name)] = values[:, :, i]
@@ -294,7 +293,7 @@ class ShapExplainer:
         random_state: int = 42,
     ) -> dict[str, Any]:
         """Generate the supported summary plot and return its SHAP values."""
-        del max_individual  # Kept for compatibility with the earlier public signature.
+        del max_individual  # Retain the legacy public signature.
         explanation = self.explain_sample(X_data, sample_size, random_state)
         self.plot_summary(explanation)
         return explanation

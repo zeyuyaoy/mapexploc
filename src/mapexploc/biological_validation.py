@@ -15,8 +15,8 @@ def _signal_intervals(local: LocalExplanation) -> list[tuple[int, int]]:
         (a.start, a.end)
         for a in local.annotations
         if a.kind == "signal_peptide"
-        and not a.uncertain
-        and any(e.get("evidenceCode") == "ECO:0000269" for e in a.evidence)
+           and not a.uncertain
+           and any(e.get("evidenceCode") == "ECO:0000269" for e in a.evidence)
     ]
 
 
@@ -92,7 +92,7 @@ def validate_signal_concordance(
                 }
             )
             continue
-        # Require all signals used in this protocol to start at the N terminus.
+        # This protocol requires N-terminal signals.
         if any(start != 0 for start, _ in intervals):
             exclusions.append(
                 {

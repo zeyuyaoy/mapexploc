@@ -8,7 +8,7 @@ from typing import Any
 
 logger = logging.getLogger(__name__)
 
-# Allowed localizations mapping (simplified terms)
+# Supported localization labels.
 ALLOWED_LOCS = {
     "Cytoplasm",
     "Endoplasmic Reticulum",
@@ -27,7 +27,7 @@ ALLOWED_LOCS = {
     "Other",
 }
 
-# Synonym mapping for localization normalization
+# Normalize localization synonyms.
 _SYNONYM_MAP = {
     "cell membrane": "Membrane",
     "plasma membrane": "Membrane",
@@ -87,11 +87,11 @@ def _clean_and_primary(subcell_locs: list[str]) -> str:
     if not text:
         return "Other"
 
-    # Skip multi-compartment entries
+    # Reject composite localization labels.
     if ";" in text or "," in text:
         return "Other"
 
-    # Skip entries with non-experimental evidence
+    # Reject explicit uncertainty even when an experimental code is present.
     skip_patterns = [
         "by similarity",
         "probable",
@@ -104,17 +104,14 @@ def _clean_and_primary(subcell_locs: list[str]) -> str:
     if any(pattern in text for pattern in skip_patterns):
         return "Other"
 
-    # Extract location name (before any parentheses or additional info)
+    # Remove parenthetical qualifiers.
     location = re.split(r"[({]", text)[0].strip().rstrip(".")
 
-    # Apply synonym mapping
     if location in _SYNONYM_MAP:
         location = _SYNONYM_MAP[location]
     else:
-        # Capitalize first letter of each word for consistency
         location = " ".join(word.capitalize() for word in location.split())
 
-    # Return if it's in allowed locations, otherwise 'Other'
     return location if location in ALLOWED_LOCS else "Other"
 
 
@@ -141,16 +138,13 @@ def extract_protein_data(dat_file_path: str) -> list[dict[str, Any]]:
 
     with open(dat_file_path, encoding="utf-8") as handle:
         for record in SwissProt.parse(handle):  # type: ignore[no-untyped-call]
-            # Extract subcellular localization
             subcell_locs = []
             for comment in record.comments:
                 if comment.startswith("SUBCELLULAR LOCATION"):
                     subcell_locs.append(comment)
 
-            # Clean and get primary localization
             primary_loc = _clean_and_primary(subcell_locs)
 
-            # Skip if no valid sequence or localization
             if not record.sequence or primary_loc == "Other":
                 continue
 

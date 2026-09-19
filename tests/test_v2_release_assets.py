@@ -1,8 +1,9 @@
 """Offline integrity of real-model evidence; no native checkpoint is needed."""
 
 import hashlib
-import json
 from pathlib import Path
+
+import json
 
 from mapexploc import AnalysisReport
 from mapexploc.biological_validation import validate_signal_concordance

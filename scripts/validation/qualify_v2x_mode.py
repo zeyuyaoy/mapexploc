@@ -1,13 +1,13 @@
 """Real native parity gate. Missing assets or hardware failures are failures."""
 
 import argparse
-import json
-import subprocess
 import time
 from pathlib import Path
 
+import json
 import numpy as np
 import pandas as pd
+import subprocess
 from Bio import SeqIO
 
 from mapexploc.contracts import class_decisions

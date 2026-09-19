@@ -5,11 +5,12 @@ are imported. The upstream CLI owns thresholds, fallback, ordering and converter
 """
 
 import argparse
-import json
 import os
 import sys
 from pathlib import Path
 from types import SimpleNamespace
+
+import json
 
 
 def main():
@@ -37,7 +38,7 @@ def main():
     import torch
 
     minimum = 20 if config.get("mode", "fast") == "accurate" else 8
-    if psutil.virtual_memory().available < minimum * 1024**3:
+    if psutil.virtual_memory().available < minimum * 1024 ** 3:
         raise MemoryError(
             f"Native oracle needs {minimum} GiB available for conservative cold-load"
             " qualification"

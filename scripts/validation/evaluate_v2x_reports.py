@@ -1,8 +1,9 @@
 """Untouched evaluation of frozen reports; never changes the selected method."""
 
 import argparse
-import json
 from pathlib import Path
+
+import json
 
 from mapexploc.biological_v2x import evaluate_family
 from mapexploc.execution import atomic_json, fingerprint

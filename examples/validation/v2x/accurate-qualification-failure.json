@@ -1,1 +1,6 @@
-{"elapsed_seconds": 12.072811083053239, "error": "RuntimeError: DeepLoc inference failed: MemoryError: Insufficient available host memory: 10.9 GiB; estimated allocation plus reserve 20.0 GiB. Close other workloads or use a larger explicitly selected device. No precision fallback.", "mode": "accurate", "status": "failed"}
+{
+  "elapsed_seconds": 12.072811083053239,
+  "error": "RuntimeError: DeepLoc inference failed: MemoryError: Insufficient available host memory: 10.9 GiB; estimated allocation plus reserve 20.0 GiB. Close other workloads or use a larger explicitly selected device. No precision fallback.",
+  "mode": "accurate",
+  "status": "failed"
+}

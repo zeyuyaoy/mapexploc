@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import io
-import json
 import os
 import platform
 import time
@@ -14,7 +12,9 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
+import io
 import joblib
+import json
 import numpy as np
 import pandas as pd
 from sklearn.dummy import DummyClassifier
@@ -121,8 +121,8 @@ def _validate_run(directory: Path) -> dict[str, Any]:
             "Run software or implementation changed; use a new run directory"
         )
     for field, filename in (
-        ("source_sha256", "source.json"),
-        ("headers_sha256", "source.headers"),
+            ("source_sha256", "source.json"),
+            ("headers_sha256", "source.headers"),
     ):
         if checksum(directory / filename) != config[field]:
             raise ValueError(f"Run input changed: {filename}")
@@ -153,7 +153,7 @@ def assign_partitions(
     frame.loc[frame["group"].isin(historical_groups), "split"] = "excluded_historical"
     eligible = frame.loc[
         ~frame["group"].isin(original_groups) & ~frame["accession"].isin(original_ids)
-    ]
+        ]
     counts = {c: int((eligible["label"] == c).sum()) for c in CLASSES}
     candidates: list[tuple[float, list[int]]] = []
     if all(counts[c] >= 20 for c in CLASSES) and eligible["group"].nunique() >= 5:
@@ -164,7 +164,7 @@ def assign_partitions(
                 development = frame.loc[
                     (frame["split"] == "development")
                     & ~frame["group"].isin(selected["group"])
-                ]
+                    ]
                 if set(development["label"]) == set(CLASSES):
                     candidates.append(
                         (
@@ -237,7 +237,7 @@ def prepare_experiment(
     )
     if fresh["accession"].duplicated().any():
         raise ValueError("Refreshed snapshot contains duplicate accessions")
-    # Preserve original structured location annotations as well as selected evidence.
+    # Retain original annotations alongside selected evidence.
     raw = read_json(directory / "source.json")["results"]
     annotations = {
         e["primaryAccession"]: [
@@ -289,9 +289,9 @@ def prepare_experiment(
     historical = original.loc[original["split"] == "test"].copy()
     audit_files = []
     for name, table in (
-        ("development", development),
-        ("confirmation", frame.loc[frame["split"] == "confirmation"]),
-        ("historical", historical),
+            ("development", development),
+            ("confirmation", frame.loc[frame["split"] == "confirmation"]),
+            ("historical", historical),
     ):
         write_fasta(
             table.rename(
@@ -389,8 +389,8 @@ def candidate_configurations() -> list[dict[str, Any]]:
     }
     candidates: list[dict[str, Any]] = []
     for family, weights in (
-        ("random_forest", [None, "balanced", "balanced_subsample"]),
-        ("extra_trees", [None, "balanced"]),
+            ("random_forest", [None, "balanced", "balanced_subsample"]),
+            ("extra_trees", [None, "balanced"]),
     ):
         sampled = ParameterSampler(
             {**grid, "class_weight": weights}, n_iter=24, random_state=42
@@ -730,11 +730,11 @@ def matched_runtime(
         model.predict_proba(features)
         explainers[name].explain_sample(one)
     for operation in (
-        "prediction_one_ms",
-        "prediction_batch_ms",
-        "shap_one_ms",
-        "end_to_end_one_ms",
-        "end_to_end_batch_ms",
+            "prediction_one_ms",
+            "prediction_batch_ms",
+            "shap_one_ms",
+            "end_to_end_one_ms",
+            "end_to_end_batch_ms",
     ):
         timings: dict[str, list[float]] = {name: [] for name in models}
         for iteration in range(5):
@@ -797,7 +797,7 @@ def evaluate_experiment(directory: Path) -> dict[str, Any]:
         Path(config["reference_root"]) / "examples/models/human-baseline.joblib"
     )
     reference = load_model_artifact(reference_path).model
-    # The reference artifact used multiple inference workers; compare at one worker.
+    # Use one inference worker for comparison with the reference artifact.
     reference.set_params(**{f"{reference.steps[-1][0]}__n_jobs": 1})
     features = build_feature_matrix(evaluation.sequence)
     probabilities = candidate.predict_proba(features)

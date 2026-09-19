@@ -92,7 +92,7 @@ def test_reference_invariants(strategy):
         assert all(Counter(r) == Counter(s) for r in a)
     if strategy == "block_shuffle":
         assert all(
-            Counter(r[i : i + 20]) == Counter(s[i : i + 20])
+            Counter(r[i: i + 20]) == Counter(s[i: i + 20])
             for r in a
             for i in range(0, len(s), 20)
         )

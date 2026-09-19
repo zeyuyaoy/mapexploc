@@ -6,12 +6,12 @@ and complete attributions against frozen reference reports.
 """
 
 import argparse
-import json
-import subprocess
 import sys
 from pathlib import Path
 
+import json
 import numpy as np
+import subprocess
 
 import mapexploc
 from mapexploc import AnalysisReport
@@ -26,8 +26,8 @@ def main():
     args = parser.parse_args()
     if (
         not Path(mapexploc.__file__)
-        .resolve()
-        .is_relative_to(Path(sys.prefix).resolve())
+            .resolve()
+            .is_relative_to(Path(sys.prefix).resolve())
     ):
         raise RuntimeError("This gate requires an installed wheel, not source imports")
     reference = AnalysisReport.model_validate_json(args.reference.read_text())

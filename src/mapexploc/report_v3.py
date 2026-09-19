@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import hashlib
 import html
-import json
 from pathlib import Path
 from typing import Any, Literal
 
+import json
 from pydantic import Field, model_validator
 
 from .methods import MethodConfiguration
@@ -127,9 +127,9 @@ class AnalysisReportV3(AnalysisReport):
                     "Report diagnostics disagree with local explanation evidence"
                 )
         for key, runtime_field in (
-            ("mode", "model_mode"),
-            ("embedding_model", "embedding_model"),
-            ("embedding_revision", "embedding_revision"),
+                ("mode", "model_mode"),
+                ("embedding_model", "embedding_model"),
+                ("embedding_revision", "embedding_revision"),
         ):
             if self.model.provenance.get(key) != getattr(self.runtime, runtime_field):
                 raise ValueError(
@@ -148,7 +148,7 @@ class AnalysisReportV3(AnalysisReport):
 
 
 def methodology_hash(configuration: MethodConfiguration) -> str:
-    # cohort identity and compute batching do not change the declared game
+    # Cohort identity and batching do not define the explanation game.
     parameters = configuration.model_dump(
         exclude={"cohort_id", "selection_criteria", "inference_batch_size"}
     )

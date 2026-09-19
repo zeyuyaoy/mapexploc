@@ -9,13 +9,13 @@ from typing import Any
 import numpy as np
 import shap
 
+from .shap import ShapExplainer
 from ..adapter import BaseModelAdapter, predict_probabilities
 from ..methods import MethodConfiguration
 from ..provenance import sequence_sha256
 from ..report_v2 import AnalysisConfiguration, FeatureDefinition
-from .shap import ShapExplainer
 
-_KERNEL_LOCK = threading.Lock()  # SHAP's coalition sampler uses numpy's global RNG
+_KERNEL_LOCK = threading.Lock()  # SHAP samples coalitions with NumPy's global RNG.
 REGION_POLICY = "terminal-50-by-10/interior-up-to-six/short-contiguous-10:v1"
 REFERENCE_POLICY = "mean-probability-over-fixed-whole-sequence-shuffles:v1"
 
@@ -37,8 +37,8 @@ def sequence_regions(length: int, strategy: str = "legacy") -> list[FeatureDefin
     elif length < 100:
         for start in range(0, length, 10):
             end = min(start + 10, length)
-            # short proteins have a separate category
-            # no double terminal counting
+            # Categorize short proteins separately.
+            # Do not count terminal regions twice.
             intervals.append((start, end, "short_sequence"))
     else:
         intervals += [(start, start + 10, "N_terminal") for start in range(0, 50, 10)]
@@ -138,14 +138,13 @@ class RegionGame:
         sequences: list[str] = []
         owners: list[tuple[int, ...]] = []
         for key in missing:
-            # the full coalition is exactly native inference
-            # not a repeated mean
+            # Use native inference directly for the full coalition.
             references = [self.sequence] if all(key) else self.references
             for reference in references:
                 sequences.append(
                     "".join(
                         (self.sequence if present else reference)[
-                            region.start : region.end
+                            region.start: region.end
                         ]
                         for region, present in zip(self.regions, key)
                     )
@@ -153,10 +152,10 @@ class RegionGame:
                 owners.append(key)
         totals: dict[tuple[int, ...], list[np.ndarray]] = {key: [] for key in missing}
         for start in range(0, len(sequences), self.batch_size):
-            batch = sequences[start : start + self.batch_size]
+            batch = sequences[start: start + self.batch_size]
             predictions = predict_probabilities(self.adapter, batch)
             self.evaluated_sequences += len(batch)
-            for key, value in zip(owners[start : start + self.batch_size], predictions):
+            for key, value in zip(owners[start: start + self.batch_size], predictions):
                 totals[key].append(value)
         for key, values in totals.items():
             self.cache[key] = np.mean(values, axis=0)
@@ -170,7 +169,7 @@ def _kernel(
     if (
         isinstance(game.configuration, MethodConfiguration)
         and regions > 1
-        and budget < min(2 * regions, 2**regions - 2)
+        and budget < min(2 * regions, 2 ** regions - 2)
     ):
         raise ValueError(
             "Coalition budget is insufficient for this region resolution; increase it"
@@ -185,7 +184,7 @@ def _kernel(
             )
             values = explainer.shap_values(
                 np.ones((1, regions)),
-                nsamples=min(budget, 2**regions - 2),
+                nsamples=min(budget, 2 ** regions - 2),
                 l1_reg=0,
                 silent=True,
             )
@@ -232,7 +231,7 @@ def explain_regions(
     }
     if configuration.stability_checks and not exact:
         repeated, _, _ = _kernel(
-            game, (seed + 1) % 2**32, configuration.coalition_budget
+            game, (seed + 1) % 2 ** 32, configuration.coalition_budget
         )
         doubled, _, _ = _kernel(game, seed, configuration.coalition_budget * 2)
         delta = float(
@@ -244,7 +243,7 @@ def explain_regions(
             ),
             "max_absolute_delta": delta,
             "tolerance": configuration.stability_tolerance,
-            "repeat_seed": (seed + 1) % 2**32,
+            "repeat_seed": (seed + 1) % 2 ** 32,
             "doubled_budget": configuration.coalition_budget * 2,
             "repeated_attributions": repeated.tolist(),
             "doubled_attributions": doubled.tolist(),
@@ -257,7 +256,7 @@ def explain_regions(
         comparisons = []
         if configuration.stability_checks:
             repeated, _, _ = _kernel(
-                game, (seed + 1) % 2**32, configuration.coalition_budget
+                game, (seed + 1) % 2 ** 32, configuration.coalition_budget
             )
             doubled, _, _ = _kernel(game, seed, configuration.coalition_budget * 2)
             comparisons += attribution_agreement(
@@ -273,7 +272,7 @@ def explain_regions(
                 else "reference_seed"
             )
             alternate = configuration.model_copy(
-                update={field: (getattr(configuration, field) + 1) % 2**32}
+                update={field: (getattr(configuration, field) + 1) % 2 ** 32}
             )
             other = RegionGame(adapter, sequence, alternate)
             varied, _, _ = _kernel(other, seed, configuration.coalition_budget)
@@ -351,7 +350,7 @@ def explain_regions(
             "reference_policy": (
                 REFERENCE_POLICY
                 if getattr(configuration, "reference_strategy", "whole_shuffle")
-                == "whole_shuffle"
+                   == "whole_shuffle"
                 else getattr(configuration, "reference_strategy") + ":v1"
             ),
             "references": [

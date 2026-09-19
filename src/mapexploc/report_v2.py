@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import csv
 import html
-import json
 from pathlib import Path
 from typing import Any, Literal
 
+import json
 import numpy as np
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -36,7 +36,7 @@ class Protein(Record):
 
 class AnalysisConfiguration(Record):
     explainer: Literal["auto", "tree", "region_kernel"] = "auto"
-    seed: int = Field(default=42, ge=0, le=2**32 - 1)
+    seed: int = Field(default=42, ge=0, le=2 ** 32 - 1)
     references: int = Field(default=4, ge=1, le=32)
     coalition_budget: int = Field(default=512, ge=32)
     inference_batch_size: int = Field(default=16, ge=1, le=1024)
@@ -89,8 +89,7 @@ class LocalExplanation(Record):
     explained_classes: list[str]
     features: list[FeatureDefinition]
     feature_values: list[float]
-    # explicit class-major axes: [class][feature]
-    # never truncated
+    # Full attributions in [class][feature] order.
     attributions: list[list[float]]
     base_values: list[float]
     residuals: list[float]
@@ -192,7 +191,7 @@ def aggregate_cohort(
                 )
                 within.setdefault(key, []).append(value)
             for key, values in within.items():
-                # Equal protein weight; region count is separately disclosed.
+                # Weight proteins equally and report region counts separately.
                 collected.setdefault(key, []).append(
                     (
                         float(np.mean(np.abs(values))),
@@ -262,8 +261,8 @@ class AnalysisReport(Record):
                 )
             if (
                 not self.model.min_length
-                <= len(local.protein.sequence)
-                <= self.model.max_length
+                    <= len(local.protein.sequence)
+                    <= self.model.max_length
             ):
                 raise ValueError("Protein length is outside the adapter contract")
         policies = {
@@ -271,11 +270,11 @@ class AnalysisReport(Record):
                 {
                     k: r.explainer.get(k)
                     for k in (
-                        "method",
-                        "output_space",
-                        "reference_policy",
-                        "region_policy",
-                    )
+                    "method",
+                    "output_space",
+                    "reference_policy",
+                    "region_policy",
+                )
                 },
                 sort_keys=True,
             )
@@ -288,7 +287,7 @@ class AnalysisReport(Record):
             raise ValueError(
                 "Cohort summary does not reproduce from the complete local results"
             )
-        # Metadata must also be portable strict JSON, including nested fields.
+        # Validate nested metadata as strict JSON too.
         json.dumps(self.model_dump(mode="json"), allow_nan=False)
         return self
 

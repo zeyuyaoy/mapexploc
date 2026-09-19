@@ -8,7 +8,6 @@ import contextlib
 import gc
 import hashlib
 import importlib.metadata
-import json
 import os
 import pickle
 import platform
@@ -18,6 +17,8 @@ import time
 from pathlib import Path
 from typing import Any
 from unittest.mock import patch
+
+import json
 
 CLASSES = [
     "Cytoplasm",
@@ -94,7 +95,7 @@ def inspect(configuration: dict[str, Any]) -> dict[str, Any]:
             )
     assets = {}
     for path in sorted((root / "DeepLoc2").rglob("*")):
-        # preserve the original fast fingerprint byte for byte
+        # Preserve the historical Fast fingerprint.
         include = (
             "models_prott5" not in str(path)
             if mode == "fast"
@@ -239,9 +240,9 @@ def check_resources(
     if device != "cpu" and device != "mps" and not device.startswith("cuda"):
         raise ValueError("Device must be cpu, mps or cuda[:index]")
     accurate = configuration.get("mode", "fast") == "accurate"
-    # conservative allocation estimates
-    reserve = 2 * 1024**3
-    allocation = (18 if accurate else 6) * 1024**3 if loading else 0
+    # Conservative memory estimates.
+    reserve = 2 * 1024 ** 3
+    allocation = (18 if accurate else 6) * 1024 ** 3 if loading else 0
     allocation += batch_size * (32 if accurate else 20) * (length + 2) ** 2 * 4 * 4
     free = available_memory()
     if free < allocation + reserve:
@@ -254,9 +255,9 @@ def check_resources(
     if device.startswith("cuda"):
         gpu_free, _ = torch.cuda.mem_get_info(device)
         required = (
-            (6 if accurate else 3) * 1024**3
+            (6 if accurate else 3) * 1024 ** 3
             + allocation
-            - ((18 if accurate else 6) * 1024**3 if loading else 0)
+            - ((18 if accurate else 6) * 1024 ** 3 if loading else 0)
         )
         if gpu_free < required:
             raise MemoryError(
@@ -347,7 +348,7 @@ def main() -> None:
                 with torch.inference_mode():
                     batch_size = configuration.get("batch_size", 8)
                     for start in range(0, len(sequences), batch_size):
-                        batch = sequences[start : start + batch_size]
+                        batch = sequences[start: start + batch_size]
                         check_resources(
                             configuration,
                             length=max(map(len, batch)),
@@ -380,7 +381,7 @@ def main() -> None:
             )
         except Exception as exc:
             print(json.dumps({"error": f"{type(exc).__name__}: {exc}"}), flush=True)
-            return  # failed native workers are never reused
+            return  # Never reuse a failed native worker.
 
 
 if __name__ == "__main__":

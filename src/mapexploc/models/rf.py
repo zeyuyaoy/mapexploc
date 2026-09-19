@@ -25,22 +25,10 @@ def train_random_forest(
     random_state: int = 42,
     groups: pd.Series | np.ndarray | None = None,
 ) -> dict[str, Any]:
-    """Train Random Forest classifier with hyperparameter tuning and class balancing.
+    """Tune a Random Forest with optional within-fold SMOTE.
 
-    Args:
-        X_train: Training features
-        y_train: Training labels
-        param_grid: Parameter grid for randomized search
-        cv: Number of cross-validation folds
-        scoring: Scoring metric
-        n_jobs: Number of parallel jobs
-        use_smote: Whether to use SMOTE for class balancing
-        random_state: Random state for reproducibility
-        groups: Homology groups; omission is for exploratory/workflow use only
-
-    Returns:
-        Dictionary containing trained model, best parameters, and evaluation results
-    """
+    Supply homology groups for scientific evaluation; ungrouped runs are
+    exploratory. Returns the fitted model, parameters and validation results."""
     try:
         from imblearn.over_sampling import SMOTE
         from imblearn.pipeline import Pipeline as ImbPipeline
@@ -95,8 +83,7 @@ def train_random_forest(
         logger.warning(
             "Ungrouped CV cannot establish generalization to unrelated proteins"
         )
-    # SMOTE runs inside each fold, so size its neighborhood for the smallest
-    # expected training fold rather than for the complete dataset.
+    # Size SMOTE neighborhoods for the smallest expected training fold.
     min_fold_class_size = int(min_class_size * (cv - 1) / cv) if cv > 1 else 0
     if splits is not None:
         min_fold_class_size = min(
@@ -109,7 +96,6 @@ def train_random_forest(
         )
         use_smote = False
 
-    # Create pipeline with optional SMOTE and scaling
     steps: list[tuple[str, Any]] = [("scaler", StandardScaler())]
     if use_smote:
         steps.append(
@@ -150,10 +136,7 @@ def train_random_forest(
             "search": None,
         }
 
-    # Randomized search with stratified cross-validation
     cv_splitter = StratifiedKFold(n_splits=cv, shuffle=True, random_state=random_state)
-
-    # Adjust n_iter if grid size is smaller to avoid warnings
     grid_size = len(ParameterGrid(param_grid))
     n_iter = min(20, grid_size)
 
@@ -177,7 +160,6 @@ def train_random_forest(
     logger.info("Best Random Forest parameters: %s", search.best_params_)
     logger.info("Best CV %s score: %.4f", scoring, search.best_score_)
 
-    # Convert results to list of dictionaries
     cv_results = []
     for i in range(len(search.cv_results_["mean_test_score"])):
         result = {}
@@ -185,7 +167,6 @@ def train_random_forest(
             result[key] = values[i]
         cv_results.append(result)
 
-    # Return dictionary with all results
     return {
         "model": search.best_estimator_,
         "best_params": search.best_params_,

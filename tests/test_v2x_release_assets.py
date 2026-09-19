@@ -1,8 +1,9 @@
 """Offline integrity and reproducibility of the explicitly partial v2.x bundle."""
 
 import hashlib
-import json
 from pathlib import Path
+
+import json
 
 from mapexploc import load_report
 from mapexploc.study import audit_manifests, eligible_features

@@ -42,11 +42,10 @@ def save_model_artifact(
     *,
     metadata: Mapping[str, Any] | None = None,
 ) -> None:
-    """Save a model with an explicit feature-schema version.
+    """Save a pickle-based model with its feature-schema version.
 
-    Model artifacts are pickle-based and must only be exchanged between trusted
-    parties. The API never accepts an artifact path from an HTTP request.
-    """
+    Exchange artifacts only with trusted parties. HTTP requests cannot
+    supply artifact paths."""
 
     payload = {
         "kind": ARTIFACT_KIND,

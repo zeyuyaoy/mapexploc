@@ -26,12 +26,7 @@ FASTA_SUFFIXES = {".fa", ".faa", ".fasta", ".fna"}
 
 
 def normalize_protein_sequence(sequence: str) -> str:
-    """Normalize and validate one unambiguous protein sequence.
-
-    Whitespace and FASTA-style line wrapping are accepted. Ambiguous residues are
-    rejected rather than silently discarded because changing the sequence would
-    make both the prediction and its explanation misleading.
-    """
+    """Normalize whitespace and case; reject empty or ambiguous sequences."""
 
     if not isinstance(sequence, str):
         raise TypeError("Protein sequences must be strings")
@@ -79,12 +74,10 @@ def build_feature_matrix(
     sequences: str | Path | Sequence[str] | pd.Series,
     annotations: str | Path | pd.DataFrame | None = None,
 ) -> pd.DataFrame:
-    """Build the fixed 423-column feature matrix used by MAP-ExPLoc.
+    """Build 423 features from a sequence, FASTA path or sequence batch.
 
-    ``sequences`` may be a raw sequence, a FASTA path, or a batch of sequences.
-    FASTA annotations are joined by a recognized identifier column when one is
-    present; otherwise same-length annotations are joined positionally.
-    """
+    Join FASTA metadata by a recognized identifier column, or positionally
+    when row counts match and no identifier column is present."""
 
     from_fasta = False
     if isinstance(sequences, (str, Path)):
@@ -150,7 +143,7 @@ def _extract_features(sequence: str) -> dict[str, Any]:
     sequence = normalize_protein_sequence(sequence)
     length = len(sequence)
     residue_counts = Counter(sequence)
-    pair_counts = Counter(sequence[index : index + 2] for index in range(length - 1))
+    pair_counts = Counter(sequence[index: index + 2] for index in range(length - 1))
     pair_total = max(length - 1, 1)
     analyser = ProteinAnalysis(sequence)  # type: ignore[no-untyped-call]
 

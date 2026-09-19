@@ -97,8 +97,7 @@ def classification_metrics(
         "classification_report": report,
         "confusion_matrix": matrix.tolist(),
         "classes": classes,
-        # Calculate true-class loss directly: sklearn log_loss sorts labels,
-        # irrespective of a caller's probability-column ordering.
+        # Compute loss directly because sklearn log_loss sorts class labels.
         "log_loss": float(-np.log(np.clip(prob[one_hot], 1e-15, 1)).mean()),
         "multiclass_brier": float(np.square(prob - one_hot).sum(axis=1).mean()),
         "top_label_ece_10_bins": expected_calibration_error(
@@ -151,12 +150,10 @@ def expected_calibration_error(
 
 
 def aopc(scores: Sequence[float]) -> float:
-    """Mean of precomputed reference-minus-perturbed score drops.
+    """Average signed reference-minus-perturbed score drops (discrete AOPC).
 
-    This is the discrete AOPC convention for equally weighted perturbation steps.
-    Callers must supply signed drops, not raw probabilities or arbitrary outputs.
-    This function neither constructs perturbations nor establishes faithfulness.
-    """
+    Steps have equal weight. Inputs must be score differences, not raw
+    probabilities. This helper does not test perturbation faithfulness."""
     scores_array = np.asarray(scores, dtype=float)
     if (
         scores_array.ndim != 1
