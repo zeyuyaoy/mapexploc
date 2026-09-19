@@ -5,9 +5,7 @@ MAP-ExPLoc is a model-agnostic framework for explaining sequence-based protein-l
 Supported workflows include a human Random Forest and native **DeepLoc 2.1 Fast**, which has passed native prediction parity checks. A separate **63-feature logistic-regression model** was selected through grouped internal validation for human annotation prediction.
 
 > [!NOTE]
-> This project won
-> the [2025 ISCB YBS Student Challenge](https://www.iscb.org/ybs2025/programme-agenda/student-challenge)
-> at [ISMB/ECCB 2025](https://www.iscb.org/ismbeccb2025/home).
+> This project won the [2025 ISCB YBS Student Challenge](https://www.iscb.org/ybs2025/whats-happening/student-challenge) at [ISMB/ECCB 2025](https://www.iscb.org/ismbeccb2025/home).
 
 #### Features
 
