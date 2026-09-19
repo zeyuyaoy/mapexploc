@@ -10,10 +10,15 @@ export default defineConfig({
   },
   server: {
     proxy: Object.fromEntries(
-      ["/health", "/model", "/features", "/predict", "/explain"].map((path) => [
-        path,
-        apiTarget,
-      ]),
+      [
+        "/health",
+        "/model",
+        "/features",
+        "/predict",
+        "/explain",
+        "/v2",
+        "/v3",
+      ].map((path) => [path, apiTarget]),
     ),
   },
 });

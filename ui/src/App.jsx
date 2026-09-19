@@ -9,11 +9,21 @@ import {
 } from "./analysis";
 import { request } from "./api";
 import examples from "./examples.json";
+import ReportViewer from "./components/ReportViewer";
+import NativeWorkflow from "./components/NativeWorkflow";
+import {
+  validateReport,
+  verifySequenceHashes,
+  readReportText,
+} from "./reports";
 
 const TABS = ["Prediction", "Sequence", "Explanation"];
 const DOCS = "https://github.com/zeyuyaoy/mapexploc/blob/main/docs/index.md";
 
 export default function App() {
+  const [report, setReport] = useState(null);
+  const [reportError, setReportError] = useState("");
+  const reportInput = useRef(null);
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("single");
   const [step, setStep] = useState("entry");
@@ -80,6 +90,51 @@ export default function App() {
       });
     return () => controller.abort();
   }, [analysis, selected, tab, step, retry, explanations]);
+
+  async function importReport(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      if (file.size > 100_000_000)
+        throw new Error("Choose a report smaller than 100 MB.");
+      const loaded = readReportText(await file.text());
+      await verifySequenceHashes(loaded);
+      cancel();
+      setReport(loaded);
+      setReportError("");
+      setStep("report");
+    } catch (issue) {
+      setReportError(issue.message);
+    }
+    event.target.value = "";
+  }
+
+  async function completeReport() {
+    setDetailLoading(true);
+    try {
+      const result = await request("/v2/analyze", {
+        body: {
+          proteins: analysis.records.map((r) => ({
+            protein_id: r.id,
+            sequence: r.sequence,
+          })),
+          configuration: {
+            cohort_id:
+              analysis.records.length > 1 ? "interactive-cohort" : null,
+            selection_criteria:
+              "All proteins submitted in this interactive session",
+          },
+        },
+      });
+      setReport(validateReport(result));
+      setReportError("");
+      setStep("report");
+    } catch (issue) {
+      setReportError(issue.message);
+    } finally {
+      setDetailLoading(false);
+    }
+  }
 
   function cancel() {
     generation.current += 1;
@@ -268,7 +323,30 @@ export default function App() {
           MAP-<span>ExPLoc</span>
         </a>
         <nav aria-label="Main navigation">
-          {step === "results" && (
+          <button
+            className="text-button"
+            onClick={() => {
+              cancel();
+              setStep("native");
+            }}
+          >
+            DeepLoc Fast / Accurate
+          </button>
+          <input
+            ref={reportInput}
+            className="sr-only"
+            type="file"
+            accept=".json,application/json"
+            aria-label="Import complete explanation report"
+            onChange={importReport}
+          />
+          <button
+            className="text-button"
+            onClick={() => reportInput.current?.click()}
+          >
+            Import report
+          </button>
+          {step !== "entry" && (
             <button
               className="text-button"
               onClick={() => {
@@ -288,7 +366,16 @@ export default function App() {
         id="main"
         className={step === "entry" ? "entry-main" : "results-main"}
       >
-        {step === "entry" ? (
+        {reportError && (
+          <p role="alert" className="error">
+            {reportError}
+          </p>
+        )}
+        {step === "native" ? (
+          <NativeWorkflow onBack={() => setStep("entry")} />
+        ) : step === "report" && report ? (
+          <ReportViewer key={report.created_at} report={report} />
+        ) : step === "entry" ? (
           <>
             <div className="intro">
               <h1 ref={title} tabIndex="-1">
@@ -410,6 +497,9 @@ export default function App() {
                 <h1 ref={title} tabIndex="-1">
                   Your analysis
                 </h1>
+                <button disabled={detailLoading} onClick={completeReport}>
+                  Generate complete report
+                </button>
                 <details className="export-menu">
                   <summary>
                     Export <span aria-hidden="true">⌄</span>

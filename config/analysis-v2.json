@@ -1,0 +1,11 @@
+{
+  "explainer": "auto",
+  "seed": 42,
+  "references": 4,
+  "coalition_budget": 512,
+  "inference_batch_size": 16,
+  "stability_checks": false,
+  "stability_tolerance": 0.02,
+  "cohort_id": "declared-cohort",
+  "selection_criteria": "Replace with the actual input cohort selection criteria"
+}

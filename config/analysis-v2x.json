@@ -1,0 +1,13 @@
+{
+  "method_profile": "v2x-legacy",
+  "explainer": "auto",
+  "seed": 42,
+  "references": 4,
+  "coalition_budget": 512,
+  "stability_checks": true,
+  "reference_sensitivity": true,
+  "faithfulness": true,
+  "diagnostic_seed": 20260919,
+  "cohort_id": "user-declared-cohort",
+  "selection_criteria": "All supplied proteins; replace with actual scientific selection criteria"
+}

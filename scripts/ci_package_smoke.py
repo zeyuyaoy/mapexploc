@@ -121,7 +121,102 @@ def main() -> None:
         explanation = json.loads((output / "explanation.json").read_text())
         if not explanation:
             raise ValueError("Explanation output is empty")
-    print("Installed wheel: resources, version, train, predict and explain passed.")
+        # This separate distribution imports only documented public contracts.
+        run(
+            python,
+            "-m",
+            "pip",
+            "install",
+            repository / "examples/adapters/sequence_fixture",
+        )
+        fasta = work / "external.fasta"
+        fasta.write_text(
+            ">outside-control\nLLLLLLLLLLACDEFGHIKMACDEFGHIKM\n"
+            ">inside-control\nAAAAAAAAAALLLLLLLLLLACDEFGHIKM\n"
+        )
+        adapter_config = work / "adapter.json"
+        adapter_config.write_text("{}")
+        analysis_config = work / "analysis.json"
+        analysis_config.write_text(json.dumps({"cohort_id": "installed-fixture"}))
+        external_output = work / "external-report"
+        run(
+            cli,
+            "analyze",
+            "--adapter",
+            "sequence_fixture",
+            "--adapter-config",
+            adapter_config,
+            "--fasta",
+            fasta,
+            "--configuration",
+            analysis_config,
+            "--output-dir",
+            external_output,
+        )
+        run(
+            python,
+            "-I",
+            "-c",
+            "from mapexploc import AnalysisReport; from pathlib import Path; "
+            "import sys; "
+            "r=AnalysisReport.model_validate_json(Path(sys.argv[1]).read_text()); "
+            "assert len(r.results)==2 and r.cohort.included_count==2; "
+            "assert r.results[0].explainer['method']=='region_kernel'",
+            external_output / "report.json",
+        )
+        if not (external_output / "report.html").is_file():
+            raise ValueError("External adapter did not produce an HTML report")
+        # Keep the legacy gate, then exercise the same independently installed
+        # adapter through the versioned methodology/report contract.
+        analysis_config.write_text(
+            json.dumps(
+                {
+                    "cohort_id": "installed-fixture-v3",
+                    "method_profile": "v2x-legacy",
+                    "stability_checks": True,
+                    "reference_sensitivity": True,
+                    "faithfulness": True,
+                }
+            )
+        )
+        modern_output = work / "external-report-v3"
+        run(
+            cli,
+            "analyze",
+            "--adapter",
+            "sequence_fixture",
+            "--adapter-config",
+            adapter_config,
+            "--fasta",
+            fasta,
+            "--configuration",
+            analysis_config,
+            "--output-dir",
+            modern_output,
+        )
+        run(
+            python,
+            "-I",
+            "-c",
+            "from mapexploc import load_report; from pathlib import Path; import sys;"
+            " r=load_report(Path(sys.argv[1])); assert r.schema_version==3 and"
+            " len(r.global_statistics)>0 and len(r.diagnostics)==2",
+            modern_output / "report.json",
+        )
+        run(
+            cli,
+            "compare",
+            "--left",
+            external_output / "report.json",
+            "--right",
+            modern_output / "report.json",
+            "--output",
+            work / "comparison.json",
+        )
+    print(
+        "Installed wheel: resources, train, predict, explain "
+        "and external adapter analyze passed."
+    )
 
 
 if __name__ == "__main__":

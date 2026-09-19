@@ -160,3 +160,89 @@ test("cancellation and explanation failure preserve the working analysis", async
     .click();
   await expect(page.getByText(/What influenced/)).toBeVisible();
 });
+
+test("complete report import, class/filter identity, overlays and unchanged export", async ({
+  page,
+}) => {
+  const fixture = JSON.parse(
+    await readFile(
+      new URL("../src/test-fixtures/report-v2.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  await page.goto("/");
+  await page
+    .getByLabel("Import complete explanation report", { exact: true })
+    .setInputFiles({
+      name: "report.json",
+      mimeType: "application/json",
+      buffer: Buffer.from(JSON.stringify(fixture)),
+    });
+  await expect(
+    page.getByRole("heading", { name: "Explanation report", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByLabel("Protein", { exact: true })
+    .selectOption("outside-control");
+  await page
+    .getByRole("button", { name: "Protein order: A–Z", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "outside-control", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByLabel("Explained class", { exact: true })
+    .selectOption("inside");
+  await expect(
+    page.getByRole("heading", {
+      name: "Signed contributions for inside",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByText("Annotation provenance", { exact: true }).click();
+  await expect(page.getByText(/Synthetic UI fixture 1/)).toBeVisible();
+  await page
+    .getByLabel("Localization filter", { exact: true })
+    .selectOption("inside");
+  await expect(
+    page.getByRole("heading", { name: "inside-control", exact: true }),
+  ).toBeVisible();
+  const downloadPromise = page.waitForEvent("download");
+  await page
+    .getByRole("button", { name: "Export complete JSON", exact: true })
+    .click();
+  const downloaded = await downloadPromise;
+  expect(JSON.parse(await readFile(await downloaded.path(), "utf8"))).toEqual(
+    fixture,
+  );
+  await page.getByLabel("View", { exact: true }).selectOption("Global cohort");
+  await expect(page.getByText(/2 included \/ 2 supplied/)).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth <=
+        document.documentElement.clientWidth,
+    ),
+  ).toBe(true);
+});
+
+test("live backend produces a complete all-class report", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("textbox").fill("MALWMRLLPLLALLALWGPDPAAA");
+  await page
+    .getByRole("button", { name: "Analyze sequences", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Generate complete report", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Explanation report", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByLabel("Explained class", { exact: true }).locator("option"),
+  ).toHaveCount(5);
+  await expect(
+    page.getByText(/^Method: tree\. Approximation: exact_tree_algorithm/),
+  ).toBeVisible();
+});

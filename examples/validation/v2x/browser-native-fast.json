@@ -1,0 +1,147 @@
+{
+  "status": "passed",
+  "native_prediction": {
+    "schema_version": 2,
+    "model": {
+      "contract_version": 1,
+      "model_id": "DeepLoc-2.1-Fast",
+      "classes": [
+        "Cytoplasm",
+        "Nucleus",
+        "Extracellular",
+        "Cell membrane",
+        "Mitochondrion",
+        "Plastid",
+        "Endoplasmic reticulum",
+        "Lysosome/Vacuole",
+        "Golgi apparatus",
+        "Peroxisome"
+      ],
+      "task_type": "multilabel",
+      "preprocessing_id": "DeepLoc2.1:ESM1b:BatchConverter:native-no-truncation",
+      "min_length": 10,
+      "max_length": 1022,
+      "thresholds": [
+        0.46953125,
+        0.52753906,
+        0.64638672,
+        0.52368164,
+        0.63730469,
+        0.65859375,
+        0.62783203,
+        0.56484375,
+        0.66777344,
+        0.71679688
+      ],
+      "threshold_comparison": "greater",
+      "empty_decision_policy": "nearest_threshold",
+      "fallback_round_decimals": 4,
+      "capabilities": [
+        "region_kernel"
+      ],
+      "checkpoint_sha256": "ba3a9c18d199581c2efa47737fd4035eb92782e32c3a80232da22f60d659c7fe",
+      "provenance": {
+        "upstream": "https://services.healthtech.dtu.dk/services/DeepLoc-2.1/",
+        "upstream_version": "2.1",
+        "mode": "fast",
+        "embedding_model": "ESM1b",
+        "embedding_revision": "esm1b_t33_650M_UR50S",
+        "assets": {
+          "DeepLoc2/__init__.py": "1fcedff8dd9c9ad9908c4e0324963d820026a3be065ca12c5d1e850a9cc20247",
+          "DeepLoc2/attr_prior.py": "82c317458b572d9b6fed32a7b06a5dbbe2581ac6f75ef6c942999dda2192a5f5",
+          "DeepLoc2/data.py": "db603fba0fa66a483c794ca51e8319e441b5fe6bfbea1d2dfa73eab92c566c3d",
+          "DeepLoc2/deeploc2.py": "026fc1c88e70f86fdf74c1870574ceb74832d8d429daf2e320aeab3365622ef5",
+          "DeepLoc2/model.py": "c24e826542eb2741bb056db23847534354900794672ce390ee383c048846cd40",
+          "DeepLoc2/models/ESM1b_alphabet.pkl": "5ffcd1a7b7672bd1e775b7cb91ed311715c42b8f7e6ab2dc65da86b249e1fc60",
+          "DeepLoc2/models/ProtT5_alphabet.pkl": "6a8be11d182948c34d3d6d8cad8ba9562f3b4c08ef7f948426215b76f4d86df8",
+          "DeepLoc2/models/models_esm1b/0_1Layer.ckpt": "0011472fe99b87c842a93139ddad15021c4f4c54db05c0e71931868b8678e087",
+          "DeepLoc2/models/models_esm1b/0_1Layer_memtype.ckpt": "7a5eec5aef3444b299b69d2d5bf0600472be1366bf88644d79cff05d5ecbc797",
+          "DeepLoc2/models/models_esm1b/1_1Layer.ckpt": "0cc1ecf0022cc6fa99f2b0949471cf2f254e69dd0ce46cb38dea263e5efb9050",
+          "DeepLoc2/models/models_esm1b/1_1Layer_memtype.ckpt": "38183e29110aca7edd39d876d1f91dfb3ed4f2b3bc8393b698e5b2a33badf99f",
+          "DeepLoc2/models/models_esm1b/2_1Layer.ckpt": "b9e4b9b25c6d9ea72cac25728c99c9a1be89b03c158d84d5dc1813b0239b3908",
+          "DeepLoc2/models/models_esm1b/2_1Layer_memtype.ckpt": "8e970a8478b8ae2f7a7b6f56b15828aed27f64a65d8a69b0aa5e8ebafd401759",
+          "DeepLoc2/models/models_esm1b/3_1Layer.ckpt": "c8de6cbd99632d4014955662237cabc10ac95bb1b835ec00d9cb32784aa18295",
+          "DeepLoc2/models/models_esm1b/3_1Layer_memtype.ckpt": "0e3620dc4569f56703182bb4aa38890b83541f8591f7af50f012a3d7fc4d1abb",
+          "DeepLoc2/models/models_esm1b/4_1Layer.ckpt": "d8e28e4d626f48d1fff7622c1927948288a552c868898c8599dbbc19128ec18b",
+          "DeepLoc2/models/models_esm1b/4_1Layer_memtype.ckpt": "9f2af73ee8b7aabbdf23f18148b9e7163fe990d66eeaba64775f5c5017684961",
+          "DeepLoc2/models/models_esm1b/signaltype/0.ckpt": "b00bf57478b4f16dc6d6df21e5a6bd29261e5373a2d0d78e93d05433231622f2",
+          "DeepLoc2/models/models_esm1b/signaltype/1.ckpt": "89ee03f8cb25fcb75c0635bbea42466706843fa1f366eb0c964453b1524997b6",
+          "DeepLoc2/models/models_esm1b/signaltype/2.ckpt": "650c1784377e4392cbdb1ca08df9871b486107d3cfa704153cf67e1b742031dd",
+          "DeepLoc2/models/models_esm1b/signaltype/3.ckpt": "cac97eb5c2ffdeb9cac08da3d74d19b87b7563d62993d3156b2327806db29b0d",
+          "DeepLoc2/models/models_esm1b/signaltype/4.ckpt": "4d28e6d29a438dc6860d1c188b816530baa7a44a98266dca80a1c4a30bea39ee",
+          "DeepLoc2/utils.py": "f5e8c03bbf547d82a584ee30a7bc40b3260493e69f043d3d5a00588235030eeb",
+          "esm1b_t33_650M_UR50S-contact-regression.pt": "77193a8814f0db0b36a03aebb1a311adc6b4745f463c04839defc15407bbb28a",
+          "esm1b_t33_650M_UR50S.pt": "0569754efaff7dcb7e068c27367bc73f10afb4b450ea30aac30d9bc60783a8b1"
+        },
+        "device": "mps",
+        "precision": "float32",
+        "threads": 4,
+        "native_seed": 42,
+        "platform": "macOS-27.0-arm64-arm-64bit",
+        "machine": "arm64",
+        "adapter_runtime_sha256": "fb935e2613623c817b7b26cab6bf130d0f481591ced879d54b40db4fa8adf0ea",
+        "numerical_environment": {
+          "PYTORCH_MPS_FAST_MATH": null,
+          "PYTORCH_ENABLE_MPS_FALLBACK": null,
+          "NVIDIA_TF32_OVERRIDE": null
+        },
+        "batching_policy": "native_batch_8",
+        "runtime": {
+          "python": "3.11.15",
+          "torch": "2.5.1",
+          "pytorch-lightning": "2.4.0",
+          "fair-esm": "2.0.0",
+          "numpy": "1.26.4",
+          "transformers": "4.44.2"
+        },
+        "output_mapping": "Native ensemble sigmoid localization output columns 1:11; internal column 0 omitted. Full precision; native CSV rounds to four decimals.",
+        "decision_policy": "Native strict thresholds; if none selected, final argsort of four-decimal-rounded probability minus threshold.",
+        "license": "User-provided licensed standalone package; not redistributed"
+      }
+    },
+    "results": [
+      {
+        "protein": {
+          "protein_id": "native-ui",
+          "sequence": "ACDEFGHIKLMNPQRSTVWY",
+          "group": null,
+          "split": null,
+          "evaluation_labels": []
+        },
+        "probabilities": [
+          0.49519190192222595,
+          0.40631723403930664,
+          0.2640117108821869,
+          0.24107742309570312,
+          0.6305785775184631,
+          0.025822926312685013,
+          0.21632683277130127,
+          0.290985107421875,
+          0.21523523330688477,
+          0.02265075221657753
+        ],
+        "decisions": [
+          "Cytoplasm"
+        ]
+      }
+    ]
+  },
+  "exported_specification": {
+    "schema_version": 1,
+    "adapter": "deeploc2",
+    "mode": "fast",
+    "expected_model_id": "DeepLoc-2.1-Fast",
+    "expected_checkpoint_sha256": "ba3a9c18d199581c2efa47737fd4035eb92782e32c3a80232da22f60d659c7fe",
+    "configuration": {
+      "method_profile": "v2x-legacy",
+      "explainer": "region_kernel",
+      "seed": 42,
+      "references": 4,
+      "coalition_budget": 512,
+      "cohort_id": null,
+      "selection_criteria": "All proteins in the exported FASTA; no sampling"
+    }
+  },
+  "resident_readiness_verified": true,
+  "unavailable_controls_verified": true
+}

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "mapexploc-sequence-fixture"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = ["mapexploc"]
+[project.entry-points."mapexploc.adapters"]
+sequence_fixture = "mapexploc_fixture:factory"
+[tool.setuptools.packages.find]
+where = ["src"]

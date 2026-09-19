@@ -1,0 +1,14 @@
+{
+  "rf": {
+    "schema": 3,
+    "reconstruction_max_absolute_error": 2.7755575615628914e-16,
+    "proteins": 2,
+    "status": "passed"
+  },
+  "fixture": {
+    "schema": 3,
+    "reconstruction_max_absolute_error": 2.7755575615628914e-17,
+    "proteins": 2,
+    "status": "passed"
+  }
+}

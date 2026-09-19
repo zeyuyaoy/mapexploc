@@ -1,0 +1,15 @@
+# Exact core direct dependency versions used for v2 release validation.
+numpy==2.5.2
+pandas==3.0.5
+scikit-learn==1.9.0
+pydantic==2.13.5
+pyyaml==6.0.3
+typer==0.27.2
+shap==0.52.0
+fastapi==0.141.1
+uvicorn==0.53.0
+imbalanced-learn==0.14.2
+biopython==1.88
+joblib==1.6.0
+scipy==1.18.1
+threadpoolctl==3.7.0

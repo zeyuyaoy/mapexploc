@@ -99,6 +99,9 @@ export function analysisJson(analysis, explanations) {
   return JSON.stringify(
     {
       schema_version: 1,
+      status: "partial_interactive_session",
+      explained_protein_count: Object.keys(explanations).length,
+      requested_protein_count: analysis.records.length,
       analyzed_at: analysis.createdAt,
       records: analysis.records,
       predictions: analysis.prediction,

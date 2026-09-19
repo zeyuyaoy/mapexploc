@@ -1,0 +1,42 @@
+{
+  "python": {
+    "command": "PYTHONPATH=src .venv/bin/python -m pytest",
+    "passed": 125
+  },
+  "frontend_unit": {
+    "command": "pnpm --dir ui test",
+    "passed": 15
+  },
+  "browser": {
+    "command": "MAPEXPLOC_UI_URL=http://127.0.0.1:5179 pnpm --dir ui test:e2e",
+    "passed": 5
+  },
+  "static": [
+    "black --check",
+    "ruff check",
+    "mypy src (32 source files)",
+    "pnpm --dir ui check",
+    "mkdocs build --strict",
+    "scripts/ci_verify_assets.py",
+    "git diff --check"
+  ],
+  "installed_wheel_smoke": {
+    "command": "scripts/ci_package_smoke.py artifacts/v2-dist",
+    "status": "passed",
+    "external_adapter": "separate sequence_fixture distribution, importing public interfaces"
+  },
+  "manual_browser": [
+    "Import real 30-protein DeepLoc report",
+    "Select proteins and all-class explanations",
+    "Inspect annotation tracks and source evidence",
+    "Inspect class-specific full cohort summaries",
+    "390-pixel viewport with no horizontal page overflow"
+  ],
+  "scope": "Local validation on macOS ARM64. Not a claim that remote CI or other native platforms have run.",
+  "validated_at": "2026-09-19T00:24:16.551038+00:00",
+  "wheel_sha256": "36366b154ce055182cc13c306b1bb14a282461093086dbcc2ff9cfc05ca94a89",
+  "environment_lock_sha256": {
+    "mapexploc-runtime.lock": "7945312cd22dc4be2458ddbe921fe213d5e08f856f713620ce8d4dafaebcadf4",
+    "deeploc-worker.lock": "42f2a39173559747ce0b34b20c814394fceff65de24b19c83453953704b8b86d"
+  }
+}

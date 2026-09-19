@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "scope": "Full saved-snapshot recuration and MMseqs grouping repeated independently",
+  "checksums_equal": true,
+  "source_sha256": "078faa7d87ebe93f16f8dc88d7f910b7279b3550bf4a7710d9df2cbdbccd9f69"
+}

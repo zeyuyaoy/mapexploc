@@ -1,0 +1,1274 @@
+[
+  {
+    "annotation_id": "A0A0F7YYX3:0",
+    "protein_id": "A0A0F7YYX3",
+    "sequence_sha256": "fec4b1ea635c34887085bf2d9cad340359e834689556b8364e8742fab77a270e",
+    "accession": "A0A0F7YYX3",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 25,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A0F7YYX3",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "26301480"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 25,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A0F7YYX3:1",
+    "protein_id": "A0A0F7YYX3",
+    "sequence_sha256": "fec4b1ea635c34887085bf2d9cad340359e834689556b8364e8742fab77a270e",
+    "accession": "A0A0F7YYX3",
+    "isoform": null,
+    "kind": "domain",
+    "start": 49,
+    "end": 90,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A0F7YYX3",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU00124"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 50,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 90,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "LDL-receptor class A"
+  },
+  {
+    "annotation_id": "A0A0F7YZQ7:0",
+    "protein_id": "A0A0F7YZQ7",
+    "sequence_sha256": "570ff2c0f1806af1fc0232f0da01437c4975cc74b18ae68f0bc51b4f21b3e614",
+    "accession": "A0A0F7YZQ7",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A0F7YZQ7",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "26301480"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A161AT60:0",
+    "protein_id": "A0A161AT60",
+    "sequence_sha256": "219506257c1dc7184775cafee84aed18ab3e748ecbbe8290021e6bdcef83d3eb",
+    "accession": "A0A161AT60",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 25,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A161AT60",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "27137920"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 25,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A4P9I8G4:0",
+    "protein_id": "A0A4P9I8G4",
+    "sequence_sha256": "5a73ad018603c4b5da8318a57e82b3215873d95e8a22eb06ef41dbb8751c2ded",
+    "accession": "A0A4P9I8G4",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 20,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A4P9I8G4",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "31932718"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 20,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A5C2A2T2:0",
+    "protein_id": "A0A5C2A2T2",
+    "sequence_sha256": "728b1086b4951185a9d67ca4cd2a2d69adf9562b555aa12de670934e58e9be3c",
+    "accession": "A0A5C2A2T2",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A5C2A2T2",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "30765458"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A7E5WTY7:0",
+    "protein_id": "A0A7E5WTY7",
+    "sequence_sha256": "6951a393937ed2f8a306687c51b8359ed2fccf94569f2808160f9e81fc9b1cd8",
+    "accession": "A0A7E5WTY7",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 20,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A7E5WTY7",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "15896348"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 20,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A0A7E5WTY7:1",
+    "protein_id": "A0A7E5WTY7",
+    "sequence_sha256": "6951a393937ed2f8a306687c51b8359ed2fccf94569f2808160f9e81fc9b1cd8",
+    "accession": "A0A7E5WTY7",
+    "isoform": null,
+    "kind": "domain",
+    "start": 34,
+    "end": 191,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A0A7E5WTY7",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU00085"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 35,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 191,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "Ferritin-like diiron"
+  },
+  {
+    "annotation_id": "A2AJB7:0",
+    "protein_id": "A2AJB7",
+    "sequence_sha256": "9d06d705d69203c97223051210092aa83326901ff6ce205eab14cc491597a607",
+    "accession": "A2AJB7",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 26,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A2AJB7",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "1591332"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 26,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A4LAR6:0",
+    "protein_id": "A4LAR6",
+    "sequence_sha256": "bed0bd830f9fae9ab1fbdee8449f912a31c93cb5793df526d8cdfd7571a871db",
+    "accession": "A4LAR6",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A4LAR6",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "18524922"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A5HAK0:0",
+    "protein_id": "A5HAK0",
+    "sequence_sha256": "54a376dc0ef86012704c295aeba700964a2a09ad74c54908e6febe67ce7767a4",
+    "accession": "A5HAK0",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 22,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A5HAK0",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "18508078"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 22,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A6MEY4:0",
+    "protein_id": "A6MEY4",
+    "sequence_sha256": "968de752418872dc3c841815dbfb399707f8537a261d672038cb1fc0b4b70f06",
+    "accession": "A6MEY4",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 27,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A6MEY4",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "17383773"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 27,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "A8CL69:0",
+    "protein_id": "A8CL69",
+    "sequence_sha256": "71a25c78776de79feead4d5f7580141628d87f8eec60bfc0cf20ac1e9845de49",
+    "accession": "A8CL69",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 33,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/A8CL69",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "17068263"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 33,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "B0CPC6:0",
+    "protein_id": "B0CPC6",
+    "sequence_sha256": "8a66606b918756f9c36ef3e89e6b00fc0b9c901ba70872912ea42b7c23b3385d",
+    "accession": "B0CPC6",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 21,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/B0CPC6",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "31932718"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 21,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "B1P0S1:0",
+    "protein_id": "B1P0S1",
+    "sequence_sha256": "4faeec9e6dc4bdd19bafb981b05879d8a218bd8ca4a3bb45e29dc85e2e5d651a",
+    "accession": "B1P0S1",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 23,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/B1P0S1",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "15716269"
+      },
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "18225917"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 23,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "B2KNH9:0",
+    "protein_id": "B2KNH9",
+    "sequence_sha256": "1e8e7176908c258e4ef21f03187b45bca7702401e6b44e8102a0ef5eeac2505b",
+    "accession": "B2KNH9",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/B2KNH9",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "19495769"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "B2KNH9:1",
+    "protein_id": "B2KNH9",
+    "sequence_sha256": "1e8e7176908c258e4ef21f03187b45bca7702401e6b44e8102a0ef5eeac2505b",
+    "accession": "B2KNH9",
+    "isoform": null,
+    "kind": "domain",
+    "start": 24,
+    "end": 138,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/B2KNH9",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU00038"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 25,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 138,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "Bulb-type lectin"
+  },
+  {
+    "annotation_id": "C0HKG0:0",
+    "protein_id": "C0HKG0",
+    "sequence_sha256": "5b06e3bb45cf55eebf83257419238a6b1925d895d07167ffda9de846d5409bc3",
+    "accession": "C0HKG0",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 25,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C0HKG0",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "21596752"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 25,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "C0K3N1:0",
+    "protein_id": "C0K3N1",
+    "sequence_sha256": "773ab1c94658c29a4efa25dfb9c34079c01d1b30b74f8389e8d2265870f97c99",
+    "accession": "C0K3N1",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C0K3N1",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "19208624"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "C6JUN9:0",
+    "protein_id": "C6JUN9",
+    "sequence_sha256": "8fc78b985e16640af3997b57ea565df22ca0dc1d38afa25fe02b56409d5b7537",
+    "accession": "C6JUN9",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 23,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C6JUN9",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "21515432"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 23,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "C6JUN9:1",
+    "protein_id": "C6JUN9",
+    "sequence_sha256": "8fc78b985e16640af3997b57ea565df22ca0dc1d38afa25fe02b56409d5b7537",
+    "accession": "C6JUN9",
+    "isoform": null,
+    "kind": "domain",
+    "start": 32,
+    "end": 155,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C6JUN9",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU00040"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 33,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 155,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "C-type lectin"
+  },
+  {
+    "annotation_id": "C6JUN9:2",
+    "protein_id": "C6JUN9",
+    "sequence_sha256": "8fc78b985e16640af3997b57ea565df22ca0dc1d38afa25fe02b56409d5b7537",
+    "accession": "C6JUN9",
+    "isoform": null,
+    "kind": "motif",
+    "start": 118,
+    "end": 121,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C6JUN9",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000250"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 119,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 121,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "Mannose-binding"
+  },
+  {
+    "annotation_id": "C9K4X8:0",
+    "protein_id": "C9K4X8",
+    "sequence_sha256": "3198d0782ac14485f213fb76407eee21d3a44bbcf8beb0f7d9369daba88a5691",
+    "accession": "C9K4X8",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 29,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/C9K4X8",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "19470645"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 29,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "D4A540:0",
+    "protein_id": "D4A540",
+    "sequence_sha256": "2a2b373ac592eeb01f5dde7c4d030647df2f73a881c92b290559f20e3eb3e418",
+    "accession": "D4A540",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 31,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/D4A540",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "26479776"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 31,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "E9NX73:0",
+    "protein_id": "E9NX73",
+    "sequence_sha256": "3fd7f0d43d87caa2c1e5bdb9197e08e5e3e57304cb7d8bfa861da82d2b7e9995",
+    "accession": "E9NX73",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 22,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/E9NX73",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "21645012"
+      },
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "29306152"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 22,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "F7J1C8:0",
+    "protein_id": "F7J1C8",
+    "sequence_sha256": "112eba63dbda516ccb37e86a39e5a496c354e95047c59c5ccc6fcf9e8e976441",
+    "accession": "F7J1C8",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 21,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/F7J1C8",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "21653698"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 21,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "F7J1C8:1",
+    "protein_id": "F7J1C8",
+    "sequence_sha256": "112eba63dbda516ccb37e86a39e5a496c354e95047c59c5ccc6fcf9e8e976441",
+    "accession": "F7J1C8",
+    "isoform": null,
+    "kind": "domain",
+    "start": 33,
+    "end": 247,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/F7J1C8",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU01098"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 34,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 247,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "GH16"
+  },
+  {
+    "annotation_id": "G5ED35:0",
+    "protein_id": "G5ED35",
+    "sequence_sha256": "191174090b38d8347a727e39ca3ed5bd7fff0be7184c24d4abaa78dcacad82f7",
+    "accession": "G5ED35",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 20,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/G5ED35",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "20526330"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 20,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "K9N4Q4:0",
+    "protein_id": "K9N4Q4",
+    "sequence_sha256": "93264e6e15aa763920a371f8a4a337ca103839a29655a771633291df646d8d6e",
+    "accession": "K9N4Q4",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 23,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/K9N4Q4",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "38959191"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 23,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "M1MR49:0",
+    "protein_id": "M1MR49",
+    "sequence_sha256": "40414c2ef745fbfd1e2bfcaf773c9640a0442c1f46015c87c092220da4c9b05d",
+    "accession": "M1MR49",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 24,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/M1MR49",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "23825947"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 24,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O00175:0",
+    "protein_id": "O00175",
+    "sequence_sha256": "b7881beb951aec45ccd2e67fb0605b6d60a85bd9381b74f46ba2c7667db2cec8",
+    "accession": "O00175",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 26,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O00175",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "15340161"
+      },
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "9104803"
+      },
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "9365122"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 26,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O00585:0",
+    "protein_id": "O00585",
+    "sequence_sha256": "cd1c064abcac7492034db70d305cd8a707d09a5dc4ef3eb573d4f702f4bb08f9",
+    "accession": "O00585",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 23,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O00585",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "9300671"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 23,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O02826:0",
+    "protein_id": "O02826",
+    "sequence_sha256": "de92768892e3ae34afa5cdfd97dd6b6ceba047b8e0b63efdb411c62dcc9d62e2",
+    "accession": "O02826",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 20,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O02826",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "8117114"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 20,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O02853:0",
+    "protein_id": "O02853",
+    "sequence_sha256": "efe21235a288be16b0ce8483ecf4e2f9706a2ece869a0d2577bae583275542b1",
+    "accession": "O02853",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 28,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O02853",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "9510973"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 28,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O13547:0",
+    "protein_id": "O13547",
+    "sequence_sha256": "eb2238fc04976894a8c7eb98e56186a27a3113daf2183f03f6558f3a1e83ac27",
+    "accession": "O13547",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 22,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O13547",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "10322008"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 22,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O13547:1",
+    "protein_id": "O13547",
+    "sequence_sha256": "eb2238fc04976894a8c7eb98e56186a27a3113daf2183f03f6558f3a1e83ac27",
+    "accession": "O13547",
+    "isoform": null,
+    "kind": "domain",
+    "start": 22,
+    "end": 110,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O13547",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU01356"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 23,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 110,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "CFEM"
+  },
+  {
+    "annotation_id": "O14412:0",
+    "protein_id": "O14412",
+    "sequence_sha256": "c1c0c9a2300379d402b021e55d4c639b73c33e2930d31700abcfa678f8a965ed",
+    "accession": "O14412",
+    "isoform": null,
+    "kind": "signal_peptide",
+    "start": 0,
+    "end": 29,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O14412",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000269",
+        "source": "PubMed",
+        "id": "9324248"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 1,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 29,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": ""
+  },
+  {
+    "annotation_id": "O14412:1",
+    "protein_id": "O14412",
+    "sequence_sha256": "c1c0c9a2300379d402b021e55d4c639b73c33e2930d31700abcfa678f8a965ed",
+    "accession": "O14412",
+    "isoform": null,
+    "kind": "domain",
+    "start": 29,
+    "end": 245,
+    "source": "UniProt",
+    "source_version": "snapshot-sha256:96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+    "retrieved_at": "2026-09-18",
+    "source_url": "https://rest.uniprot.org/uniprotkb/O14412",
+    "evidence": [
+      {
+        "evidenceCode": "ECO:0000255",
+        "source": "PROSITE-ProRule",
+        "id": "PRU01098"
+      }
+    ],
+    "original_coordinates": {
+      "start": {
+        "value": 30,
+        "modifier": "EXACT"
+      },
+      "end": {
+        "value": 245,
+        "modifier": "EXACT"
+      }
+    },
+    "uncertain": false,
+    "description": "GH16"
+  }
+]

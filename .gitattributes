@@ -1,0 +1,3 @@
+# Frozen scientific evidence must retain the bytes recorded in its manifests.
+examples/validation/v2/** -text
+examples/validation/v2x/** -text

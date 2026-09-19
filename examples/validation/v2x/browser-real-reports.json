@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "model_id": "DeepLoc-2.1-Fast",
+      "mode": "fast",
+      "schema_version": 3,
+      "proteins": 2,
+      "status": "passed",
+      "exact_export": true
+    },
+    {
+      "model_id": "human-2026_03-56fb89f09b33",
+      "mode": null,
+      "schema_version": 3,
+      "proteins": 2,
+      "status": "passed",
+      "exact_export": true
+    },
+    {
+      "model_id": "synthetic-position-control:v1",
+      "mode": null,
+      "schema_version": 3,
+      "proteins": 2,
+      "status": "passed",
+      "exact_export": true
+    }
+  ]
+}

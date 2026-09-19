@@ -36,6 +36,8 @@ class ExplanationReport(PredictionReport):
     """Prediction plus local feature contributions for its predicted class."""
 
     base_value: float
+    remainder: float = 0.0
+    output_space: Literal["probability"] = "probability"
     feature_contributions: list[FeatureContribution]
 
 

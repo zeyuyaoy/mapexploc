@@ -19,7 +19,7 @@ export default defineConfig({
           timeout: 120000,
         },
         {
-          command: "pnpm dev --host 127.0.0.1 --port 5173 --strictPort",
+          command: "pnpm preview --host 127.0.0.1 --port 5173 --strictPort",
           url: "http://127.0.0.1:5173",
           reuseExistingServer: false,
           timeout: 120000,

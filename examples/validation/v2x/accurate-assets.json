@@ -1,0 +1,103 @@
+{
+  "status": "assets_inspected_only_not_inference_qualified",
+  "model": {
+    "contract_version": 1,
+    "model_id": "DeepLoc-2.1-Accurate",
+    "classes": [
+      "Cytoplasm",
+      "Nucleus",
+      "Extracellular",
+      "Cell membrane",
+      "Mitochondrion",
+      "Plastid",
+      "Endoplasmic reticulum",
+      "Lysosome/Vacuole",
+      "Golgi apparatus",
+      "Peroxisome"
+    ],
+    "task_type": "multilabel",
+    "preprocessing_id": "DeepLoc2.1:ProtT5:BatchConverterProtT5:single-sequence:native-no-truncation",
+    "min_length": 10,
+    "max_length": 4000,
+    "thresholds": [
+      0.47612305,
+      0.50136719,
+      0.61728516,
+      0.56464844,
+      0.62197266,
+      0.63945312,
+      0.60898438,
+      0.58476562,
+      0.64941406,
+      0.73642578
+    ],
+    "threshold_comparison": "greater",
+    "empty_decision_policy": "nearest_threshold",
+    "fallback_round_decimals": 4,
+    "capabilities": [
+      "region_kernel"
+    ],
+    "checkpoint_sha256": "f71696b992e7889a4fcd5a243b675b6dc2e35bc7390f81e865ce6e1c01dfe474",
+    "provenance": {
+      "upstream": "https://services.healthtech.dtu.dk/services/DeepLoc-2.1/",
+      "upstream_version": "2.1",
+      "mode": "accurate",
+      "embedding_model": "Rostlab/prot_t5_xl_uniref50",
+      "embedding_revision": "973be27c52ee6474de9c945952a8008aeb2a1a73",
+      "assets": {
+        "DeepLoc2/__init__.py": "1fcedff8dd9c9ad9908c4e0324963d820026a3be065ca12c5d1e850a9cc20247",
+        "DeepLoc2/attr_prior.py": "82c317458b572d9b6fed32a7b06a5dbbe2581ac6f75ef6c942999dda2192a5f5",
+        "DeepLoc2/data.py": "db603fba0fa66a483c794ca51e8319e441b5fe6bfbea1d2dfa73eab92c566c3d",
+        "DeepLoc2/deeploc2.py": "026fc1c88e70f86fdf74c1870574ceb74832d8d429daf2e320aeab3365622ef5",
+        "DeepLoc2/model.py": "c24e826542eb2741bb056db23847534354900794672ce390ee383c048846cd40",
+        "DeepLoc2/models/ESM1b_alphabet.pkl": "5ffcd1a7b7672bd1e775b7cb91ed311715c42b8f7e6ab2dc65da86b249e1fc60",
+        "DeepLoc2/models/ProtT5_alphabet.pkl": "6a8be11d182948c34d3d6d8cad8ba9562f3b4c08ef7f948426215b76f4d86df8",
+        "DeepLoc2/models/models_prott5/0_1Layer.ckpt": "9ad9c9d97676b88a8d8a197cb4e146424131b403bf471504ee280aa7486aa944",
+        "DeepLoc2/models/models_prott5/0_1Layer_memtype.ckpt": "18416c335fc4cffbe3a00fe35b32d407975fcdefb3e7635d771afb6029bba547",
+        "DeepLoc2/models/models_prott5/1_1Layer.ckpt": "d3d0782ff09e7e10705652c337f229d1ed0cc71f236093f4c8d284363d8c6bea",
+        "DeepLoc2/models/models_prott5/1_1Layer_memtype.ckpt": "016c78e68d3477fdfa48aaf860d30420764b70fddd72b051850ca384a96acf61",
+        "DeepLoc2/models/models_prott5/2_1Layer.ckpt": "ab64cf118af7e7dd373f6420fb90da45266330c9b0c07f942196628346d2cf92",
+        "DeepLoc2/models/models_prott5/2_1Layer_memtype.ckpt": "45feb33292908cdfda602fae56b0e6a7b643cfeb4ab7f3291fbb7250a22ba853",
+        "DeepLoc2/models/models_prott5/3_1Layer.ckpt": "8f721b7cd648e38917deae8edf3c09e66af330a3074141ac8f34cffa64eb8eda",
+        "DeepLoc2/models/models_prott5/3_1Layer_memtype.ckpt": "eba56a217e4923dc762e2d9b435a9a30af571c483d09d3dbbeb6c31cdd7cb683",
+        "DeepLoc2/models/models_prott5/4_1Layer.ckpt": "244f2e09038a1e096706c197bffbc67fdb3fb9b93eaa37e3f984ce9df811b5f7",
+        "DeepLoc2/models/models_prott5/4_1Layer_memtype.ckpt": "069d46245cba09833d4cce7bd88fbff4673431ea6803e9766bb99c1367d908a6",
+        "DeepLoc2/models/models_prott5/signaltype/0.ckpt": "9960637efa20ce5fb7c089fce438dfc345c42c9f94d991406bfbf549bdc3ea9d",
+        "DeepLoc2/models/models_prott5/signaltype/1.ckpt": "b95fa13e4ad8033fb748aa44335067471e44eef0f07a2358b316def25be12465",
+        "DeepLoc2/models/models_prott5/signaltype/2.ckpt": "48c345b196e5d45ab5a0d561f607c9d7388847c83d03ef2cc02d349b65042a23",
+        "DeepLoc2/models/models_prott5/signaltype/3.ckpt": "067622835cbabfc53f58dfcf7872da5a9519906883bd5d1b8273ea935c7efc53",
+        "DeepLoc2/models/models_prott5/signaltype/4.ckpt": "0e092010eb3c72072d79865d5a8744538a4b0effc4f798f9b9877d23dae07aa5",
+        "DeepLoc2/utils.py": "f5e8c03bbf547d82a584ee30a7bc40b3260493e69f043d3d5a00588235030eeb",
+        "Rostlab/prot_t5_xl_uniref50/973be27c52ee6474de9c945952a8008aeb2a1a73/config.json": "899fe63bf0178fd23583eca238ade81d56a1779c344741f391c3902855c64b77",
+        "Rostlab/prot_t5_xl_uniref50/973be27c52ee6474de9c945952a8008aeb2a1a73/pytorch_model.bin": "c06141d42e93c12b5f6d95c701952156bd4079661f5f2d981d0d2036ba96dae9",
+        "Rostlab/prot_t5_xl_uniref50/973be27c52ee6474de9c945952a8008aeb2a1a73/special_tokens_map.json": "4720c0fddbe4c5991334f85ad7073d9bd0a294a8ba4641a2f8dab614ca825949",
+        "Rostlab/prot_t5_xl_uniref50/973be27c52ee6474de9c945952a8008aeb2a1a73/spiece.model": "74da7b4afcde53faa570114b530c726135bdfcdb813dec3abfb27f9d44db7324",
+        "Rostlab/prot_t5_xl_uniref50/973be27c52ee6474de9c945952a8008aeb2a1a73/tokenizer_config.json": "a5064475340d80a560463f49921407d901eef3e89667a931eb81a186633eff4b"
+      },
+      "device": "mps",
+      "precision": "float32",
+      "threads": 4,
+      "native_seed": 42,
+      "platform": "macOS-27.0-arm64-arm-64bit",
+      "machine": "arm64",
+      "adapter_runtime_sha256": "fb935e2613623c817b7b26cab6bf130d0f481591ced879d54b40db4fa8adf0ea",
+      "numerical_environment": {
+        "PYTORCH_MPS_FAST_MATH": null,
+        "PYTORCH_ENABLE_MPS_FALLBACK": null,
+        "NVIDIA_TF32_OVERRIDE": null
+      },
+      "batching_policy": "single_sequence",
+      "runtime": {
+        "python": "3.11.15",
+        "torch": "2.5.1",
+        "pytorch-lightning": "2.4.0",
+        "fair-esm": "2.0.0",
+        "numpy": "1.26.4",
+        "transformers": "4.44.2"
+      },
+      "output_mapping": "Native ensemble sigmoid localization output columns 1:11; internal column 0 omitted. Full precision; native CSV rounds to four decimals.",
+      "decision_policy": "Native strict thresholds; if none selected, final argsort of four-decimal-rounded probability minus threshold.",
+      "license": "User-provided licensed standalone package; not redistributed"
+    }
+  }
+}
