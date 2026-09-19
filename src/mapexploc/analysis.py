@@ -113,6 +113,7 @@ def run_analysis(
     annotations: Sequence[Annotation | dict[str, Any]] = (),
     *,
     execution: ExecutionOptions | None = None,
+    tree_explainer: ShapExplainer | None = None,
 ) -> AnalysisReport:
     """Explain all supplied proteins and native classes without sampling.
 
@@ -184,7 +185,9 @@ def run_analysis(
                 "region_kernel for other adapters"
             )
         features = adapter.prepare(sequences)
-        tree = ShapExplainer(adapter.model).explain_sample(
+        if tree_explainer is not None and tree_explainer.model is not adapter.model:
+            raise ValueError("Tree explainer belongs to a different model")
+        tree = (tree_explainer or ShapExplainer(adapter.model)).explain_sample(
             features, sample_size=len(records)
         )
         if list(map(str, tree["classes"])) != list(adapter.descriptor.classes):

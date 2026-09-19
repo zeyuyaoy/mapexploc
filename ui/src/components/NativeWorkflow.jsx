@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { request } from "../api";
-import { download, parseSequences } from "../analysis";
+import { download, parseSequences, RESEARCH_LIMITS } from "../analysis";
 
 export default function NativeWorkflow({ onBack }) {
   const [models, setModels] = useState([]);
@@ -50,10 +50,12 @@ export default function NativeWorkflow({ onBack }) {
     const controller = new AbortController();
     active.current = controller;
     try {
-      const proteins = parseSequences(input, "batch").map((r) => ({
-        protein_id: r.id,
-        sequence: r.sequence,
-      }));
+      const proteins = parseSequences(input, "batch", RESEARCH_LIMITS).map(
+        (r) => ({
+          protein_id: r.id,
+          sequence: r.sequence,
+        }),
+      );
       setBusy(true);
       const response = await request("/v3/predict", {
         signal: controller.signal,

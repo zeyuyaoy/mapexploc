@@ -6,6 +6,7 @@ import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
+from threading import Lock
 from typing import Any
 
 import numpy as np
@@ -67,6 +68,7 @@ class ShapExplainer:
                 "SHAP is required. Install mapexploc with its core dependencies."
             )
         self.model = model
+        self._lock = Lock()
         self.output_dir = Path(output_dir)
         self.rf_model = final_estimator(model)
         if not isinstance(
@@ -183,7 +185,15 @@ class ShapExplainer:
             else X_sample.copy()
         )
         transformed = self._transform(sampled)
-        raw_values = self.explainer.shap_values(transformed)
+        # TreeExplainer updates internal state during shap_values. Snapshot its
+        # base values under the same lock before another request can use it.
+        with self._lock:
+            raw_values = self.explainer.shap_values(transformed)
+            expected = (
+                np.asarray(self.explainer.expected_value, dtype=float)
+                .reshape(-1)
+                .copy()
+            )
         classes = np.asarray(getattr(self.rf_model, "classes_", ()))
         class_count = len(classes)
         if class_count < 1 or len(set(classes)) != class_count:
@@ -197,7 +207,6 @@ class ShapExplainer:
         mapped_values = np.zeros((len(sampled), class_count, sampled.shape[1]))
         for i, name in enumerate(transformed.columns):
             mapped_values[:, :, sampled.columns.get_loc(name)] = values[:, :, i]
-        expected = np.asarray(self.explainer.expected_value, dtype=float).reshape(-1)
         if expected.shape != (class_count,) or not np.isfinite(expected).all():
             raise ValueError("Invalid SHAP base-value shape")
         probabilities = np.asarray(self.model.predict_proba(sampled), dtype=float)
@@ -215,7 +224,7 @@ class ShapExplainer:
             "background": "fitted weighted tree-path training counts",
             "residuals": reconstructed - probabilities,
             "transformed_feature_names": list(transformed.columns),
-            "expected_value": np.asarray(self.explainer.expected_value),
+            "expected_value": expected,
             "X_sample": sampled,
             "X_transformed": transformed,
             "classes": classes,

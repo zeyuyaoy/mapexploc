@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 import tomllib
@@ -96,6 +97,29 @@ def main() -> None:
         run(python, "-m", "pip", "check")
         info = json.loads(
             run(python, "-I", "-c", INSPECT_INSTALL, json.dumps(sorted(expected)))
+        )
+        # Vercel includes the trusted manifest/artifact beside its entrypoint,
+        # independently of whether mapexploc is installed into site-packages.
+        bundle = work / "web-bundle"
+        for relative in (
+            "config/default-model.json",
+            "examples/models/human-baseline.joblib",
+        ):
+            target = bundle / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(repository / relative, target)
+        run(
+            python,
+            "-I",
+            "-c",
+            "from pathlib import Path; import sys;"
+            " from mapexploc.default_model import source_root, resolve_default_model;"
+            " from mapexploc.web import create_web_app;"
+            " assert source_root() is None; root=Path(sys.argv[1]);"
+            " selected=resolve_default_model(trusted_root=root);"
+            " assert selected.load().metadata['model_id']==selected.model_id;"
+            " assert create_web_app(trusted_root=root)",
+            bundle,
         )
         if info["version"] != version or run(cli, "--version") != version:
             raise ValueError("Installed version or console entry point is incorrect")
@@ -213,7 +237,7 @@ def main() -> None:
             work / "comparison.json",
         )
     print(
-        "Installed wheel: resources, train, predict, explain "
+        "Installed wheel: resources, trusted web bundle, train, predict, explain "
         "and external adapter analyze passed."
     )
 

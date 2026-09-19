@@ -1,7 +1,12 @@
-export const LIMITS = { records: 100, sequence: 100_000, total: 1_000_000 };
+export const LIMITS = { records: 25, sequence: 50_000, total: 50_000 };
+export const RESEARCH_LIMITS = {
+  records: 100,
+  sequence: 100_000,
+  total: 1_000_000,
+};
 const AMINO_ACIDS = /^[ACDEFGHIKLMNPQRSTVWY]+$/;
 
-export function parseSequences(text, mode = "single") {
+export function parseSequences(text, mode = "single", limits = LIMITS) {
   const raw = text.trim();
   if (!raw) throw new Error("Enter a protein sequence or upload a FASTA file.");
   let records;
@@ -28,8 +33,8 @@ export function parseSequences(text, mode = "single") {
     throw new Error(
       "Multiple records found. Switch to Batch FASTA to analyze them together.",
     );
-  if (records.length > LIMITS.records)
-    throw new Error(`Use at most ${LIMITS.records} sequences per analysis.`);
+  if (records.length > limits.records)
+    throw new Error(`Use at most ${limits.records} sequences per analysis.`);
   const ids = new Set();
   let total = 0;
   records = records.map((record) => {
@@ -46,14 +51,16 @@ export function parseSequences(text, mode = "single") {
         `${record.id}: unsupported residues (${invalid}). Use the 20 standard amino-acid letters.`,
       );
     }
-    if (sequence.length > LIMITS.sequence)
-      throw new Error(`${record.id}: exceeds 100,000 residues.`);
+    if (sequence.length > limits.sequence)
+      throw new Error(
+        `${record.id}: exceeds ${limits.sequence.toLocaleString()} residues.`,
+      );
     total += sequence.length;
     return { ...record, sequence };
   });
-  if (total > LIMITS.total)
+  if (total > limits.total)
     throw new Error(
-      "This batch exceeds 1,000,000 residues. Split it into smaller files.",
+      `This batch exceeds ${limits.total.toLocaleString()} residues. Split it into smaller files.`,
     );
   return records;
 }

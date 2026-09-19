@@ -11,16 +11,16 @@ export default defineConfig({
   webServer: ci
     ? [
         {
-          command:
-            "python -m uvicorn mapexploc.api:app --host 127.0.0.1 --port 8000",
+          command: "python -m uvicorn app:app --host 127.0.0.1 --port 8000",
           cwd: fileURLToPath(new URL("..", import.meta.url)),
-          url: "http://127.0.0.1:8000/model",
+          url: "http://127.0.0.1:8000/api/model",
           reuseExistingServer: false,
           timeout: 120000,
         },
         {
           command:
             "pnpm build && pnpm preview --host 127.0.0.1 --port 5173 --strictPort",
+          env: { MAPEXPLOC_API_PROXY: "http://127.0.0.1:8000/api" },
           url: "http://127.0.0.1:5173",
           reuseExistingServer: false,
           timeout: 120000,

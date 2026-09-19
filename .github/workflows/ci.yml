@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install recorded scientific runtime
-        if: matrix.python-version == '3.13.14'
+        if: matrix.python-version == '3.13.14' || matrix.python-version == '3.12'
         run: |
           python -m pip install --require-hashes -r environments/mapexploc-runtime.lock
           python -m pip freeze > "$RUNNER_TEMP/mapexploc-core-constraints.txt"

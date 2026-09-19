@@ -66,6 +66,20 @@ beforeEach(() => {
   request.mockImplementation(respond);
 });
 
+it("keeps live external model controls outside the public application", () => {
+  render(<App />);
+  expect(
+    screen.queryByRole("button", { name: /DeepLoc|Accurate/ }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByText(/Live predictions use MAP-ExPLoc-owned models only/),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Import report" }),
+  ).toBeInTheDocument();
+  expect(request).not.toHaveBeenCalled();
+});
+
 async function analyze() {
   const user = userEvent.setup();
   await user.type(screen.getByLabelText("Protein sequences"), "AAA");
