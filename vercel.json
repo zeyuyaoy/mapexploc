@@ -15,14 +15,14 @@
       "functions": {
         "app.py": {
           "maxDuration": 60,
-          "includeFiles": "{config/default-model.json,examples/models/human-baseline.joblib}",
+          "includeFiles": "{src/mapexploc/**,config/default-model.json,examples/models/human-baseline.joblib}",
           "excludeFiles": "{ui/**,tests/**,docs/**,scripts/**,artifacts/**,results/**,examples/baseline/**,examples/experiments/**,examples/validation/**,examples/adapters/**,.venv*/**,.git/**,dist/**,build/**,site/**}"
         }
       }
     }
   },
   "rewrites": [
-    { "source": "/api/:path*", "destination": { "service": "api" } },
-    { "source": "/:path*", "destination": { "service": "web" } }
+    { "source": "/api/(.*)", "destination": { "service": "api" } },
+    { "source": "/(.*)", "destination": { "service": "web" } }
   ]
 }

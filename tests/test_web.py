@@ -32,6 +32,50 @@ def client():
         yield instance
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] != (3, 12), reason="Deployment uses Python 3.12"
+)
+def test_deployment_entrypoint_without_installed_package(tmp_path):
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    shutil.copyfile(ROOT / "app.py", bundle / "app.py")
+    shutil.copytree(ROOT / "src/mapexploc", bundle / "src/mapexploc")
+    for path in ["config/default-model.json", "examples/models/human-baseline.joblib"]:
+        target = bundle / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / path, target)
+    # Load dependencies without processing editable-install .pth files or PYTHONPATH.
+    dependencies = [path for path in sys.path if Path(path).name == "site-packages"]
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-I",
+            "-S",
+            "-c",
+            f"""
+import importlib.util
+import runpy
+import sys
+sys.path.extend({dependencies!r})
+assert importlib.util.find_spec('mapexploc') is None
+namespace = runpy.run_path({str(bundle / 'app.py')!r})
+from fastapi.testclient import TestClient
+with TestClient(namespace['app']) as client:
+    health = client.get('/api/health').json()
+    assert health['status'] == 'ready'
+    assert health['model_available'] and health['model_loaded']
+    model = client.get('/api/model').json()
+    assert model['feature_count'] == 423
+    assert model['metadata']['model_id'] == {MODEL_ID!r}
+""",
+        ],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+
+
 def test_environment_is_ignored_even_on_fresh_import(tmp_path):
     completed = subprocess.run(
         [
