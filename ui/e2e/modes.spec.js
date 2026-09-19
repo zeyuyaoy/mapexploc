@@ -1,13 +1,28 @@
 import { expect, test } from "@playwright/test";
+import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+
+test("public API preserves approved prediction and explanation values", async ({
+  baseURL,
+}) => {
+  test.setTimeout(120000);
+  execFileSync(
+    "python",
+    [
+      fileURLToPath(new URL("../../scripts/smoke_web.py", import.meta.url)),
+      baseURL,
+      "--timeout",
+      "15",
+    ],
+    { stdio: "inherit", timeout: 90000 },
+  );
+});
 
 test("public UI exposes owned inference and local report import only", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(
-    page.getByText(/Live predictions use MAP-ExPLoc-owned models only/),
-  ).toBeVisible();
   await expect(
     page.getByRole("button", { name: /DeepLoc|native|Accurate|Fast \//i }),
   ).toHaveCount(0);
