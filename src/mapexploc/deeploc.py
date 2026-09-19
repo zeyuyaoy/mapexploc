@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
+import json
 import selectors
+import subprocess
 import threading
 import weakref
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Literal
 
-import json
 import numpy as np
-import subprocess
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .contracts import AdapterDescriptor, validate_batch, validate_probabilities

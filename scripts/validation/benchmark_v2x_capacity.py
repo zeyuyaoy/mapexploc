@@ -1,10 +1,10 @@
 """Measured inference capacity on a fixed synthetic panel; not biological evidence."""
 
 import argparse
+import json
 import time
 from pathlib import Path
 
-import json
 import numpy as np
 
 from mapexploc.deeploc import DeepLocAdapter

@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import platform
 import shutil
+import subprocess
 import time
 import urllib.request
 from collections import Counter
@@ -15,10 +17,8 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-import json
 import numpy as np
 import pandas as pd
-import subprocess
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedGroupKFold

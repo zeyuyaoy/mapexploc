@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import subprocess
 import tempfile
 import tomllib
 import venv
 from pathlib import Path
-
-import json
-import subprocess
 
 # Required by the documented offline workflows.
 REQUIRED_EXAMPLES = {

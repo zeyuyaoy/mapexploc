@@ -8,6 +8,7 @@ import contextlib
 import gc
 import hashlib
 import importlib.metadata
+import json
 import os
 import pickle
 import platform
@@ -17,8 +18,6 @@ import time
 from pathlib import Path
 from typing import Any
 from unittest.mock import patch
-
-import json
 
 CLASSES = [
     "Cytoplasm",
@@ -241,8 +240,8 @@ def check_resources(
         raise ValueError("Device must be cpu, mps or cuda[:index]")
     accurate = configuration.get("mode", "fast") == "accurate"
     # Conservative memory estimates.
-    reserve = 2 * 1024 ** 3
-    allocation = (18 if accurate else 6) * 1024 ** 3 if loading else 0
+    reserve = 2 * 1024**3
+    allocation = (18 if accurate else 6) * 1024**3 if loading else 0
     allocation += batch_size * (32 if accurate else 20) * (length + 2) ** 2 * 4 * 4
     free = available_memory()
     if free < allocation + reserve:
@@ -255,9 +254,9 @@ def check_resources(
     if device.startswith("cuda"):
         gpu_free, _ = torch.cuda.mem_get_info(device)
         required = (
-            (6 if accurate else 3) * 1024 ** 3
+            (6 if accurate else 3) * 1024**3
             + allocation
-            - ((18 if accurate else 6) * 1024 ** 3 if loading else 0)
+            - ((18 if accurate else 6) * 1024**3 if loading else 0)
         )
         if gpu_free < required:
             raise MemoryError(
@@ -348,7 +347,7 @@ def main() -> None:
                 with torch.inference_mode():
                     batch_size = configuration.get("batch_size", 8)
                     for start in range(0, len(sequences), batch_size):
-                        batch = sequences[start: start + batch_size]
+                        batch = sequences[start : start + batch_size]
                         check_resources(
                             configuration,
                             length=max(map(len, batch)),

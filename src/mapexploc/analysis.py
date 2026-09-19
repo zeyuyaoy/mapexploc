@@ -90,14 +90,14 @@ def engineered_definitions() -> list[FeatureDefinition]:
 def runtime_versions() -> dict[str, str]:
     versions = {"python": platform.python_version(), "platform": platform.platform()}
     for package in (
-            "mapexploc",
-            "numpy",
-            "scipy",
-            "pandas",
-            "shap",
-            "scikit-learn",
-            "pydantic",
-            "biopython",
+        "mapexploc",
+        "numpy",
+        "scipy",
+        "pandas",
+        "shap",
+        "scikit-learn",
+        "pydantic",
+        "biopython",
     ):
         try:
             versions[package] = version(package)
@@ -327,7 +327,7 @@ def run_analysis(
                 peak_host_bytes=max(
                     (m.get("peak_host_bytes", 0) for m in measurements), default=0
                 )
-                                or None,
+                or None,
                 peak_scope=(
                     "worker_lifetime_high_water_mark"
                     if measurements
@@ -349,40 +349,40 @@ def run_analysis(
                 )
             ],
             structured_warnings=[
-                                    StructuredWarning(
-                                        code="historical_biological_evidence",
-                                        message=(
-                                            "Historical 30-protein signal-peptide result: matched-null"
-                                            " p=0.077922; one unstable sensitivity check. No stronger"
-                                            " biological conclusion is established by software validation."
-                                        ),
-                                    )
-                                ]
-                                + (
-                                    [
-                                        StructuredWarning(
-                                            code="development_method",
-                                            message=(
-                                                "This method profile is experimental; no replacement"
-                                                " default has been qualified."
-                                            ),
-                                        )
-                                    ]
-                                    if config.method_profile == "v2x-development"
-                                    else []
-                                )
-                                + (
-                                    [
-                                        StructuredWarning(
-                                            code="small_cohort",
-                                            message=(
-                                                "Fewer than 20 independent groups; global summaries are"
-                                                " exploratory."
-                                            ),
-                                        )
-                                    ]
-                                    if len({p.group or sequence_sha256(p.sequence) for p in records}) < 20
-                                    else []
-                                ),
+                StructuredWarning(
+                    code="historical_biological_evidence",
+                    message=(
+                        "Historical 30-protein signal-peptide result: matched-null"
+                        " p=0.077922; one unstable sensitivity check. No stronger"
+                        " biological conclusion is established by software validation."
+                    ),
+                )
+            ]
+            + (
+                [
+                    StructuredWarning(
+                        code="development_method",
+                        message=(
+                            "This method profile is experimental; no replacement"
+                            " default has been qualified."
+                        ),
+                    )
+                ]
+                if config.method_profile == "v2x-development"
+                else []
+            )
+            + (
+                [
+                    StructuredWarning(
+                        code="small_cohort",
+                        message=(
+                            "Fewer than 20 independent groups; global summaries are"
+                            " exploratory."
+                        ),
+                    )
+                ]
+                if len({p.group or sequence_sha256(p.sequence) for p in records}) < 20
+                else []
+            ),
         )
     return AnalysisReport(**payload)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import sqlite3
 import tempfile
@@ -12,7 +13,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
-import json
 import numpy as np
 
 from .adapter import BaseModelAdapter, predict_probabilities
@@ -199,7 +199,7 @@ class RestartStore:
 def estimate_work(
     region_count: int, references: int, budget: int, diagnostics: bool = False
 ) -> dict[str, Any]:
-    nontrivial = min(budget, 2 ** region_count - 2)
+    nontrivial = min(budget, 2**region_count - 2)
     evaluations = (nontrivial + 1) * references + 1
     return {
         "region_count": region_count,

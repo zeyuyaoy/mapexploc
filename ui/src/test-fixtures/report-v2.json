@@ -4,10 +4,7 @@
   "model": {
     "contract_version": 1,
     "model_id": "synthetic-position-control:v1",
-    "classes": [
-      "outside",
-      "inside"
-    ],
+    "classes": ["outside", "inside"],
     "task_type": "multiclass",
     "preprocessing_id": "first-ten-leucine-frequency:v1",
     "min_length": 1,
@@ -16,9 +13,7 @@
     "threshold_comparison": "greater_equal",
     "empty_decision_policy": "empty",
     "fallback_round_decimals": null,
-    "capabilities": [
-      "region_kernel"
-    ],
+    "capabilities": ["region_kernel"],
     "checkpoint_sha256": null,
     "provenance": {
       "purpose": "Software control only; no biological evidence"
@@ -47,17 +42,9 @@
         "evaluation_labels": []
       },
       "sequence_sha256": "0eb99d835e52ccd915580e55afc619f0905dcb328f389baaf1b41f9d791e36f8",
-      "probabilities": [
-        0.9,
-        0.09999999999999998
-      ],
-      "decisions": [
-        "outside"
-      ],
-      "explained_classes": [
-        "outside",
-        "inside"
-      ],
+      "probabilities": [0.9, 0.09999999999999998],
+      "decisions": ["outside"],
+      "explained_classes": ["outside", "inside"],
       "features": [
         {
           "feature_id": "region:0:10",
@@ -150,52 +137,13 @@
           "category": "C_terminal"
         }
       ],
-      "feature_values": [
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0
-      ],
+      "feature_values": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       "attributions": [
-        [
-          0.7600000000000042,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        [
-          -0.7600000000000042,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0
-        ]
+        [0.7600000000000042, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [-0.7600000000000042, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
       ],
-      "base_values": [
-        0.14,
-        0.8600000000000001
-      ],
-      "residuals": [
-        4.218847493575595e-15,
-        -4.107825191113079e-15
-      ],
+      "base_values": [0.14, 0.8600000000000001],
+      "residuals": [4.218847493575595e-15, -4.107825191113079e-15],
       "annotations": [
         {
           "annotation_id": "synthetic-signal",
@@ -269,17 +217,9 @@
         "evaluation_labels": []
       },
       "sequence_sha256": "44636c4a305e29c3ff8dc3b8a81ab55d8d3c351a92c117a357ff8eec67ef6c66",
-      "probabilities": [
-        0.1,
-        0.9
-      ],
-      "decisions": [
-        "inside"
-      ],
-      "explained_classes": [
-        "outside",
-        "inside"
-      ],
+      "probabilities": [0.1, 0.9],
+      "decisions": ["inside"],
+      "explained_classes": ["outside", "inside"],
       "features": [
         {
           "feature_id": "region:0:10",
@@ -372,52 +312,13 @@
           "category": "C_terminal"
         }
       ],
-      "feature_values": [
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0
-      ],
+      "feature_values": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       "attributions": [
-        [
-          -0.7599999999999951,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.7599999999999951,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0
-        ]
+        [-0.7599999999999951, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.7599999999999951, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
       ],
-      "base_values": [
-        0.86,
-        0.13999999999999999
-      ],
-      "residuals": [
-        4.85722573273506e-15,
-        -4.884981308350689e-15
-      ],
+      "base_values": [0.86, 0.13999999999999999],
+      "residuals": [4.85722573273506e-15, -4.884981308350689e-15],
       "annotations": [],
       "explainer": {
         "method": "region_kernel",
@@ -464,10 +365,7 @@
   "cohort": {
     "cohort_id": "synthetic-ui-test",
     "selection_criteria": "All supplied proteins; no sampling",
-    "protein_ids": [
-      "outside-control",
-      "inside-control"
-    ],
+    "protein_ids": ["outside-control", "inside-control"],
     "sequence_hashes": [
       "0eb99d835e52ccd915580e55afc619f0905dcb328f389baaf1b41f9d791e36f8",
       "44636c4a305e29c3ff8dc3b8a81ab55d8d3c351a92c117a357ff8eec67ef6c66"

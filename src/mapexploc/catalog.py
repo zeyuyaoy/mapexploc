@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
+import json
+import subprocess
 import threading
 from pathlib import Path
 from typing import Any
-
-import json
-import subprocess
 
 from .adapter import BaseModelAdapter, registered_adapter
 from .deeploc import DeepLocConfiguration
@@ -38,8 +37,8 @@ class ConfiguredModel:
             if (
                 mode == "accurate"
                 and not (
-                Path(self.configuration["prott5_snapshot"]) / "pytorch_model.bin"
-            ).is_file()
+                    Path(self.configuration["prott5_snapshot"]) / "pytorch_model.bin"
+                ).is_file()
             ):
                 issues.append("Pinned ProtT5 checkpoint is not installed")
             if issues:

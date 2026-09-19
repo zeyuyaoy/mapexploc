@@ -122,9 +122,9 @@ def faithfulness(
                         i
                         for i, g in enumerate(regions)
                         if i not in selected
-                           and i not in controls
-                           and g.end - g.start == f.end - f.start
-                           and g.category == f.category
+                        and i not in controls
+                        and g.end - g.start == f.end - f.start
+                        and g.category == f.category
                     ]
                     if not candidates:
                         break
@@ -141,8 +141,8 @@ def faithfulness(
                     )
                     continue
                 for intervention in (
-                        "heldout_region_shuffle",
-                        "heldout_position_substitution",
+                    "heldout_region_shuffle",
+                    "heldout_position_substitution",
                 ):
                     target_effects = []
                     control_effects = []
@@ -156,9 +156,9 @@ def faithfulness(
                                 i
                                 for i, g in enumerate(regions)
                                 if i not in selected
-                                   and i not in random_indices
-                                   and g.end - g.start == f.end - f.start
-                                   and g.category == f.category
+                                and i not in random_indices
+                                and g.end - g.start == f.end - f.start
+                                and g.category == f.category
                             ]
                             random_indices.append(int(rng.choice(eligible)))
 
@@ -166,7 +166,7 @@ def faithfulness(
                             residues = list(sequence)
                             for index in indices:
                                 f = regions[index]
-                                original = np.array(list(sequence[f.start: f.end]))
+                                original = np.array(list(sequence[f.start : f.end]))
                                 if intervention == "heldout_region_shuffle":
                                     replacement = rng.permutation(original)
                                 else:
@@ -174,13 +174,13 @@ def faithfulness(
                                     # strata; fitted references are not reused.
                                     pool = list(
                                         "".join(
-                                            sequence[g.start: g.end]
+                                            sequence[g.start : g.end]
                                             for g in regions
                                             if g.category == f.category
                                         )
                                     )
                                     replacement = rng.choice(pool, size=len(original))
-                                residues[f.start: f.end] = replacement
+                                residues[f.start : f.end] = replacement
                             return "".join(residues)
 
                         altered_target = perturb(selected)
@@ -192,7 +192,7 @@ def faithfulness(
                         restored = list(background)
                         for index in selected:
                             f = regions[index]
-                            restored[f.start: f.end] = sequence[f.start: f.end]
+                            restored[f.start : f.end] = sequence[f.start : f.end]
                         p = predict_probabilities(
                             adapter,
                             [
@@ -219,7 +219,7 @@ def faithfulness(
                             fraction_residues_perturbed=sum(
                                 regions[i].end - regions[i].start for i in selected
                             )
-                                                        / len(sequence),
+                            / len(sequence),
                             target_effects=target_effects,
                             low_attribution_effects=control_effects,
                             random_effects=random_effects,

@@ -129,8 +129,8 @@ def compare_reports(left: AnalysisReport, right: AnalysisReport) -> dict[str, An
                                     max(local.attributions[ci][i], 0.0) for i in indices
                                 )
                                 / sum(
-                                _region_length(local.features[i]) for i in indices
-                            )
+                                    _region_length(local.features[i]) for i in indices
+                                )
                             )
                             if indices
                             else None
@@ -149,10 +149,10 @@ def compare_reports(left: AnalysisReport, right: AnalysisReport) -> dict[str, An
                             i
                             for i, f in enumerate(local.features)
                             if not ann.uncertain
-                               and f.start is not None
-                               and f.end is not None
-                               and ann.start <= f.start
-                               and f.end <= ann.end
+                            and f.start is not None
+                            and f.end is not None
+                            and ann.start <= f.start
+                            and f.end <= ann.end
                         ]
                     ]
                 ],
