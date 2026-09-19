@@ -104,7 +104,7 @@ a {
 .site-header {
   max-width: 1120px;
   margin: auto;
-  padding: 28px 32px;
+  padding: 20px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,6 +113,9 @@ a {
 }
 
 .brand {
+  display: block;
+  min-width: 0;
+  max-width: 360px;
   font-size: 1.55rem;
   font-weight: 750;
   text-decoration: none;
@@ -128,11 +131,15 @@ a {
 nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
+  flex-shrink: 0;
   font-size: 0.92rem;
 }
 
 nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
   color: var(--muted);
 }
@@ -144,17 +151,38 @@ main {
 }
 
 .entry-main {
-  max-width: 760px;
-  padding: 68px 0 35px;
+  max-width: 800px;
+  padding: clamp(28px, 5vw, 56px) 0 clamp(40px, 6vw, 72px);
 }
 
 .intro {
   text-align: center;
-  margin-bottom: 38px;
+  margin-bottom: 32px;
+}
+
+.award-banner {
+  margin-bottom: 32px;
+  padding: 16px 22px;
+  border: 1px solid #b8d9d8;
+  border-radius: 12px;
+  background: #eaf5f3;
+  color: #254e51;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.award-banner a {
+  color: #086375;
+  font-weight: 600;
+}
+
+.award-video-link {
+  display: inline-block;
 }
 
 .intro p {
-  font-size: 1.22rem;
+  font-size: 1.08rem;
   color: var(--muted);
   margin: 12px 0 0;
 }
@@ -162,7 +190,7 @@ main {
 .input-mode {
   display: flex;
   justify-content: center;
-  margin: 0 auto 25px;
+  margin: 0 auto 20px;
   width: fit-content;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -185,6 +213,7 @@ main {
 }
 
 textarea {
+  display: block;
   width: 100%;
   height: 245px;
   resize: vertical;
@@ -208,7 +237,7 @@ textarea::placeholder {
   display: flex;
   gap: 16px;
   justify-content: center;
-  margin-top: 22px;
+  margin-top: 16px;
 }
 
 .secondary-button {
@@ -259,16 +288,10 @@ textarea::placeholder {
   display: none;
 }
 
-.privacy-note {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin: 17px 0 0;
-}
-
 .text-button {
   border: 0;
-  padding: 6px 0;
+  padding: 10px 0;
+  min-height: 44px;
   background: none;
   color: var(--teal);
   font-size: inherit;
@@ -682,12 +705,83 @@ th button {
 }
 
 footer {
-  font-size: 0.77rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 24px;
+  font-size: 0.82rem;
   color: var(--muted);
   text-align: center;
-  padding: 24px 20px;
+  padding: 20px 24px;
   border-top: 1px solid #edf1f5;
   line-height: 1.6;
+}
+
+footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.faq {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 32px;
+  margin-top: clamp(40px, 6vw, 64px);
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.faq h2 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 1.2rem;
+}
+
+.faq-heading a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.86rem;
+}
+
+.faq details {
+  border-bottom: 1px solid #e2e8ee;
+}
+
+.faq summary {
+  padding: 16px 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.faq summary::marker {
+  color: var(--teal);
+}
+
+.faq details[open] summary {
+  color: var(--teal);
+}
+
+.faq details p {
+  margin: 0;
+  padding: 0 4px 20px;
+  font-size: 0.91rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .site-header {
+    padding: 18px 24px;
+  }
+
+  .faq {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 24px;
+  }
 }
 
 .sr-only {
@@ -714,7 +808,10 @@ footer {
 
 @media (max-width: 640px) {
   .site-header {
-    padding: 22px 20px;
+    padding: 16px 20px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .brand {
@@ -722,10 +819,10 @@ footer {
   }
 
   nav {
-    gap: 12px;
-    font-size: 0.78rem;
+    gap: 8px 20px;
+    font-size: 0.88rem;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   main {
@@ -733,7 +830,23 @@ footer {
   }
 
   .entry-main {
-    padding-top: 42px;
+    padding-top: 24px;
+  }
+
+  .award-banner {
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+  }
+
+  .faq {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding-top: 24px;
+  }
+
+  footer > span {
+    flex-basis: 100%;
   }
 
   .intro p {
@@ -745,13 +858,13 @@ footer {
   }
 
   .input-mode button {
-    padding: 12px 20px;
+    padding: 12px 16px;
   }
 
   textarea {
     height: 220px;
     padding: 16px;
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 
   .upload-actions {

@@ -10,6 +10,7 @@ import {
 import { request } from "./api";
 import examples from "./examples.json";
 import ReportViewer from "./components/ReportViewer";
+import Faq from "./components/Faq";
 import {
   readReportText,
   validateReport,
@@ -378,14 +379,27 @@ export default function App() {
         ) : step === "entry" ? (
           <>
             <div className="intro">
+              <aside className="award-banner" aria-label="Project award">
+                This project won the{" "}
+                <a href="https://www.iscb.org/ybs2025/whats-happening/student-challenge">
+                  2025 ISCB YBS Student Challenge
+                </a>{" "}
+                at{" "}
+                <a href="https://www.iscb.org/ismbeccb2025/home">
+                  ISMB/ECCB 2025
+                </a>
+                !{" "}
+                <a
+                  className="award-video-link"
+                  href="https://www.youtube.com/watch?v=-KZpljBy5gM"
+                >
+                  Watch the winning video <span aria-hidden="true">→</span>
+                </a>
+              </aside>
               <h1 ref={title} tabIndex="-1">
-                Explore protein localization
+                Where does your protein belong?
               </h1>
-              <p>Start with a sequence. Explore the evidence.</p>
-              <p className="hint">
-                Live predictions use MAP-ExPLoc-owned models only. Imported
-                reports are viewed locally; importing never runs a model.
-              </p>
+              <p>Paste a protein sequence or upload a FASTA file.</p>
             </div>
             <form onSubmit={analyze} noValidate>
               <div
@@ -489,10 +503,8 @@ export default function App() {
                   </button>
                 </div>
               )}
-              <p className="privacy-note">
-                Sequences are sent only when you analyze.
-              </p>
             </form>
+            <Faq />
           </>
         ) : (
           analysis && (
@@ -778,7 +790,22 @@ export default function App() {
         )}
       </main>
       <footer>
-        Research and education · Validate findings with experimental evidence.
+        <span>Made by Zeyu Yao</span>
+        <a
+          href="https://www.research.cytronicoder.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Research portfolio{" "}
+          <span className="sr-only">(opens in a new tab)</span>
+        </a>
+        <a
+          href="https://github.com/zeyuyaoy/mapexploc"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Source code <span className="sr-only">(opens in a new tab)</span>
+        </a>
       </footer>
     </div>
   );
