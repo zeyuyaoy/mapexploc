@@ -70,7 +70,7 @@ mapexploc compare --left results/fast/report.json \
 
 Comparisons pair protein ID and exact sequence hash and align classes. Attribution correlation requires compatible partitions/reference games; disagreement does not establish biological truth.
 
-External adapters implement `descriptor: AdapterDescriptor` and `predict_proba(sequence_batch)` returning finite `N × C`probabilities in declared class order. Descriptors declare task, classes, input/preprocessing limits, checkpoint identity and decisions. Multiclass rows sum to one; multilabel scores retain thresholds. Register a trusted configuration factory under `mapexploc.adapters` and use `run_analysis(adapter, proteins, configuration, annotations)`. `examples/adapters/sequence_fixture/` is a synthetic contract example.
+External adapters implement `descriptor: AdapterDescriptor` and `predict_proba(sequence_batch)` returning finite `N × C` probabilities in declared class order. Descriptors declare task, classes, input/preprocessing limits, checkpoint identity and decisions. Multiclass rows sum to one; multilabel scores retain thresholds. Register a trusted configuration factory under `mapexploc.adapters` and use `run_analysis(adapter, proteins, configuration, annotations)`. `examples/adapters/sequence_fixture/` is a synthetic contract example.
 
 #### Reproduce the evidence
 
@@ -136,11 +136,11 @@ pnpm --dir ui install --frozen-lockfile
 pnpm --dir ui dev
 ```
 
-Vite proxies `/api` to port 8000, stripping the prefix. `MAPEXPLOC_API_PROXY` changes that target; `VITE_API_BASE_URL`overrides the browser base at build time. The local API accepts a trusted `MAPEXPLOC_ADAPTER_CATALOG` JSON mapping identifiers to `{"factory":"deeploc2","configuration":{...}}`; `/docs` describes requests and `/v3/models` lists models. Outside a checkout, set `MAPEXPLOC_MODEL_PATH` for the RF.
+Vite proxies `/api` to port 8000, stripping the prefix. `MAPEXPLOC_API_PROXY` changes that target; `VITE_API_BASE_URL` overrides the browser base at build time. The local API accepts a trusted `MAPEXPLOC_ADAPTER_CATALOG` JSON mapping identifiers to `{"factory":"deeploc2","configuration":{...}}`; `/docs` describes requests and `/v3/models` lists models. Outside a checkout, set `MAPEXPLOC_MODEL_PATH` for the RF.
 
 The public Vercel service uses **Python 3.12**, `app:app` and only the bundled RF approved by `config/default-model.json`. It ignores those research model/adapter overrides. DeepLoc remains local/research-only, subject to upstream licensing; its assets are not hosted. Report import is browser-local and never executes the source model.
 
-`vercel.json` serves Vite and FastAPI at one origin; `/api` routes to the mounted API. `.python-version` and `uv.lock`fix the deployment runtime/dependencies. The bundled manifest/artifact retain checksum and identity validation. To test this factory in an isolated checkout:
+`vercel.json` serves Vite and FastAPI at one origin; `/api` routes to the mounted API. `.python-version` and `uv.lock` fix the deployment runtime/dependencies. The bundled manifest/artifact retain checksum and identity validation. To test this factory in an isolated checkout:
 
 ```bash
 uv sync --frozen --python 3.12 --no-dev
