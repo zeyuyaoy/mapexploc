@@ -225,6 +225,14 @@ test("complete report import, class/filter identity, overlays and unchanged expo
         document.documentElement.clientWidth,
     ),
   ).toBe(true);
+  await page.setViewportSize({ width: 320, height: 844 });
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth <=
+        document.documentElement.clientWidth,
+    ),
+  ).toBe(true);
 });
 
 test("live backend produces a complete all-class report", async ({ page }) => {
