@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install recorded scientific runtime
-        if: matrix.python-version == '3.13.14'
+        if: matrix.python-version == '3.13.14' || matrix.python-version == '3.12'
         run: |
           python -m pip install --require-hashes -r environments/mapexploc-runtime.lock
           python -m pip freeze > "$RUNNER_TEMP/mapexploc-core-constraints.txt"
@@ -72,11 +72,13 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Check frontend
         run: pnpm check
-      - name: Install local API
+      - name: Install locked production API
         working-directory: .
         run: |
-          python -m pip install -e .
-          python -m pip check
+          python -m pip install "uv==0.12.1"
+          uv sync --locked --no-dev --python "$(command -v python)"
+          uv pip check --python .venv/bin/python
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> "$GITHUB_PATH"
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Test production browser workflows

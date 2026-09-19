@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
+from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from threading import Lock
 from typing import Any
@@ -25,7 +28,7 @@ from .annotations import Annotation
 from .artifacts import ModelArtifactError, load_model_artifact
 from .catalog import ConfiguredModel
 from .contracts import class_decisions, validate_batch, validate_probabilities
-from .default_model import resolve_default_model
+from .default_model import ModelSelection, resolve_default_model
 from .estimators import final_estimator
 from .explainers.shap import ShapExplainer
 from .features import (
@@ -53,6 +56,29 @@ from .report_v3 import AnalysisReportV3
 
 MAX_BATCH_SIZE = 100
 MAX_BATCH_RESIDUES = 1_000_000
+logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True)
+class RequestLimits:
+    """Per-application limits; offline analysis and CLI contracts are unchanged."""
+
+    prediction_proteins: int = MAX_BATCH_SIZE
+    prediction_residues: int = MAX_BATCH_RESIDUES
+    explanation_proteins: int = MAX_BATCH_SIZE
+    explanation_residues: int = MAX_BATCH_RESIDUES
+    analysis_proteins: int = 20
+    analysis_residues: int = 20_000
+
+    def check(self, sequences: list[str], operation: str) -> None:
+        proteins = getattr(self, f"{operation}_proteins")
+        residues = getattr(self, f"{operation}_residues")
+        if len(sequences) > proteins or sum(map(len, sequences)) > residues:
+            raise HTTPException(
+                413,
+                f"Live {operation} requests accept at most {proteins} proteins "
+                f"and {residues:,} residues; use the CLI for larger cohorts",
+            )
 
 
 class PredictRequest(BaseModel):
@@ -103,10 +129,15 @@ class AnalyzeRequest(BaseModel):
 
 class _ModelRuntime:
     def __init__(
-        self, model: Any | None, model_path: Path | None, use_default: bool = False
+        self,
+        model: Any | None,
+        model_path: Path | None,
+        use_default: bool = False,
+        model_selection: ModelSelection | None = None,
     ):
         self.use_default = use_default
         self.model_path = model_path
+        self.model_selection = model_selection
         self.model: Any | None = None
         self.adapter: BaseModelAdapter | None = None
         self.explainer: ShapExplainer | None = None
@@ -117,9 +148,9 @@ class _ModelRuntime:
 
     def _set_model(self, model: Any) -> None:
         if isinstance(model, FeatureModelAdapter):
-            self.adapter = model
             self.model = model.model
             self.metadata = dict(model.descriptor.provenance)
+            self.adapter = model
         elif hasattr(model, "named_steps") or hasattr(model, "n_features_in_"):
             self.model = model
             self.adapter = FeatureModelAdapter(model)
@@ -132,20 +163,27 @@ class _ModelRuntime:
         with self.lock:
             if self.adapter is not None:
                 return self.adapter
-            if self.model_path is not None:
+            selection = self.model_selection
+            if selection is not None:
+                artifact = selection.load()
+            elif self.model_path is not None:
                 artifact = load_model_artifact(self.model_path)
             elif self.use_default:
-                artifact = resolve_default_model().load()
+                selection = resolve_default_model()
+                artifact = selection.load()
             else:
                 raise RuntimeError("No model is configured")
             self.metadata = public_provenance(artifact.metadata)
+            if self.metadata.get("model_id"):
+                self.metadata.setdefault(
+                    "model_family", type(final_estimator(artifact.model)).__name__
+                )
+            if self.metadata.get("evaluation"):
+                self.metadata.setdefault("evaluation_status", "historical_holdout")
             from .provenance import file_sha256
 
-            artifact_path = (
-                self.model_path
-                if self.model_path is not None
-                else resolve_default_model().path
-            )
+            artifact_path = selection.path if selection is not None else self.model_path
+            assert artifact_path is not None
             self._set_model(
                 FeatureModelAdapter(
                     artifact.model,
@@ -153,12 +191,6 @@ class _ModelRuntime:
                     checkpoint_sha256=file_sha256(artifact_path),
                 )
             )
-            if self.metadata.get("model_id"):
-                self.metadata.setdefault(
-                    "model_family", type(final_estimator(artifact.model)).__name__
-                )
-            if self.metadata.get("evaluation"):
-                self.metadata.setdefault("evaluation_status", "historical_holdout")
         assert self.adapter is not None
         return self.adapter
 
@@ -166,6 +198,7 @@ class _ModelRuntime:
         try:
             self.get_adapter()
         except (OSError, ValueError, TypeError, RuntimeError):
+            logger.exception("Model unavailable", extra={"event": "model_unavailable"})
             return False
         return True
 
@@ -251,6 +284,9 @@ def create_app(
     use_default: bool = False,
     adapters: dict[str, BaseModelAdapter] | None = None,
     adapter_configurations: dict[str, dict[str, Any]] | None = None,
+    model_selection: ModelSelection | None = None,
+    limits: RequestLimits = RequestLimits(),
+    analysis_policy: Callable[[AnalyzeRequest], None] | None = None,
 ) -> FastAPI:
     """Create the service using a model object or trusted server-side artifact path."""
 
@@ -265,13 +301,13 @@ def create_app(
     service = FastAPI(
         lifespan=lifespan,
         title="MAP-ExPLoc",
-        version="0.1.0",
+        version="1.0.0",
         description=(
             "Research-use protein subcellular localization predictions with "
             "feature-level SHAP explanations."
         ),
     )
-    runtime = _ModelRuntime(model, model_path, use_default)
+    runtime = _ModelRuntime(model, model_path, use_default, model_selection)
 
     def require_adapter() -> BaseModelAdapter:
         try:
@@ -339,6 +375,7 @@ def create_app(
 
     @service.post("/features", response_model=FeaturesResponse)
     def sequence_features(request: PredictRequest) -> FeaturesResponse:
+        limits.check(request.sequences, "prediction")
         matrix = build_feature_matrix(request.sequences)
         return FeaturesResponse(
             results=[
@@ -355,6 +392,7 @@ def create_app(
 
     @service.post("/predict", response_model=PredictResponse)
     def predict(request: PredictRequest) -> PredictResponse:
+        limits.check(request.sequences, "prediction")
         try:
             labels, reports, _ = _predict(require_adapter(), request.sequences)
         except ValueError as exc:
@@ -365,6 +403,7 @@ def create_app(
 
     @service.post("/explain", response_model=ExplainResponse)
     def explain(request: ExplainRequest) -> ExplainResponse:
+        limits.check(request.sequences, "explanation")
         adapter = require_adapter()
         if runtime.model is None:
             raise HTTPException(
@@ -468,6 +507,7 @@ def create_app(
     @service.post("/v3/predict")
     @service.post("/v2/predict")
     def v2_predict(request: AnalyzeRequest) -> dict[str, Any]:
+        limits.check([p.sequence for p in request.proteins], "prediction")
         adapter = v2_adapter(request.adapter_id)
         if (
             request.expected_model_id
@@ -506,6 +546,9 @@ def create_app(
     @service.post("/v3/analyze", response_model=AnalysisReportV3 | AnalysisReport)
     @service.post("/v2/analyze", response_model=AnalysisReportV3 | AnalysisReport)
     def v2_analyze(request: AnalyzeRequest) -> AnalysisReport | AnalysisReportV3:
+        limits.check([p.sequence for p in request.proteins], "analysis")
+        if analysis_policy is not None:
+            analysis_policy(request)
         adapter = v2_adapter(request.adapter_id)
         method = request.configuration.explainer
         if method == "region_kernel" or "tree" not in adapter.descriptor.capabilities:
@@ -514,18 +557,15 @@ def create_app(
                 "Sequence-region analyses run through the analyze CLI; "
                 "import the completed report in the viewer",
             )
-        if (
-            len(request.proteins) > 20
-            or sum(len(p.sequence) for p in request.proteins) > 20000
-        ):
-            raise HTTPException(
-                413,
-                "Live analyses accept at most 20 proteins and 20,000 "
-                "residues; use the CLI for larger cohorts",
-            )
         try:
             return run_analysis(
-                adapter, request.proteins, request.configuration, request.annotations
+                adapter,
+                request.proteins,
+                request.configuration,
+                request.annotations,
+                tree_explainer=(
+                    runtime.get_explainer() if adapter is runtime.adapter else None
+                ),
             )
         except (ValueError, TypeError, RuntimeError) as exc:
             raise HTTPException(
@@ -542,6 +582,20 @@ def application_from_environment() -> FastAPI:
     return create_app(use_default=True, adapter_configurations=configuration)
 
 
-app = application_from_environment()
+@lru_cache(maxsize=1)
+def _environment_app() -> FastAPI:
+    return application_from_environment()
+
+
+app: FastAPI  # Resolved lazily by __getattr__; annotation does not initialize it.
+
+
+def __getattr__(name: str) -> Any:
+    # Preserve `uvicorn mapexploc.api:app` and `from mapexploc.api import app`
+    # without configuring research adapters merely by importing shared code.
+    if name == "app":
+        return _environment_app()
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = ["ExplainRequest", "PredictRequest", "app", "create_app"]

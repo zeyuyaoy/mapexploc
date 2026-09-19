@@ -66,6 +66,20 @@ beforeEach(() => {
   request.mockImplementation(respond);
 });
 
+it("keeps live external model controls outside the public application", () => {
+  render(<App />);
+  expect(
+    screen.queryByRole("button", { name: /DeepLoc|Accurate/ }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByText(/Live predictions use MAP-ExPLoc-owned models only/),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Import report" }),
+  ).toBeInTheDocument();
+  expect(request).not.toHaveBeenCalled();
+});
+
 async function analyze() {
   const user = userEvent.setup();
   await user.type(screen.getByLabelText("Protein sequences"), "AAA");
@@ -185,4 +199,31 @@ it("ignores a stale SHAP result after switching proteins", async () => {
   await waitFor(() =>
     expect(screen.queryByText(/0.9990/)).not.toBeInTheDocument(),
   );
+});
+
+it.each([
+  ["residues", ["A".repeat(10_001), "A".repeat(10_000)], false],
+  ["proteins", Array(21).fill("AAA"), false],
+  ["exact boundary", Array(20).fill("A".repeat(1000)), true],
+])("checks complete report limits for %s", async (_, sequences, allowed) => {
+  render(<App />);
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: "Batch FASTA" }));
+  fireEvent.change(screen.getByRole("textbox"), {
+    target: {
+      value: sequences.map((sequence, i) => `>p${i}\n${sequence}`).join("\n"),
+    },
+  });
+  await user.click(screen.getByRole("button", { name: "Analyze sequences" }));
+  await screen.findByText("Your analysis");
+  await user.click(
+    screen.getByRole("button", { name: "Generate complete report" }),
+  );
+  expect(request.mock.calls.some(([path]) => path === "/v2/analyze")).toBe(
+    allowed,
+  );
+  if (!allowed)
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Complete reports support at most 20 sequences and 20,000 total residues",
+    );
 });

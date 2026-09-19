@@ -77,7 +77,15 @@ def manifest_selection(root: Path) -> ModelSelection:
     return ModelSelection(path, digest, identity)
 
 
-def resolve_default_model() -> ModelSelection:
+def resolve_default_model(*, trusted_root: Path | None = None) -> ModelSelection:
+    """Resolve the research override, or an explicitly trusted deployment bundle.
+
+    A deployment root is supplied by application code, never by an HTTP request
+    or the working directory. It always uses the checked manifest and ignores
+    the unrestricted research artifact override.
+    """
+    if trusted_root is not None:
+        return manifest_selection(trusted_root)
     override = os.environ.get("MAPEXPLOC_MODEL_PATH")
     if override is not None:
         if not override.strip():

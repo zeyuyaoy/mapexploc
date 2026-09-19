@@ -10,7 +10,6 @@ import {
 import { request } from "./api";
 import examples from "./examples.json";
 import ReportViewer from "./components/ReportViewer";
-import NativeWorkflow from "./components/NativeWorkflow";
 import {
   readReportText,
   validateReport,
@@ -18,7 +17,7 @@ import {
 } from "./reports";
 
 const TABS = ["Prediction", "Sequence", "Explanation"];
-const DOCS = "https://github.com/zeyuyaoy/mapexploc/blob/main/docs/index.md";
+const DOCS = "https://github.com/zeyuyaoy/mapexploc/blob/stable/docs/index.md";
 
 export default function App() {
   const [report, setReport] = useState(null);
@@ -110,6 +109,18 @@ export default function App() {
   }
 
   async function completeReport() {
+    if (
+      analysis.records.length > 20 ||
+      analysis.records.reduce(
+        (sum, record) => sum + record.sequence.length,
+        0,
+      ) > 20_000
+    ) {
+      setReportError(
+        "Complete reports support at most 20 sequences and 20,000 total residues. Submit a smaller batch or generate the report with the CLI.",
+      );
+      return;
+    }
     setDetailLoading(true);
     try {
       const result = await request("/v2/analyze", {
@@ -323,15 +334,6 @@ export default function App() {
           MAP-<span>ExPLoc</span>
         </a>
         <nav aria-label="Main navigation">
-          <button
-            className="text-button"
-            onClick={() => {
-              cancel();
-              setStep("native");
-            }}
-          >
-            DeepLoc Fast / Accurate
-          </button>
           <input
             ref={reportInput}
             className="sr-only"
@@ -371,9 +373,7 @@ export default function App() {
             {reportError}
           </p>
         )}
-        {step === "native" ? (
-          <NativeWorkflow onBack={() => setStep("entry")} />
-        ) : step === "report" && report ? (
+        {step === "report" && report ? (
           <ReportViewer key={report.created_at} report={report} />
         ) : step === "entry" ? (
           <>
@@ -382,6 +382,10 @@ export default function App() {
                 Explore protein localization
               </h1>
               <p>Start with a sequence. Explore the evidence.</p>
+              <p className="hint">
+                Live predictions use MAP-ExPLoc-owned models only. Imported
+                reports are viewed locally; importing never runs a model.
+              </p>
             </div>
             <form onSubmit={analyze} noValidate>
               <div
@@ -447,7 +451,7 @@ export default function App() {
                 />
               </div>
               <p id="input-help" className="input-help">
-                20 standard amino acids · up to 100 sequences
+                20 standard amino acids · up to 25 sequences and 50,000 residues
               </p>
               <div
                 id="input-status"

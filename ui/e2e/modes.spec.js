@@ -1,64 +1,27 @@
 import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
-test("mode selection reaches backend identifiers and exports a bound CLI specification", async ({
+test("public UI exposes owned inference and local report import only", async ({
   page,
 }) => {
-  const modes = ["fast", "accurate"].map((mode) => ({
-    adapter_id: `fixture-${mode}`,
-    mode,
-    model_id: `DeepLoc-2.1-${mode === "fast" ? "Fast" : "Accurate"}`,
-    readiness: "configured",
-    device: "fixture",
-    tradeoff: "Software contract fixture only",
-  }));
-  await page.route("**/v3/models", (route) =>
-    route.fulfill({ json: { models: modes } }),
-  );
-  await page.route("**/v3/predict", (route) => {
-    const body = route.request().postDataJSON();
-    const model = modes.find((m) => m.adapter_id === body.adapter_id);
-    return route.fulfill({
-      json: {
-        model: {
-          model_id: model.model_id,
-          classes: ["Nucleus", "Extracellular"],
-          checkpoint_sha256: "a".repeat(64),
-          provenance: { mode: model.mode },
-        },
-        results: body.proteins.map((protein) => ({
-          protein,
-          probabilities: [0.7, 0.4],
-          decisions: ["Nucleus"],
-        })),
-      },
-    });
-  });
   await page.goto("/");
-  await page.getByRole("button", { name: "DeepLoc Fast / Accurate" }).click();
-  await page.getByLabel("DeepLoc model mode").selectOption("fixture-accurate");
-  await page
-    .getByLabel("Protein sequences (FASTA)")
-    .fill(">p\nACDEFGHIKLMNPQRSTVWY");
-  await page
-    .getByRole("button", { name: "Predict with selected mode" })
-    .click();
   await expect(
-    page.getByRole("heading", { name: "DeepLoc-2.1-Accurate" }),
+    page.getByText(/Live predictions use MAP-ExPLoc-owned models only/),
   ).toBeVisible();
-  const pending = page.waitForEvent("download");
-  await page
-    .getByRole("button", { name: "Export exact run configuration" })
-    .click();
-  const download = await pending;
-  const config = JSON.parse(await readFile(await download.path(), "utf8"));
-  expect(config.mode).toBe("accurate");
-  expect(config.expected_model_id).toBe("DeepLoc-2.1-Accurate");
-  expect(config.configuration.method_profile).toBe("v2x-legacy");
-  await page.getByLabel("DeepLoc model mode").selectOption("fixture-fast");
   await expect(
-    page.getByRole("heading", { name: "DeepLoc-2.1-Accurate" }),
+    page.getByRole("button", { name: /DeepLoc|native|Accurate|Fast \//i }),
   ).toHaveCount(0);
+  await expect(page.getByLabel("DeepLoc model mode")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Import report", exact: true }),
+  ).toBeVisible();
+  const catalog = await page.request.get("/api/v3/models");
+  expect(catalog.ok()).toBe(true);
+  const { models } = await catalog.json();
+  expect(models.map((model) => model.adapter_id)).toEqual(["default"]);
+  expect(models[0].descriptor.preprocessing_id).toBe(
+    "mapexploc:engineered-423:v1",
+  );
 });
 
 test("schema-v3 import exposes diagnostics and preserves full exports", async ({

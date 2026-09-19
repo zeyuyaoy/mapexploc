@@ -27,23 +27,23 @@ describe("biological input", () => {
   });
   it("enforces per-record, batch and total limits", () => {
     expect(() => parseSequences("A".repeat(LIMITS.sequence + 1))).toThrow(
-      "100,000",
+      "50,000",
     );
     expect(() =>
       parseSequences(
-        Array.from({ length: 101 }, (_, i) => `>p${i}\nAA`).join("\n"),
+        Array.from({ length: 26 }, (_, i) => `>p${i}\nAA`).join("\n"),
         "batch",
       ),
-    ).toThrow("100 sequences");
+    ).toThrow("25 sequences");
     expect(() =>
       parseSequences(
         Array.from(
-          { length: 11 },
-          (_, i) => `>p${i}\n${"A".repeat(100000)}`,
+          { length: 2 },
+          (_, i) => `>p${i}\n${"A".repeat(25001)}`,
         ).join("\n"),
         "batch",
       ),
-    ).toThrow("1,000,000");
+    ).toThrow("50,000");
   });
 });
 it("exports aligned numeric probabilities and escaped record names", () => {

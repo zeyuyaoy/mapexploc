@@ -9,16 +9,12 @@ export default defineConfig({
     setupFiles: "./src/test-setup.js",
   },
   server: {
-    proxy: Object.fromEntries(
-      [
-        "/health",
-        "/model",
-        "/features",
-        "/predict",
-        "/explain",
-        "/v2",
-        "/v3",
-      ].map((path) => [path, apiTarget]),
-    ),
+    proxy: {
+      "/api": {
+        target: apiTarget,
+        // Local research API retains its original unprefixed route contract.
+        rewrite: (path) => path.replace(/^\/api(?=\/|$)/, ""),
+      },
+    },
   },
 });
