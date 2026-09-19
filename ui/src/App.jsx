@@ -109,6 +109,18 @@ export default function App() {
   }
 
   async function completeReport() {
+    if (
+      analysis.records.length > 20 ||
+      analysis.records.reduce(
+        (sum, record) => sum + record.sequence.length,
+        0,
+      ) > 20_000
+    ) {
+      setReportError(
+        "Complete reports support at most 20 sequences and 20,000 total residues. Submit a smaller batch or generate the report with the CLI.",
+      );
+      return;
+    }
     setDetailLoading(true);
     try {
       const result = await request("/v2/analyze", {

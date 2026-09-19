@@ -108,14 +108,15 @@ class _PublicBoundary:
                 message = await receive()
                 if message["type"] == "http.disconnect":
                     return
-                body.extend(message.get("body", b""))
-                if len(body) > MAX_REQUEST_BYTES:
+                chunk = message.get("body", b"")
+                if len(body) + len(chunk) > MAX_REQUEST_BYTES:
                     response = JSONResponse(
                         status_code=413,
                         content={"detail": "Request body exceeds 512,000 bytes"},
                     )
                     await response(scope, receive, observed_send)
                     return
+                body.extend(chunk)
                 if not message.get("more_body", False):
                     break
             delivered = False

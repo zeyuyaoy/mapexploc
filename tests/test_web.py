@@ -347,3 +347,53 @@ def test_public_report_compression_and_uncompressed_size_guard(client, monkeypat
     assert "Accept gzip" in response.json()["detail"]
     assert "content-encoding" not in response.headers
     assert len(response.content) < 1000
+
+
+@pytest.mark.parametrize(
+    "sizes, accepted",
+    [
+        ([MAX_REQUEST_BYTES + 1], False),
+        ([1000, MAX_REQUEST_BYTES - 999], False),
+        ([1000, MAX_REQUEST_BYTES - 1000], True),
+    ],
+)
+def test_boundary_checks_chunks_before_copying(monkeypatch, sizes, accepted):
+    import asyncio
+
+    from mapexploc import web
+
+    copied = []
+
+    class BoundedBuffer(bytearray):
+        def extend(self, chunk):
+            assert len(self) + len(chunk) <= MAX_REQUEST_BYTES
+            copied.append(len(chunk))
+            super().extend(chunk)
+
+    monkeypatch.setattr(web, "bytearray", BoundedBuffer, raising=False)
+    messages = iter(
+        {"type": "http.request", "body": b"A" * size, "more_body": i < len(sizes) - 1}
+        for i, size in enumerate(sizes)
+    )
+    sent = []
+    received = []
+
+    async def receive():
+        return next(messages)
+
+    async def send(message):
+        sent.append(message)
+
+    async def app(scope, receive, send):
+        received.append(await receive())
+
+    asyncio.run(
+        web._PublicBoundary(app)({"type": "http", "method": "POST"}, receive, send)
+    )
+    if accepted:
+        assert received[0]["body"] == b"A" * sum(sizes)
+        assert copied == sizes
+    else:
+        assert not received
+        assert sent[0]["status"] == 413
+        assert copied == sizes[:-1]
