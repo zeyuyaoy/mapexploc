@@ -19,6 +19,7 @@ from mapexploc.models.rf import rf_predict, rf_predict_proba, train_random_fores
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+logging.getLogger("shap").setLevel(logging.WARNING)
 
 app = typer.Typer(
     help="MAP-ExPLoc: explainable protein subcellular localization",
@@ -260,6 +261,152 @@ def model_promote(
     except (OSError, ValueError) as exc:
         _fail(str(exc))
     typer.echo(json.dumps(result, indent=2))
+
+
+@app.command()
+def analyze(
+    fasta: Path = typer.Option(..., exists=True, dir_okay=False),
+    adapter: str = typer.Option(..., help="Installed adapter registry identifier"),
+    adapter_config: Path = typer.Option(..., exists=True, dir_okay=False),
+    configuration: Path | None = typer.Option(None, exists=True, dir_okay=False),
+    annotations: Path | None = typer.Option(None, exists=True, dir_okay=False),
+    cohort_manifest: Path | None = typer.Option(None, exists=True, dir_okay=False),
+    output_dir: Path = typer.Option(Path("results/analysis")),
+    model_mode: str | None = typer.Option(None, help="DeepLoc mode: fast or accurate"),
+    cache_dir: Path | None = typer.Option(
+        None, help="Bounded persistent probability cache"
+    ),
+    restart_dir: Path | None = typer.Option(
+        None, help="Save/resume completed proteins with a validated manifest"
+    ),
+    run_spec: Path | None = typer.Option(
+        None,
+        exists=True,
+        dir_okay=False,
+        help="Portable mode/identity/method specification exported by the viewer",
+    ),
+) -> None:
+    """Complete all-class analysis to portable JSON, CSV and standalone HTML."""
+    from Bio import SeqIO
+
+    from mapexploc.adapter import registered_adapter
+    from mapexploc.analysis import run_analysis
+    from mapexploc.execution import ExecutionOptions
+    from mapexploc.provenance import sequence_sha256
+    from mapexploc.report_v2 import Protein, write_report
+
+    loaded = None
+    try:
+        proteins = [
+            Protein(protein_id=r.id, sequence=str(r.seq))
+            for r in SeqIO.parse(fasta, "fasta")  # type: ignore[no-untyped-call]
+        ]
+        config = json.loads(configuration.read_text()) if configuration else {}
+        portable = json.loads(run_spec.read_text()) if run_spec else None
+        if portable:
+            if (
+                portable.get("schema_version") != 1
+                or portable.get("adapter") != adapter
+            ):
+                raise ValueError(
+                    "Run specification schema or adapter disagrees with CLI"
+                )
+            if configuration and config != portable["configuration"]:
+                raise ValueError(
+                    "Run specification and analysis configuration disagree"
+                )
+            config = portable["configuration"]
+            if model_mode and model_mode != portable.get("mode"):
+                raise ValueError("Run specification mode disagrees with CLI")
+            model_mode = portable.get("mode")
+        if cohort_manifest:
+            manifest = json.loads(cohort_manifest.read_text())
+            expected = {p.protein_id: sequence_sha256(p.sequence) for p in proteins}
+            members = manifest["members"]
+            if (
+                len(members) != len(expected)
+                or {m["protein_id"]: m["sequence_sha256"] for m in members} != expected
+            ):
+                raise ValueError(
+                    "Cohort manifest membership/checksums differ from FASTA"
+                )
+            config.update(
+                cohort_id=manifest["cohort_id"],
+                selection_criteria=manifest["selection_criteria"],
+            )
+            by_id = {m["protein_id"]: m for m in members}
+            proteins = [
+                Protein(
+                    **{
+                        **p.model_dump(),
+                        **{
+                            k: by_id[p.protein_id][k]
+                            for k in ("group", "split", "evaluation_labels")
+                            if k in by_id[p.protein_id]
+                        },
+                    }
+                )
+                for p in proteins
+            ]
+        native_configuration = json.loads(adapter_config.read_text())
+        if model_mode is not None:
+            if adapter != "deeploc2" or model_mode not in {"fast", "accurate"}:
+                raise ValueError("--model-mode requires deeploc2 and fast|accurate")
+            if (
+                "mode" in native_configuration
+                and native_configuration["mode"] != model_mode
+            ):
+                raise ValueError(
+                    "CLI mode disagrees with the trusted adapter configuration"
+                )
+            native_configuration["mode"] = model_mode
+        loaded = registered_adapter(adapter, native_configuration)
+        if portable and (
+            portable.get("expected_model_id") != loaded.descriptor.model_id
+            or portable.get("expected_checkpoint_sha256")
+            != loaded.descriptor.checkpoint_sha256
+        ):
+            raise ValueError(
+                "Run specification differs from the actual model/checkpoint"
+            )
+        intervals = json.loads(annotations.read_text()) if annotations else []
+        report = run_analysis(
+            loaded,
+            proteins,
+            config,
+            intervals,
+            execution=ExecutionOptions(
+                cache_directory=cache_dir,
+                restart_directory=restart_dir,
+                progress=lambda event: typer.echo(json.dumps(event), err=True),
+            ),
+        )
+        paths = write_report(report, output_dir)
+    except (OSError, ValueError, TypeError, RuntimeError, ImportError) as exc:
+        _fail(f"Analysis failed: {exc}")
+    finally:
+        close = getattr(loaded, "close", None)
+        if callable(close):
+            close()
+    typer.echo(f"Completed {len(report.results)} proteins: {paths['report.json']}")
+
+
+@app.command("compare")
+def compare_command(
+    left: Path = typer.Option(..., exists=True, dir_okay=False),
+    right: Path = typer.Option(..., exists=True, dir_okay=False),
+    output: Path = typer.Option(Path("comparison.json")),
+) -> None:
+    """Compare completed reports without recomputing predictions or explanations."""
+    from .comparison import compare_reports
+    from .execution import atomic_json
+    from .report_v3 import load_report
+
+    try:
+        atomic_json(output, compare_reports(load_report(left), load_report(right)))
+    except (OSError, ValueError, TypeError) as exc:
+        _fail(str(exc))
+    typer.echo(str(output))
 
 
 def main() -> None:

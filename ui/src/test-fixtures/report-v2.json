@@ -1,0 +1,434 @@
+{
+  "schema_version": 2,
+  "status": "complete",
+  "model": {
+    "contract_version": 1,
+    "model_id": "synthetic-position-control:v1",
+    "classes": ["outside", "inside"],
+    "task_type": "multiclass",
+    "preprocessing_id": "first-ten-leucine-frequency:v1",
+    "min_length": 1,
+    "max_length": 100000,
+    "thresholds": null,
+    "threshold_comparison": "greater_equal",
+    "empty_decision_policy": "empty",
+    "fallback_round_decimals": null,
+    "capabilities": ["region_kernel"],
+    "checkpoint_sha256": null,
+    "provenance": {
+      "purpose": "Software control only; no biological evidence"
+    }
+  },
+  "configuration": {
+    "explainer": "auto",
+    "seed": 42,
+    "references": 4,
+    "coalition_budget": 512,
+    "inference_batch_size": 16,
+    "stability_checks": false,
+    "stability_tolerance": 0.02,
+    "cohort_id": "synthetic-ui-test",
+    "selection_criteria": "All supplied proteins; no sampling"
+  },
+  "output_space": "probability",
+  "attribution_axes": "protein,class,feature",
+  "results": [
+    {
+      "protein": {
+        "protein_id": "outside-control",
+        "sequence": "LLLLLLLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "group": null,
+        "split": null,
+        "evaluation_labels": []
+      },
+      "sequence_sha256": "0eb99d835e52ccd915580e55afc619f0905dcb328f389baaf1b41f9d791e36f8",
+      "probabilities": [0.9, 0.09999999999999998],
+      "decisions": ["outside"],
+      "explained_classes": ["outside", "inside"],
+      "features": [
+        {
+          "feature_id": "region:0:10",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 0,
+          "end": 10,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:10:20",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 10,
+          "end": 20,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:20:30",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 20,
+          "end": 30,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:30:40",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 30,
+          "end": 40,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:40:50",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 40,
+          "end": 50,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:50:60",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 50,
+          "end": 60,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:60:70",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 60,
+          "end": 70,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:70:80",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 70,
+          "end": 80,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:80:90",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 80,
+          "end": 90,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:90:100",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 90,
+          "end": 100,
+          "category": "C_terminal"
+        }
+      ],
+      "feature_values": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+      "attributions": [
+        [0.7600000000000042, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [-0.7600000000000042, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      ],
+      "base_values": [0.14, 0.8600000000000001],
+      "residuals": [4.218847493575595e-15, -4.107825191113079e-15],
+      "annotations": [
+        {
+          "annotation_id": "synthetic-signal",
+          "protein_id": "outside-control",
+          "sequence_sha256": "0eb99d835e52ccd915580e55afc619f0905dcb328f389baaf1b41f9d791e36f8",
+          "accession": "synthetic",
+          "isoform": null,
+          "kind": "signal_peptide",
+          "start": 0,
+          "end": 20,
+          "source": "Synthetic UI fixture",
+          "source_version": "1",
+          "retrieved_at": "2026-09-18",
+          "source_url": "https://example.org/software-control",
+          "evidence": [],
+          "original_coordinates": {
+            "start": 1,
+            "end": 20
+          },
+          "uncertain": false,
+          "description": ""
+        }
+      ],
+      "explainer": {
+        "method": "region_kernel",
+        "output_space": "probability",
+        "link": "identity",
+        "l1_reg": 0,
+        "region_policy": "terminal-50-by-10/interior-up-to-six/short-contiguous-10:v1",
+        "reference_policy": "mean-probability-over-fixed-whole-sequence-shuffles:v1",
+        "references": [
+          {
+            "sequence": "LAAAAAAAAALAAAAAAAAAALAAAAAAAAAAAAALAAAAAAAAAAALAAAAAALAAAAAAAALAAAAALALLAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "sha256": "a7786ad15984d3d10d533c70ab429f36dd8141da028bcbfd71ea0c0af769ad84"
+          },
+          {
+            "sequence": "AAAAAAAAAAAAAALLAAAAAAAAAAAAAAAAAAAALLALAAAAAAAAAAAALAAAAAAAALAAAAAAAAAALAAAAALAAAAAAAAALAAAAAAAAAAA",
+            "sha256": "6d425a4bd0e353cea8c0b0cbd4b03905f15b902fc1755865be356958206bc4d8"
+          },
+          {
+            "sequence": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAALAAAAAAAAALLLAAAAAAAAAAAAAAAAALLAAAALAAAAAAAAALLAAAAA",
+            "sha256": "3c5b31f0d955c15ba82d9cf6431341293d410daba47dca272ff09f24534b92d2"
+          },
+          {
+            "sequence": "AAALAAAAAAAAAAAAALLAAAAAAAAAAAAALAAAAAAAAAALAAAAAAAALAAAAAALAAAAAAAAAAAAAAAAAAALAALAAAAAALAAAAAAAAAA",
+            "sha256": "46626ca1732b219b32860cadf7f848d535badc1aa8416d2ca842bc99277258e1"
+          }
+        ],
+        "seed": 2996244052,
+        "run_seed": 42,
+        "coalition_budget": 512,
+        "sampled_nontrivial_coalitions": 512,
+        "unique_coalitions_evaluated": 514,
+        "native_sequence_evaluations": 2053,
+        "stability": {
+          "status": "not_assessed"
+        }
+      },
+      "warnings": [
+        "Region SHAP under a shuffled-sequence reference game; hybrid sequences may be outside the natural sequence distribution.",
+        "Additivity is not evidence of approximation convergence or causal biology.",
+        "Approximation stability: not_assessed."
+      ]
+    },
+    {
+      "protein": {
+        "protein_id": "inside-control",
+        "sequence": "AAAAAAAAAALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+        "group": null,
+        "split": null,
+        "evaluation_labels": []
+      },
+      "sequence_sha256": "44636c4a305e29c3ff8dc3b8a81ab55d8d3c351a92c117a357ff8eec67ef6c66",
+      "probabilities": [0.1, 0.9],
+      "decisions": ["inside"],
+      "explained_classes": ["outside", "inside"],
+      "features": [
+        {
+          "feature_id": "region:0:10",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 0,
+          "end": 10,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:10:20",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 10,
+          "end": 20,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:20:30",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 20,
+          "end": 30,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:30:40",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 30,
+          "end": 40,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:40:50",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 40,
+          "end": 50,
+          "category": "N_terminal"
+        },
+        {
+          "feature_id": "region:50:60",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 50,
+          "end": 60,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:60:70",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 60,
+          "end": 70,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:70:80",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 70,
+          "end": 80,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:80:90",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 80,
+          "end": 90,
+          "category": "C_terminal"
+        },
+        {
+          "feature_id": "region:90:100",
+          "kind": "sequence_region",
+          "definition": "This complete sequence interval is native (1) or replaced from a fixed whole-protein shuffled reference (0).",
+          "units": "binary presence",
+          "start": 90,
+          "end": 100,
+          "category": "C_terminal"
+        }
+      ],
+      "feature_values": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+      "attributions": [
+        [-0.7599999999999951, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.7599999999999951, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      ],
+      "base_values": [0.86, 0.13999999999999999],
+      "residuals": [4.85722573273506e-15, -4.884981308350689e-15],
+      "annotations": [],
+      "explainer": {
+        "method": "region_kernel",
+        "output_space": "probability",
+        "link": "identity",
+        "l1_reg": 0,
+        "region_policy": "terminal-50-by-10/interior-up-to-six/short-contiguous-10:v1",
+        "reference_policy": "mean-probability-over-fixed-whole-sequence-shuffles:v1",
+        "references": [
+          {
+            "sequence": "LLLLLALLALLLLLLLLALLLALLLLLLLLLLLLLALLLLLLAALLLLALLLLLLLLLLLLLALLLLLLLLLLLLLLLLLLLLLLLLALLLLLLLLLLLL",
+            "sha256": "de7c8779397517ae70d10fd2b6be9a9a48128a25c518c9a3fedf04c581034997"
+          },
+          {
+            "sequence": "LLLLLLLLLLLLALALLLLALLLLLALLLLLLLLLLLLLLLLLLLLLLALLLLLLLLLALLLLLLLLLLAALLALLLLLLLLLLLLALLLLLLLLLLLLL",
+            "sha256": "4bb470ec654e63151cfcb71710ee66275d83660da7201dd78fea33bca067568b"
+          },
+          {
+            "sequence": "LLLLLLLLLLLLLLLLLLLLLLLLALLLLALLALLLLLLLLLLALLALLLLLLLLLLLLLLLLALAALLLLLLLLLLLLLLLALLLLLLLLLLLALLLLL",
+            "sha256": "408a6e47f9c567cb1d03e47c66168de865d4a107111d3208b36444f0a1d9638c"
+          },
+          {
+            "sequence": "LLLLLLLLLLLLALLLLLLLLLLLLLLLLLLLLLLLLLALLLLLLALLLLLLAALLLLLLLALLLLLLLLLLLLLLLLLLLLLLLALLLLLLALLALALL",
+            "sha256": "30e8051d22dc8419dd908ffb9b610f4ff516f178b7ac7401cb3a026c7325cd30"
+          }
+        ],
+        "seed": 1871731303,
+        "run_seed": 42,
+        "coalition_budget": 512,
+        "sampled_nontrivial_coalitions": 512,
+        "unique_coalitions_evaluated": 514,
+        "native_sequence_evaluations": 2053,
+        "stability": {
+          "status": "not_assessed"
+        }
+      },
+      "warnings": [
+        "Region SHAP under a shuffled-sequence reference game; hybrid sequences may be outside the natural sequence distribution.",
+        "Additivity is not evidence of approximation convergence or causal biology.",
+        "Approximation stability: not_assessed."
+      ]
+    }
+  ],
+  "cohort": {
+    "cohort_id": "synthetic-ui-test",
+    "selection_criteria": "All supplied proteins; no sampling",
+    "protein_ids": ["outside-control", "inside-control"],
+    "sequence_hashes": [
+      "0eb99d835e52ccd915580e55afc619f0905dcb328f389baaf1b41f9d791e36f8",
+      "44636c4a305e29c3ff8dc3b8a81ab55d8d3c351a92c117a357ff8eec67ef6c66"
+    ],
+    "input_count": 2,
+    "included_count": 2,
+    "exclusions": [],
+    "contributions": [
+      {
+        "class_id": "outside",
+        "feature_id": "C_terminal",
+        "mean_absolute": 0.0,
+        "mean_signed": 0.0,
+        "protein_count": 2,
+        "region_count": 10,
+        "denominator": "Equal weight per protein with this feature/category; within-protein mean across its regions"
+      },
+      {
+        "class_id": "outside",
+        "feature_id": "N_terminal",
+        "mean_absolute": 0.15199999999999994,
+        "mean_signed": 9.159339953157541e-16,
+        "protein_count": 2,
+        "region_count": 10,
+        "denominator": "Equal weight per protein with this feature/category; within-protein mean across its regions"
+      },
+      {
+        "class_id": "inside",
+        "feature_id": "C_terminal",
+        "mean_absolute": 0.0,
+        "mean_signed": 0.0,
+        "protein_count": 2,
+        "region_count": 10,
+        "denominator": "Equal weight per protein with this feature/category; within-protein mean across its regions"
+      },
+      {
+        "class_id": "inside",
+        "feature_id": "N_terminal",
+        "mean_absolute": 0.15199999999999994,
+        "mean_signed": -9.159339953157541e-16,
+        "protein_count": 2,
+        "region_count": 10,
+        "denominator": "Equal weight per protein with this feature/category; within-protein mean across its regions"
+      }
+    ],
+    "aggregation": "Per fixed output class: mean absolute and mean signed SHAP. Region categories describe terminal/interior position, not sequence alignment."
+  },
+  "software": {
+    "python": "3.13.14",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "mapexploc": "0.1.0",
+    "numpy": "2.5.2",
+    "scipy": "1.18.1",
+    "pandas": "3.0.5",
+    "shap": "0.52.0",
+    "scikit-learn": "1.9.0",
+    "pydantic": "2.13.5",
+    "biopython": "1.88"
+  },
+  "created_at": "2026-09-18T23:52:49.105343+00:00",
+  "warnings": [
+    "Biological annotation overlap describes model behavior, not proof of a causal biological mechanism.",
+    "Adapter did not provide a checkpoint fingerprint; exact model reproduction is not established."
+  ],
+  "interaction_status": "unsupported"
+}

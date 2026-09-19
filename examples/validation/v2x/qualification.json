@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-19",
+  "release_qualified": false,
+  "scope": "Software and Fast qualification; independent prepared inputs; no final biological results",
+  "historical_v2_unchanged": true,
+  "model_gates": {
+    "rf": "installed_wheel_local_global_and_react_passed",
+    "third_party_fixture": "installed_wheel_local_global_and_react_passed_synthetic_only",
+    "deeploc_fast": "native_parity_local_global_cache_resume_and_react_passed",
+    "deeploc_accurate": "failed_memory_preflight_no_real_inference"
+  },
+  "pending": [
+    "Accurate native full-precision/CSV parity and capacity",
+    "Both-mode development reference/region/stability/faithfulness benchmark",
+    "Development-only frozen method selection",
+    "Remaining prespecified family power/null eligibility checks",
+    "Untouched both-mode biological evaluation",
+    "Complete real-model release matrix"
+  ],
+  "native_worker_sha256": "fb935e2613623c817b7b26cab6bf130d0f481591ced879d54b40db4fa8adf0ea",
+  "method_profile": "v2x-legacy",
+  "replacement_default_selected": false,
+  "statistical_claim": "Historical matched-null p=0.077922 is unchanged; no new biological concordance claim",
+  "fast_native_measurements": {
+    "elapsed_seconds": 141.29160079092253,
+    "native_calls": 443,
+    "native_sequences": 3162,
+    "peak_host_bytes": 5700698112,
+    "peak_scope": "worker_lifetime_high_water_mark",
+    "cache_hits": 322
+  },
+  "runtime_device": "M2 Max, 32 GB unified memory, MPS, float32",
+  "accurate_memory_failure": "10.9 GiB available; conservative cold-load estimate plus reserve 20 GiB",
+  "qualification_notes": [
+    "Synthetic capacity panel measures computational behavior, not biology",
+    "Fast report uses two short development proteins and is not the 24-protein method benchmark",
+    "CUDA, mixed precision and Accurate multi-sequence batching remain unqualified",
+    "Host memory high-water marks are recorded; device peak memory is not measured"
+  ],
+  "software_wheel_sha256": "c72d1f324ad2fd843d9d1755a5ab0cad7ae693f17a8c5dbabd647b63fe93494e"
+}

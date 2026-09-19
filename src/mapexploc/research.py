@@ -174,7 +174,7 @@ def temperature_scale(probabilities: np.ndarray, temperature: float) -> np.ndarr
 
 
 def fit_temperature(y: Any, probabilities: np.ndarray) -> float:
-    score(y, probabilities)  # Validate alignment and probabilities before optimizing.
+    score(y, probabilities)  # Validate alignment and probabilities before optimization.
     indices = np.array([list(CLASSES).index(label) for label in y])
 
     def loss(t: float) -> float:
@@ -504,7 +504,7 @@ def summarize(
                 for m in ("selected", "reference", "calibrated")
             },
         }
-    # Equal total weight per independent group, as a sensitivity to large families.
+    # Weight groups equally to assess sensitivity to large families.
     _, inverse, counts = np.unique(group_rows, return_inverse=True, return_counts=True)
     weights = 1 / counts[inverse]
     from sklearn.metrics import f1_score
@@ -668,7 +668,7 @@ def run_research(
             predictions["calibrated"] = temperature_scale(
                 np.array(predictions[winner_id]), t
             ).tolist()
-            # Truncation stress is deliberately outside model selection.
+            # Keep truncation stress tests outside model selection.
             truncated = frame.sequence.iloc[valid].map(
                 lambda s: s[min(25, len(s) - 1) :]
             )
@@ -697,7 +697,7 @@ def run_research(
                 flush=True,
             )
         report = summarize(frame, records, groups)
-        # Frozen full-development selection; outer outcomes never choose parameters.
+        # Select on development data only; never use outer-fold outcomes.
         final_splits = grouped_splits(y, groups, 3, seeds[0] + 100)
         futures = [
             pool.submit(inner_fit, c, x, y, final_splits, seeds[0]) for c in configs
@@ -823,7 +823,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # Keep serialized transformer functions importable in another Python process.
+    # Keep serialized transformers importable across processes.
     from mapexploc.research import main as entrypoint
 
     entrypoint()

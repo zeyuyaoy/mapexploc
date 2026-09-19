@@ -56,7 +56,7 @@ def main() -> None:
     started = time.perf_counter()
     with threadpool_limits(limits=1):
         search.fit(x, data.label)
-    # Only selection metadata is read; historical held-out outcomes are not scored.
+    # Read selection metadata without scoring historical holdout outcomes.
     recorded = read_json(Path("examples/models/human-baseline.report.json"))
     report = {
         "dataset_sha256": checksum(source),

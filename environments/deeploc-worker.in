@@ -1,0 +1,13 @@
+# Native DeepLoc 2.1 package is licensed separately; Python 3.11.
+torch==2.5.1
+pytorch-lightning==2.4.0
+fair-esm==2.0.0
+transformers==4.44.2
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+biopython==1.84
+matplotlib==3.9.2
+onnxruntime==1.19.2
+sentencepiece==0.2.0
+setuptools==75.1.0

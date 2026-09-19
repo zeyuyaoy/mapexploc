@@ -1,0 +1,1298 @@
+[
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A0F7YYX3",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 25,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "26301480"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 50,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 90,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "LDL-receptor class A",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU00124"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MSSPLRMDVTFLLAAIAVTWVCGLKIGFPGFSTPPRSFIQHPKRTLCPEDCDIASPFKCEESPTCLRLFQVCNGRWDCEHGSDEDNALCAAVLRPLECMIWEFLEGQRDWILPNLFNDANTDLVAHALHEAYSMGDLQSYLNLTDQNIENIRNSTRGAIVGDPRPLMALGMPDRAWPEVMYLLKELYNLGLDVWAE",
+      "length": 196,
+      "molWeight": 22135,
+      "crc64": "3E8FA010009F2731",
+      "md5": "9939A973D6FF01590BA614FB16D18AD8"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0006242AF0"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A0F7YZQ7",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "26301480"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAPSQKALLVLVLSMLLTASDSWARRIDCKVFVFAPICRGVAAKRGGDSLSVGGSAELDDALTDPFLRSEEPREWRELTRLSRVLQTFLSHPTGETEQHD",
+      "length": 100,
+      "molWeight": 11056,
+      "crc64": "8282655544AF859F",
+      "md5": "EA47B4D6738065A4AC993805EAB41D87"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0006242AF4"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A161AT60",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 25,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "27137920"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MARSMKLACVALVICMVVIAPMAEAALSCGTVSADMAPCVTYLQAPNNASPPPPCCAGVKKLLAAATTTPDRQAACNCLKSAAGSIPKLNTNNAAALPGKCGVSIPYKISTSTNCNTVRF",
+      "length": 120,
+      "molWeight": 12160,
+      "crc64": "FCDE59C3D93D4D6F",
+      "md5": "FD47300F4025CE611621B2EDB8F4054D"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0007BCE228"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A4P9I8G4",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 20,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "31932718"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MHSFTSFALVAASLASVAQAHFQLQWPGARGAFVANDEVYFCGAHNNVTTNRTDFPLDGSGFVSIKSGHAPYTVGAIISLETDADAWEDFKNSSGGDQIAIAYRQVDNSGTYCVPFNPSSLNIAGIQDGANATIQVVYTGGDGNLYQCADVTFRTTVANLNSSVCTNSTGGDDHSHSSSVTGSTTASAPSTSQTANAAIPFDRWCCYHPWLCWYLRVSPVKTLKGLLLSLPYPCNAFQ",
+      "length": 238,
+      "molWeight": 25300,
+      "crc64": "C22167803C156433",
+      "md5": "CE5D3A8226DA7D54CA92FC579B54DFBF"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00113866A0"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A5C2A2T2",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "30765458"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKLLAPVLWAMAALGVTWLVAVDSKESCTKHSNGCSTPLRLPCQEYFRPACDIHDNCYHCGTIFGISRKECDDAFLKDMNTLCKKLGSNSATCPARGKREVTSHRATSIAHSRLWKTALDQKSFLNRKARQAILLTPNSCLYWANNFYMAVHVFGARSYSRTTDPKDCQGLKHCLPNH",
+      "length": 178,
+      "molWeight": 19968,
+      "crc64": "E8DD2E4197754496",
+      "md5": "239FF2FF148509C35A09BA2322484E20"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0012560D08"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A0A7E5WTY7",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 20,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "15896348"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 35,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 191,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "Ferritin-like diiron",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU00085"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MNSILLVFAGILAVCLPASATQCNVNPVQIPKDWITMHRSCRNSMRQQIQMEVGASLQYLAMGAHFSKDVVNRPGFAQLFFDAASEEREHAMKLIEYLLMRGELTNDVSSLLQVRPPTRSSWKGGVEALEHALSMESDVTKSIRNVIKACEDDSEFNDYHLVDYLTGDFLEEQYKGQRDLAGKASTLKKLMDRHEALGEFIFDKKLLGIDV",
+      "length": 211,
+      "molWeight": 23757,
+      "crc64": "DCF18391F0674AE1",
+      "md5": "D2E4DECB55D7BE87019496690E550C1B"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI000EF83909"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A2AJB7",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 26,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "1591332"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MCSVARHMESIMLFTLLGLCVGLAAGTEAAVVKDFDVNKFLGFWYEIALASKMGAYGLAHKEEKMGAMVVELKENLLALTTTYYNEGHCVLEKVAATQVDGSAKYKVTRISGEKEVVVVATDYMTYTVIDITSLVAGAVHRAMKLYSRSLDNNGEALNNFQKIALKHGFSETDIHILKHDLTCVNALQSGQI",
+      "length": 192,
+      "molWeight": 21013,
+      "crc64": "E91DA019DEF21F5B",
+      "md5": "798EFB2F32EF28243A2C43AB5C4EE462"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000D776CC"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A4LAR6",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "18524922"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MFSKLAIFATAAFAVLAAATPVRRQQCTTGQLQCCESTSTANDPATSELLGLIGVVISDVDALVGLTCSPISVIGVGSGSACTANPVCCDSSPIGGLVSIGCVPVNV",
+      "length": 107,
+      "molWeight": 10561,
+      "crc64": "1B3A0CCBF7AB242A",
+      "md5": "A6DCF3EBC671C661BBFC2C2DA017EB5A"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000F6D85D"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A5HAK0",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 22,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "18508078"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MGIHQCTAVVLLLLCASLSTYGQPAEIRRRYEHFLTQHVYGGITEQTCDRVMRQRRITRFPTGNDCKEVNTFIQANGNHVRTVCTGGGTRQTDNRDLYMSNNQFTVITCTLRSGERHPNCRYRGKESSRKIVVACEGEWPTHYEKGVIV",
+      "length": 149,
+      "molWeight": 17011,
+      "crc64": "096E21A32D5B6479",
+      "md5": "9F41A4E75B8BEA572200CA5BA5F21D63"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001D340CF"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A6MEY4",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 27,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "17383773"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MNPAHLLVLLAVCVSLLGAANIPPQSLNLYQFKNMIQCAGTQLCVAYVKYGCYCGPGGTGTPLDQLDRCCQTHDHCYDNAKKFGNCIPYFKTYEYTCNKPDLTCTDAKGSCARNVCDCDRAAAICFAAAPYNLANFGINKETHCQ",
+      "length": 145,
+      "molWeight": 15796,
+      "crc64": "AB8625CC94EA8C78",
+      "md5": "E1A49CEEC826820382739C91F05DE7C3"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001578AE4"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "A8CL69",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 33,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "17068263"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MIGFAVFSSFNRFTTIFVCVLLCVVYLLSYASGEYDGRDSSSGSNNDRAPSNEFGSCTDGKCIKRTSQDITSGMWFGPRLGRRRRADRKPEINSDIEAFANAFEEPHWAIVTIPETEKRQITQFTPRLGRESGEDYFSYGFPKDQEELYTEEQIYLPLFASRLGRRVPWTPSPRLGRQLHNIVDKPRQNFNDPRF",
+      "length": 195,
+      "molWeight": 22455,
+      "crc64": "0FF4096BF7431BE2",
+      "md5": "33060C2820E0342583299CFEFEDFF9C3"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00015D6124"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "B0CPC6",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 21,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "31932718"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MYCQPKFFTLALLALVAGVNAHFQLQFPSPRGAFVEDNEPTFCDGYANPAANRTEFPLTGGFITLNSEHPLWTSGILLSTASDPTSFNNFSQITPYAQAHGEGLFCLPFDLSATNATGLQDGQNVTIQFVFNGGDGNLYQCADLTLSKNFTISSSITCSNASVSATATSTGAAATGSKSAALGTVPAFGVAGIVTALFGISLATVM",
+      "length": 206,
+      "molWeight": 21372,
+      "crc64": "4F03A9C89A9B8E9F",
+      "md5": "19F220D32C14D631C808D0D71094435F"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00016436FE"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "B1P0S1",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 23,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "15716269"
+          },
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "18225917"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MALSLFTVGQFIFLFWTISITEANIDPAARAAAAAAASKAAVTAADAAAAAATIAASAASVAAATAADDAAASIATINAASAAAKSIAAAAAMAAKDTAAAAASAAAAAVASAAKALETINVKAAYAAATTANTAAAAAAATATTAAAAAAAKATIDNAAAAKAAAVATAVSDAAATAATAAAVAAATLEAAAAKAAATAVSAAAAAAAAAIAFAAAP",
+      "length": 218,
+      "molWeight": 19304,
+      "crc64": "5EDA80C716CC9406",
+      "md5": "748D4FF27B7F511A79330CAC161AFE16"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI000171DCBE"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "B2KNH9",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "19495769"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 25,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 138,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "Bulb-type lectin",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU00038"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAFSISSTMIFLLSLALFSTLVSADNHLLPGERLNPGNFLKQDRYMLIMQEDCNLVLYNLNKPEWATKTANQGSRCFVTLQSDGNFVIYDEHEQEGRNEAIWASKTDGENGNYVIILQKDGNLVLYSKPIFATGTNRFGSTAVVVAKRNRKAHFGVEQNIIEVTTNL",
+      "length": 167,
+      "molWeight": 18738,
+      "crc64": "AF8F5FB49B01F525",
+      "md5": "5BBBDF648D060FA5A7DB00F91EF5CB8E"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001740B4E"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "C0HKG0",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 25,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "21596752"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAYVRLACLAVIFFFAASVMFTVEAGIPCGESCVFIPCLTTVVGCSCKNKVCYNNHVIAAEANSIDDHHLLCQSHDDCIKKGTGNFCAPFLDHACQYGWCFRAESEGYLLKDFLKMP",
+      "length": 117,
+      "molWeight": 12900,
+      "crc64": "65E5BC21B6135967",
+      "md5": "AB03DBB65D411C7A6DE3C41CA780F1B4"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI000A27FC4B"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "C0K3N1",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "19208624"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAAYLLAVAILFCIQGWPSGTVQGEVRPFMEVYQRSVCQPRETLVSILEEYPDKISKIFRPSCVAVLRCGGCCSDESLTCTSVGERTVELQVMQVTPKTLSSKIKVMKFREHTACECRPRSGSRVNIGKHKRSPEEGEREPSSPLTPGSL",
+      "length": 150,
+      "molWeight": 16623,
+      "crc64": "82BD24404458E41B",
+      "md5": "3635CA4DA441B84CC7431F34F7F33E99"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00019492DC"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "C6JUN9",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 23,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "21515432"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 33,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 155,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "C-type lectin",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU00040"
+          }
+        ]
+      },
+      {
+        "type": "Motif",
+        "location": {
+          "start": {
+            "value": 119,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 121,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "Mannose-binding",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000250"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MGHFTFISLCLMPIFLSLSGAECYTCPIDWLSRNGLCYKLFDDTKTWPDAEIFCRKHKPGCHLTSIHSEAESADLAEYIYDYLKSEKNVWIGLNDPQKERIWEWTDRSSTNYTSWNEGEPNNSWNKEYCVHLLASQGYLKWNDTPCESLFAFICRCQF",
+      "length": 158,
+      "molWeight": 18521,
+      "crc64": "25E64EB82E87C765",
+      "md5": "1F90C8CC9E60813915065DB35D508E21"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001AAB3D3"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "C9K4X8",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 29,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "19470645"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MTSNNRHLFQATCLVLLLLHAAFHGGALGEKYCDDDFHMAVFRTCAVSKRSQPGMSLSDVLTMNRFRGHNIKRSIDSTLEDNAFFMSGLEKRSEYSGIASYCCLHGCTPSELSVVC",
+      "length": 116,
+      "molWeight": 12871,
+      "crc64": "B244C89DEBCF4040",
+      "md5": "1FCC4893B4D0B37A9E39D1A68A8FB037"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000EFFBFC"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "D4A540",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 31,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "26479776"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MGTSSARPAVLALAGLALLLLLCLGPGDVSGNKLKKMLQKREGPVPSKTNVAVSEHTAKEFLGGLKRAKRQLWDRTRPEVQQWYQQFLYMGFDEAKFEDDVNYWLNRNQNGHDYYGDYYQRHYDEDAAIGPRSREGFRHGASVNYDDY",
+      "length": 148,
+      "molWeight": 16949,
+      "crc64": "641F8358E067BF60",
+      "md5": "9BB69BC0D8DDD3858D37BDDDA3ADEBB8"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00001D01FE"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "E9NX73",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 22,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "21645012"
+          },
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "29306152"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKLFIILATATLLIAATQAKYLRDEGFDLGETQMSSKCTRQVKMMEPELVKCNRYIAMDIMDDKYEEALSRIQGEGCESEEKFLRGCCVAMKEMEDECVCEWMKMMVENQKGRIGETLMRKGIRDLKELPNKCGISEMECHSRGNWYYV",
+      "length": 149,
+      "molWeight": 17280,
+      "crc64": "AAC1B76E740AA260",
+      "md5": "3151835A35041AA238D0078F3C786E1A"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001F7E11F"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "F7J1C8",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 21,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "21653698"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 34,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 247,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "GH16",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU01098"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKLFVVLACLAAPGTFPFVDAATVIPANSFSSFSTYWNNFYPWGTDHNGSGRMASANIIVASNTLSLIATPTSNPSPPTSTSNPKPAIHYASGAIHAKEHITVTAANAYTVSGEFSAPTAVGTWPAFWLTAVSGWPPEVDIGEWKGTADNWFNTFNTSSVVKSTLVDWPTDLSFHSVKAVLTAQSNNKDVKIDFYMDNKFIVTQYGSGFVGKAMYLIINLQMEGSSGSPGPSGRTVYKARNVQVTRTGN",
+      "length": 249,
+      "molWeight": 26690,
+      "crc64": "6FB4218B8D52F1B6",
+      "md5": "C350468A94FBAA6E5F2AB4627C22AB5D"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0002176AEE"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "G5ED35",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 20,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "20526330"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MSRFLIYFLPFFIYSGNVLSKTSCLMATGVLKCPTDPEAVKKVHIDLWDEDSLPLESDDLMGRTWSDRNGNFQVTGCASDFGPINTPDPYLYIQHNCPHRDSNATNPIQIDVIPLFLPSIVRLGNVYLDRYLEDY",
+      "length": 135,
+      "molWeight": 15379,
+      "crc64": "4B4C46FD94AAF55B",
+      "md5": "D25B0C2E2C02BBF4C20F33071F6105D1"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001E75B31"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "K9N4Q4",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 23,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "38959191"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MSGHILTVGLIVVVAHCATLSSSASTIPIQSQGKDFPVPFVSEQTDDFYDDKFYPDISDDNINEVVRDNGRKGGDRGRQSTPSGKESHPSATQTGGRRPSQSPCGESRPSGSATSGRRPSQSPRGESLPPATLAGRQNSRQQDRRQNKKQPDLSKYKNSPARYIFTTGNVDSGKTPDEERIFRTNRAEYVLATGGPYDNYLVEIIDGPNPNDISLKQSTTMGGDSKLILDNPNRNTIVGRIKTFKA",
+      "length": 246,
+      "molWeight": 26786,
+      "crc64": "1DFE8B3EF716E6CC",
+      "md5": "40A7979064156C8E2793667CA488720D"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00029EE70E"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "M1MR49",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 24,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "23825947"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKVLRCLVCSFYIIVSLITTMTIGTPSMPAINTQTLYLAGHSSKLFERNVGCVKTRYLNQTGDWVTRSLIYVFTFDTEPWVTQAGAFQVKWEPYSPLLRVKASDYVRDNLGAKPDYFIRTYDNDFLLLSDLKEVRSTCSLWVTLKYVDRIPETINRTFYTICPDPVPVPFDERCYP",
+      "length": 176,
+      "molWeight": 20367,
+      "crc64": "513B4F72901F4FE7",
+      "md5": "3F65809B8A32FB46F88C24C36CB601A1"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0001D6AA51"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O00175",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 26,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "15340161"
+          },
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9104803"
+          },
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9365122"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAGLMTIVTSLLFLGVCAHHIIPTGSVVIPSPCCMFFVSKRIPENRVVSYQLSSRSTCLKAGVIFTTKKGQQFCGDPKQEWVQRYMKNLDAKQKKASPRARAVAVKGPVQRYPGNQTTC",
+      "length": 119,
+      "molWeight": 13134,
+      "crc64": "6CAACA61731FB393",
+      "md5": "4490AB5870E8DE19BDD6E28D0D39E0DD"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000050AFE"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O00585",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 23,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9300671"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MAQSLALSLLILVLAFGIPRTQGSDGGAQDCCLKYSQRKIPAKVVRSYRKQEPSLGCSIPAILFLPRKRSQAELCADPKELWVQQLMQHLDKTPSPQKPAQGCRKDRGASKTGKKGKGSKGCKRTERSQTPKGP",
+      "length": 134,
+      "molWeight": 14646,
+      "crc64": "FB48C2F71CB4A9D2",
+      "md5": "C0859F6FE4E9EB691AEA3E52630CCEAB"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000049E0F"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O02826",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 20,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "8117114"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKFLLGTLVVLATFVTLCNSQCYFIPNQSLKPNECQDLKGVSHPLNSVWKTKDCEECTCGQNAISCCNTAAIPTGYDTNKCQKILNKKTCTYTVVEKKDPGKTCDVTGWVL",
+      "length": 111,
+      "molWeight": 12246,
+      "crc64": "ABF33A067A23765E",
+      "md5": "74C46971E82E76BDC0BC14589E27BE1A"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI000012F61A"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O02853",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 28,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9510973"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MATPNRLWMALLLLGVLGVLQTPAPAQAALQPNFEEDKFLGRWFTSGLASNSSWFLEKKKVLSMCKSVVAPAADGGLNLTSTFLRKDQCETRTLLLRPAGPPGCYSYTSPHWSSTHEVSVAETDYETYALLYTEGVRGPGQDFRMATLYSRSQNPRAEVKEHFTTFAKSLGFTEEGIVFLPKTDKCMEEHP",
+      "length": 191,
+      "molWeight": 21229,
+      "crc64": "3B55675987B7A4C4",
+      "md5": "35A35CCF2B2F6557CAFBCE1805928774"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI00001317A0"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O13547",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 22,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "10322008"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 23,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 110,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "CFEM",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU01356"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MRATTLLSSVVSLALLSKEVLATPPACLLACVAQVGKSSSTCDSLNQVTCYCEHENSAVKKCLDSICPNNDADAAYSAFKSSCSEQNASLGDSSSSASSSASSSSKASSSTKASSSSASSSTKASSSSASSSTKASSSSAAPSSSKASSTESSSSSSSSTKAPSSEESSSTYVSSSKQASSTSEAHSSSAASSTVSQETVSSALPTSTAVISTFSEGSGNVLEAGKSVFIAAVAAMLI",
+      "length": 238,
+      "molWeight": 23268,
+      "crc64": "450042DC144C12B8",
+      "md5": "18FE9B30E952D2526108203EEA607C40"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI0000128730"
+    }
+  },
+  {
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "primaryAccession": "O14412",
+    "features": [
+      {
+        "type": "Signal",
+        "location": {
+          "start": {
+            "value": 1,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 29,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9324248"
+          }
+        ]
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 30,
+            "modifier": "EXACT"
+          },
+          "end": {
+            "value": 245,
+            "modifier": "EXACT"
+          }
+        },
+        "description": "GH16",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000255",
+            "source": "PROSITE-ProRule",
+            "id": "PRU01098"
+          }
+        ]
+      }
+    ],
+    "sequence": {
+      "value": "MKSIISIAALSVLGLISKTMAAPAPAPVPGTAWNGSHDVMDFNYHESNRFEMSNWPNGEMFNCRWTPNNDKFENGKLKLTIDRDGSGYTCGEYRTKNYYGYGMFQVNMKPIKNPGVVSSFFTYTGPSDGTKWDEIDIEFLGYDTTKVQFNYYTNGQGHHEHIHYLGFDASQGFHTYGFFWARNSITWYVDGTAVYTAYDNIPDTPGKIMMNAWNGIGVDDWLRPFNGRTNISAYYDWVSYDAPRN",
+      "length": 245,
+      "molWeight": 27929,
+      "crc64": "08B5DF57D89F2DCC",
+      "md5": "AB01320768FDCBBBB92413F8E65E599E"
+    },
+    "extraAttributes": {
+      "uniParcId": "UPI000012BD96"
+    }
+  }
+]

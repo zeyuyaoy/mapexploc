@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 def validate_features(features: pd.DataFrame) -> None:
-    """Simple validation for feature matrix."""
+    """Reject empty, nonnumeric or nonfinite feature matrices."""
     if features.empty:
         raise ValueError("Features DataFrame is empty")
     if features.isna().all().any():
@@ -46,33 +46,10 @@ def train_knn(
     random_state: int = 42,
     groups: pd.Series | np.ndarray | None = None,
 ) -> dict[str, Any]:
-    """
-    Train a k-NN classifier with hyperparameter tuning using grid search.
+    """Tune k-NN with cross-validation.
 
-    Parameters
-    ----------
-    features : pd.DataFrame
-        Feature matrix with protein features
-    targets : pd.Series
-        Target localization labels
-    test_features : pd.DataFrame, optional
-        Deprecated, rejected: evaluate separately after freezing model selection
-    test_targets : pd.Series, optional
-        Deprecated, rejected: evaluate separately after freezing model selection
-    cv : int, default=5
-        Number of cross-validation folds
-    n_jobs : int, default=-1
-        Number of parallel jobs for grid search
-    scoring : str, default='f1_macro'
-        Scoring metric for grid search
-    random_state : int, default=42
-        Random state for reproducibility
-
-    Returns
-    -------
-    dict[str, Any]
-        Dictionary containing trained model, best parameters, and evaluation results
-    """
+    Test inputs are rejected; evaluate separately after model selection.
+    Returns the fitted model, selected parameters and validation results."""
     if test_features is not None or test_targets is not None:
         raise ValueError(
             "train_knn does not evaluate test data; call evaluate_knn separately "
@@ -146,7 +123,6 @@ def train_knn(
     logger.info("Best k-NN parameters: %s", grid_search.best_params_)
     logger.info("Best CV %s score: %.4f", scoring, grid_search.best_score_)
 
-    # Convert results to list of dictionaries for easier analysis
     cv_results = []
     for i in range(len(grid_search.cv_results_["mean_test_score"])):
         result = {}
@@ -154,7 +130,6 @@ def train_knn(
             result[key] = values[i]
         cv_results.append(result)
 
-    # Return dictionary with all results
     return {
         "model": grid_search.best_estimator_,
         "best_params": grid_search.best_params_,

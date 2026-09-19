@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "source_snapshot_sha256": "96400276f937e38d497c35e1b656197097d9309104cd9360b34e35a571811c4d",
+  "exactly_reproduced": [
+    "cohort.fasta",
+    "uniprot-records.json",
+    "annotations.json",
+    "group-membership.json"
+  ],
+  "supervision_sources_and_matches_equal": true,
+  "sorted_pair_table_sha256": "a51819bea2b76f6d1105b42d34d9725140039f9371dadf98fb58b8e533356ca1",
+  "pair_count": 5374,
+  "note": "Raw MMseqs2 row ordering differs across runs; sorted row contents and connected-component membership agree."
+}

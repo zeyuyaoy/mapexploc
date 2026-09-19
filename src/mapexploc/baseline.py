@@ -37,8 +37,7 @@ SOURCE_URL = (
     "organism_id,reviewed"
 )
 CLASSES = ("Cytoplasm", "Membrane", "Mitochondrion", "Nucleus", "Secreted")
-# Deliberately explicit: generic membranes and organelle membranes are not plasma
-# membranes. Unmapped compartments are excluded, not silently collapsed.
+# Exclude unmapped compartments; do not treat all membranes as plasma membrane.
 LOCATION_MAP = {
     "Cytoplasm": "Cytoplasm",
     "Cytosol": "Cytoplasm",

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "full_local_results_identical": true,
+  "global_statistics_identical": true,
+  "cached_native_calls": 0,
+  "resumed_native_calls": 0,
+  "native_run_measurements": {
+    "elapsed_seconds": 141.29160079092253,
+    "native_calls": 443,
+    "native_sequences": 3162,
+    "peak_host_bytes": 5700698112,
+    "peak_scope": "worker_lifetime_high_water_mark",
+    "cache_hits": 322
+  },
+  "cache_run_measurements": {
+    "elapsed_seconds": 0.5797606249107048,
+    "native_calls": 0,
+    "native_sequences": 0,
+    "peak_host_bytes": null,
+    "peak_scope": "not_measured",
+    "cache_hits": 3484
+  },
+  "resume_run_measurements": {
+    "elapsed_seconds": 0.04830516700167209,
+    "native_calls": 0,
+    "native_sequences": 0,
+    "peak_host_bytes": null,
+    "peak_scope": "not_measured",
+    "cache_hits": 2
+  },
+  "wheel_sha256": "e900f02fa52ea40a52615274d45b96f7eda7256d3dc21f10ab631a5945c47bce"
+}

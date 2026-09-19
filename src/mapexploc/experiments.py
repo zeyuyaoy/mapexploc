@@ -237,7 +237,7 @@ def prepare_experiment(
     )
     if fresh["accession"].duplicated().any():
         raise ValueError("Refreshed snapshot contains duplicate accessions")
-    # Preserve original structured location annotations as well as selected evidence.
+    # Retain original annotations alongside selected evidence.
     raw = read_json(directory / "source.json")["results"]
     annotations = {
         e["primaryAccession"]: [
@@ -797,7 +797,7 @@ def evaluate_experiment(directory: Path) -> dict[str, Any]:
         Path(config["reference_root"]) / "examples/models/human-baseline.joblib"
     )
     reference = load_model_artifact(reference_path).model
-    # The reference artifact used multiple inference workers; compare at one worker.
+    # Use one inference worker for comparison with the reference artifact.
     reference.set_params(**{f"{reference.steps[-1][0]}__n_jobs": 1})
     features = build_feature_matrix(evaluation.sequence)
     probabilities = candidate.predict_proba(features)

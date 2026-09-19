@@ -1,0 +1,13 @@
+{
+  "mode": "accurate",
+  "python": "/absolute/path/to/deeploc-runtime/bin/python",
+  "package_root": "/absolute/path/to/deeploc2_package",
+  "torch_home": "/absolute/path/to/deeploc-checkpoints",
+  "prott5_snapshot": "/absolute/path/to/hub/models--Rostlab--prot_t5_xl_uniref50/snapshots/973be27c52ee6474de9c945952a8008aeb2a1a73",
+  "prott5_revision": "973be27c52ee6474de9c945952a8008aeb2a1a73",
+  "device": "cpu",
+  "batch_size": 1,
+  "threads": 4,
+  "timeout_seconds": 1800,
+  "expected_checkpoint_sha256": "f71696b992e7889a4fcd5a243b675b6dc2e35bc7390f81e865ce6e1c01dfe474"
+}

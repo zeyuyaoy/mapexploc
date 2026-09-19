@@ -298,6 +298,7 @@ textarea::placeholder {
 
 .results-heading {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -849,4 +850,94 @@ footer {
 
 .model-disclosure {
   overflow-wrap: anywhere;
+}
+
+.report-viewer {
+  width: 100%;
+}
+
+.report-controls,
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+  margin: 1rem 0;
+}
+
+.report-controls label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.report-controls select {
+  max-width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #a7b8ad;
+  border-radius: 0.4rem;
+  background: white;
+  font: inherit;
+}
+
+.report-viewer pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.report-viewer td {
+  overflow-wrap: anywhere;
+}
+
+.region-track {
+  display: flex;
+  height: 2.4rem;
+  margin: 1rem 0;
+}
+
+.region-track > div {
+  min-width: 0;
+  border-right: 1px solid white;
+  position: relative;
+}
+
+.region-track span {
+  font-size: 0.7rem;
+  color: white;
+  padding: 0.15rem;
+}
+
+.annotation-record {
+  border-bottom: 1px solid #dce4de;
+  padding: 0.4rem 0;
+}
+
+.annotation-track {
+  height: 0.65rem;
+  background: #edf1eb;
+  margin-bottom: 0.5rem;
+}
+
+.annotation-track span {
+  display: block;
+  height: 100%;
+  background: #b39943;
+}
+
+.positive-text {
+  color: #17644e;
+}
+
+.negative-text {
+  color: #96394f;
+}
+
+.report-viewer p,
+.report-viewer h2 {
+  overflow-wrap: anywhere;
+}
+
+.report-controls label {
+  max-width: 100%;
 }

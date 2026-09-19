@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "installed_package": "/private/tmp/mapexploc-v2-clean/lib/python3.13/site-packages/mapexploc/__init__.py",
+  "models": [
+    "DeepLoc-2.1-Fast",
+    "human-2026_03-56fb89f09b33"
+  ],
+  "checkpoint_sha256": "ba3a9c18d199581c2efa47737fd4035eb92782e32c3a80232da22f60d659c7fe",
+  "protein_ids": [
+    "A0A0F7YYX3",
+    "A0A0F7YZQ7"
+  ],
+  "probability_max_absolute_delta": 3.5762786865234375e-07,
+  "attribution_max_absolute_delta": 0.0,
+  "tolerance": 1e-05,
+  "software": {
+    "python": "3.13.14",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "mapexploc": "0.1.0",
+    "numpy": "2.5.2",
+    "scipy": "1.18.1",
+    "pandas": "3.0.5",
+    "shap": "0.52.0",
+    "scikit-learn": "1.9.0",
+    "pydantic": "2.13.5",
+    "biopython": "1.88"
+  },
+  "scope": "Installed wheel CLI, two real pretrained models, two-protein local/global JSON/HTML/CSV, full native preprocessing and sequence-region SHAP. No checkpoint test skipped."
+}

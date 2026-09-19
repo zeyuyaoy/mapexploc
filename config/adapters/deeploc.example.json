@@ -1,0 +1,10 @@
+{
+  "python": "/absolute/path/to/deeploc-runtime/bin/python",
+  "package_root": "/absolute/path/to/deeploc2_package",
+  "torch_home": "/absolute/path/to/deeploc-checkpoints",
+  "device": "cpu",
+  "batch_size": 8,
+  "threads": 4,
+  "timeout_seconds": 1800,
+  "expected_checkpoint_sha256": "ba3a9c18d199581c2efa47737fd4035eb92782e32c3a80232da22f60d659c7fe"
+}

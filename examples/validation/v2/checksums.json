@@ -1,0 +1,18 @@
+{
+  "protocol.json": "c297b277dfcc0887188fdbcc60a50fad6bd4f0b51cbf4b92f334f11b67328744",
+  "cohort.fasta": "2a4ee29bdec5db43f09f09c85170ff7016e1ec889359e8049f3c9475ff71f2e6",
+  "cohort-manifest.json": "41287621d7c86268f705ede867bab92f050095e31347bc988fff7d47bcea3cd5",
+  "group-membership.json": "1a18ba32c34dca6972cc86ee53897bd0b315add0d52dadf47c3ebff2cafab295",
+  "uniprot-records.json": "ecb545f9359268dbadf89855ad8910c0bb13bd8e40259f883163399da5cb32fa",
+  "annotations.json": "de8acea544c8878b036449df369333bbd42c46a1b05d4019ea6b8ba865e805bf",
+  "supervision-overlap.json": "1738a94c9a51e73001fe2d77d8745f61590f55e9bf68759cc9f7d90e60718b3d",
+  "native-parity.json": "f5d2e473f34acf8f08bcbf0609039a17f0af90e5c62959803e1f985c3d84581e",
+  "clean-qualification.json": "5f680774fc686bf49a9f1e09404a0b4d4159be78167c804eb3d5e5e5e6ec4932",
+  "recuration-check.json": "4ded27cdcd90a341b7f200101911f90af328c966e464543be18b1fb594ca8c47",
+  "report.json": "4c73fd4725cf68cba8aeb4e6c1b03e033a861e6fa30004f89dd91fa8bee8b01d",
+  "report.html": "99b7fb39871bd951be22c93fe68ad7d1eb8b831ccbd5e5f25ca239e763cdcbe7",
+  "predictions.csv": "acd929b0470f89856a428c877ffc4493f8ce9e102cb6c151d8c74df406cdf303",
+  "attributions.csv": "022746a47fe86b34771111f155336309fca001b350f209f762ebbfab3eb0a4f7",
+  "biological-validation.json": "0a8fbcda25e559b563573d5714f67c01dc5945718a8d15e0a204fb817acf0ba6",
+  "software-validation.json": "ebc671176907bda952614c3d42cd08f8dbc6eee73f0d31f144c84857ff59e8ae"
+}

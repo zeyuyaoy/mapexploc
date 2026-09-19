@@ -3,6 +3,7 @@
 import hashlib
 import json
 import runpy
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,27 @@ import pytest
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 verify_assets = runpy.run_path(str(SCRIPTS / "ci_verify_assets.py"))["verify_assets"]
 distributions = runpy.run_path(str(SCRIPTS / "ci_package_smoke.py"))["distributions"]
+
+
+@pytest.mark.parametrize("bundle", ["v2", "v2x/fast-report"])
+def test_git_preserves_frozen_csv_bytes(tmp_path: Path, bundle: str) -> None:
+    """Authoring on a CRLF-normalizing machine cannot invalidate evidence hashes."""
+    subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
+    (tmp_path / ".gitattributes").write_bytes(
+        (SCRIPTS.parent / ".gitattributes").read_bytes()
+    )
+    name = f"examples/validation/{bundle}/predictions.csv"
+    path = tmp_path / name
+    path.parent.mkdir(parents=True)
+    original = b"protein,class,probability\r\np1,Nucleus,0.7\r\n"
+    path.write_bytes(original)
+    subprocess.run(
+        ["git", "-c", "core.autocrlf=true", "add", ".gitattributes", name],
+        cwd=tmp_path,
+        check=True,
+    )
+    stored = subprocess.check_output(["git", "show", f":{name}"], cwd=tmp_path)
+    assert stored == original
 
 
 def digest(path: Path) -> str:

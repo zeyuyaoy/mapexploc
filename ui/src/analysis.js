@@ -60,7 +60,7 @@ export function parseSequences(text, mode = "single") {
 
 function csvCell(value) {
   let text = String(value);
-  // Treat FASTA headers as text, including when opened in a spreadsheet.
+  // Prevent spreadsheets from interpreting FASTA headers as formulas.
   if (/^[=+@\-\t\r]/.test(text)) text = `'${text}`;
   return `"${text.replaceAll('"', '""')}"`;
 }
@@ -99,6 +99,9 @@ export function analysisJson(analysis, explanations) {
   return JSON.stringify(
     {
       schema_version: 1,
+      status: "partial_interactive_session",
+      explained_protein_count: Object.keys(explanations).length,
+      requested_protein_count: analysis.records.length,
       analyzed_at: analysis.createdAt,
       records: analysis.records,
       predictions: analysis.prediction,

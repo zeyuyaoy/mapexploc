@@ -1,0 +1,14 @@
+{
+  "model": "DeepLoc-2.1-Fast",
+  "checkpoint_sha256": "ba3a9c18d199581c2efa47737fd4035eb92782e32c3a80232da22f60d659c7fe",
+  "protein_ids": [
+    "A0A0F7YYX3",
+    "A0A0F7YZQ7",
+    "A0A161AT60"
+  ],
+  "native_cli_max_absolute_probability_error": 4.848837852486354e-05,
+  "tolerance": 5.1e-05,
+  "native_csv_rounding_decimals": 4,
+  "native_decisions_agree": true,
+  "native_implementation": "Unmodified licensed DeepLoc2.deeploc2.main, Fast, mps, one sequence per batch"
+}

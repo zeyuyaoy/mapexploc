@@ -1,0 +1,319 @@
+{
+  "sources": {
+    "localization": {
+      "url": "https://services.healthtech.dtu.dk/services/DeepLoc-2.1/data/Swissprot_Train_Validation_dataset.csv",
+      "sha256": "29a07b293fed2994a966b70bdcd6bacc59915b8b01fa200cb2b07d8db18384a2",
+      "rows": 28303,
+      "matches": [
+        {
+          "protein_id": "A0A0F7YYX3",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A0F7YZQ7",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A161AT60",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A0A4P9I8G4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A0A5C2A2T2",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A7E5WTY7",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A2AJB7",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A4LAR6",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A5HAK0",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A6MEY4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A8CL69",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "B0CPC6",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "B1P0S1",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "B2KNH9",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C0HKG0",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C0K3N1",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "C6JUN9",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C9K4X8",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "D4A540",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "E9NX73",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "F7J1C8",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "G5ED35",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "K9N4Q4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "M1MR49",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O00175",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O00585",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O02826",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O02853",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O13547",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O14412",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        }
+      ]
+    },
+    "sorting_signals": {
+      "url": "https://services.healthtech.dtu.dk/services/DeepLoc-2.1/data/SortingSignalsSwissprot.csv",
+      "sha256": "97338dbec94305d60b8f28d0a89386966ba5345f349fd9e1446572b6644d5ede",
+      "rows": 1874,
+      "matches": [
+        {
+          "protein_id": "A0A0F7YYX3",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A0F7YZQ7",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A161AT60",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A0A4P9I8G4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A0A5C2A2T2",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A0A7E5WTY7",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A2AJB7",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "A4LAR6",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A5HAK0",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A6MEY4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "A8CL69",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "B0CPC6",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "B1P0S1",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "B2KNH9",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C0HKG0",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C0K3N1",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "C6JUN9",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "C9K4X8",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "D4A540",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "E9NX73",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "F7J1C8",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "G5ED35",
+          "accession_overlap": true,
+          "exact_sequence_overlap": true
+        },
+        {
+          "protein_id": "K9N4Q4",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "M1MR49",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O00175",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O00585",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O02826",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O02853",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O13547",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        },
+        {
+          "protein_id": "O14412",
+          "accession_overlap": false,
+          "exact_sequence_overlap": false
+        }
+      ]
+    }
+  },
+  "interpretation": "This is a model-behavior concordance analysis, not an independent predictive-generalization evaluation. Accession and exact-sequence overlap are reported; lack of either does not rule out homologous supervision overlap. Foundation-model pretraining overlap is unknown."
+}

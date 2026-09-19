@@ -8,12 +8,16 @@ predictions with SHAP.
 from importlib.metadata import PackageNotFoundError, version
 
 from .adapter import BaseModelAdapter, FeatureModelAdapter, load_adapter
+from .analysis import run_analysis
 from .api import create_app
 from .artifacts import load_model_artifact, save_model_artifact
 from .config import ModelConfig, Settings, load_config
+from .contracts import AdapterDescriptor
 from .data import iter_sequences, load_example_dataset
+from .execution import ExecutionOptions
 from .explainers.shap import ShapExplainer
 from .features import build_feature_matrix, normalize_protein_sequence
+from .methods import MethodConfiguration
 from .models import (
     evaluate_knn,
     evaluate_rf,
@@ -25,6 +29,8 @@ from .models import (
     train_random_forest,
 )
 from .preprocessing import ALLOWED_LOCS, _clean_and_primary, extract_protein_data
+from .report_v2 import AnalysisConfiguration, AnalysisReport, Protein, write_report
+from .report_v3 import AnalysisReportV3, load_report
 
 try:
     __version__ = version("mapexploc")
@@ -33,6 +39,16 @@ except PackageNotFoundError:  # pragma: no cover
 
 __all__ = [
     "__version__",
+    "AdapterDescriptor",
+    "AnalysisConfiguration",
+    "AnalysisReport",
+    "AnalysisReportV3",
+    "MethodConfiguration",
+    "ExecutionOptions",
+    "load_report",
+    "Protein",
+    "run_analysis",
+    "write_report",
     "BaseModelAdapter",
     "FeatureModelAdapter",
     "load_adapter",
