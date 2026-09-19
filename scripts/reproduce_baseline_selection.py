@@ -88,11 +88,11 @@ def main() -> None:
         {
             k: report[k]
             for k in (
-            "best_cv_score",
-            "params_reproduced",
-            "score_reproduced_at_1e_12",
-            "seconds",
-        )
+                "best_cv_score",
+                "params_reproduced",
+                "score_reproduced_at_1e_12",
+                "seconds",
+            )
         }
     )
 

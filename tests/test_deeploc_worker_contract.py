@@ -1,8 +1,8 @@
+import subprocess
 import sys
 
 import numpy as np
 import pytest
-import subprocess
 
 from mapexploc.deeploc import DeepLocAdapter, DeepLocConfiguration
 

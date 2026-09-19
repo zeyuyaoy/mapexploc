@@ -5,10 +5,7 @@
   "target_class": "Extracellular",
   "selection": {
     "source": "UniProt reviewed eukaryotic proteins",
-    "length_range": [
-      100,
-      250
-    ],
+    "length_range": [100, 250],
     "signal": "At least one precise N-terminal Signal feature starting at 1, ending between 20 and 40 inclusive, with ECO:0000269 experimental positional evidence",
     "sequence": "20 standard amino acids, canonical exact sequence",
     "target_count": 30,
@@ -21,12 +18,7 @@
   "randomizations": 1000,
   "bootstrap_replicates": 1000,
   "seed": 1842,
-  "explanation": {
-    "seed": 42,
-    "references": 4,
-    "coalition_budget": 512,
-    "region_policy": "terminal-50-by-10/interior-up-to-six/short-contiguous-10:v1"
-  },
+  "explanation": {"seed": 42, "references": 4, "coalition_budget": 512, "region_policy": "terminal-50-by-10/interior-up-to-six/short-contiguous-10:v1"},
   "sensitivity_subset": "First three eligible accession-ordered proteins; repeat coalition seed and double budget using the same reference game",
   "claims": "Model-behavior concordance only. Audit known localization/sorting-signal supervision overlap; unknown foundation pretraining overlap precludes independent generalization claims. Publish null results without tuning the protocol. Synthetic controls validate software only."
 }

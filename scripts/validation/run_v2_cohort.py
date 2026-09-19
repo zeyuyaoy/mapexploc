@@ -4,9 +4,8 @@ Run from an installed MAP-ExPLoc environment. Licensed assets remain external.
 """
 
 import argparse
-from pathlib import Path
-
 import json
+from pathlib import Path
 
 from mapexploc import AnalysisReport, Protein, run_analysis, write_report
 from mapexploc.adapter import registered_adapter

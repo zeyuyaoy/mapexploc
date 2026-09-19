@@ -1,12 +1,12 @@
 """CI gates must reject missing, tampered, or escaping release assets."""
 
 import hashlib
+import json
 import runpy
+import subprocess
 from pathlib import Path
 
-import json
 import pytest
-import subprocess
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 verify_assets = runpy.run_path(str(SCRIPTS / "ci_verify_assets.py"))["verify_assets"]
@@ -41,11 +41,11 @@ def digest(path: Path) -> str:
 @pytest.fixture
 def assets(tmp_path: Path) -> Path:
     for name in (
-            "examples/models/human-baseline.joblib",
-            "examples/models/human-baseline.predictions.csv",
-            "examples/baseline/dataset.csv",
-            "examples/experiments/research-revision/dataset.csv",
-            "examples/experiments/research-revision/final/model.joblib",
+        "examples/models/human-baseline.joblib",
+        "examples/models/human-baseline.predictions.csv",
+        "examples/baseline/dataset.csv",
+        "examples/experiments/research-revision/dataset.csv",
+        "examples/experiments/research-revision/final/model.joblib",
     ):
         path = tmp_path / name
         path.parent.mkdir(parents=True, exist_ok=True)

@@ -1,9 +1,8 @@
 """Offline integrity and reproducibility of the explicitly partial v2.x bundle."""
 
 import hashlib
-from pathlib import Path
-
 import json
+from pathlib import Path
 
 from mapexploc import load_report
 from mapexploc.study import audit_manifests, eligible_features
@@ -15,7 +14,11 @@ def test_v2x_frozen_cohorts_and_feature_evidence():
     root = ROOT / "cohorts"
     frozen = json.loads((root / "freeze.json").read_text())
     for name, expected in frozen["checksums"].items():
-        assert hashlib.sha256((root / name).read_bytes()).hexdigest() == expected
+        actual = hashlib.sha256((root / name).read_bytes()).hexdigest()
+        assert actual == expected, (
+            f"Frozen evidence changed: {root / name}; "
+            f"expected {expected}, got {actual}"
+        )
     manifests = [
         json.loads((root / f"v2x-{split}.json").read_text())
         for split in ("development", "reference_pool", "evaluation")
@@ -46,7 +49,11 @@ def test_v2x_frozen_cohorts_and_feature_evidence():
 
 def test_partial_native_evidence_never_claims_accurate_passed():
     for name, expected in json.loads((ROOT / "checksums.json").read_text()).items():
-        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected
+        actual = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+        assert actual == expected, (
+            f"Frozen evidence changed: {ROOT / name}; "
+            f"expected {expected}, got {actual}"
+        )
     assert not json.loads((ROOT / "qualification.json").read_text())[
         "release_qualified"
     ]

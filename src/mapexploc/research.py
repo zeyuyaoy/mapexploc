@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import platform
 import time
 import warnings
@@ -16,7 +17,6 @@ from pathlib import Path
 from typing import Any
 
 import joblib
-import json
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize_scalar
@@ -87,10 +87,10 @@ def candidates() -> list[dict[str, Any]]:
                 }
             )
     for name, feature, trees, depth, leaf, fraction, rank in (
-            ("rf_global", "global", 128, 24, 3, 0.5, 5),
-            ("rf_terminal", "terminal", 128, 24, 3, 0.5, 6),
-            ("reference", "full", 128, 24, 3, "sqrt", 7),
-            ("rf_expanded", "full", 512, None, 1, 0.5, 8),
+        ("rf_global", "global", 128, 24, 3, 0.5, 5),
+        ("rf_terminal", "terminal", 128, 24, 3, 0.5, 6),
+        ("reference", "full", 128, 24, 3, "sqrt", 7),
+        ("rf_expanded", "full", 512, None, 1, 0.5, 8),
     ):
         result.append(
             {
@@ -202,8 +202,8 @@ def choose(results: list[dict[str, Any]]) -> dict[str, Any]:
         r
         for r in results
         if r["metrics"]["macro_f1"] >= top["macro_f1"] - 0.01
-           and r["metrics"]["log_loss"] <= top["log_loss"] + 0.02
-           and all(
+        and r["metrics"]["log_loss"] <= top["log_loss"] + 0.02
+        and all(
             r["metrics"]["classification_report"][c]["f1-score"]
             >= top["classification_report"][c]["f1-score"] - 0.05
             for c in CLASSES
@@ -464,7 +464,7 @@ def summarize(
     metrics = {name: score(labels, p) for name, p in arrays.items()}
     per_seed = {
         str(seed): {
-            name: score(frame.label, p[i * len(frame): (i + 1) * len(frame)])
+            name: score(frame.label, p[i * len(frame) : (i + 1) * len(frame)])
             for name, p in arrays.items()
         }
         for i, seed in enumerate(repeats)
@@ -489,7 +489,7 @@ def summarize(
         "location_note": frame.has_location_note.to_numpy(),
         "note_free": ~frame.has_location_note.to_numpy(),
         "sequence_singleton": frame.group.map(frame.group.value_counts()).to_numpy()
-                              == 1,
+        == 1,
     }
     subgroups = {}
     for name, mask in masks.items():
@@ -670,7 +670,7 @@ def run_research(
             ).tolist()
             # Keep truncation stress tests outside model selection.
             truncated = frame.sequence.iloc[valid].map(
-                lambda s: s[min(25, len(s) - 1):]
+                lambda s: s[min(25, len(s) - 1) :]
             )
             stress = score(
                 y[valid], fitted[winner_id].predict_proba(research_features(truncated))

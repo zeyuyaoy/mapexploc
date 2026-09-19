@@ -42,7 +42,7 @@ def references(sequence: str, config: MethodConfiguration) -> list[str]:
     if config.reference_strategy == "block_shuffle":
         return [
             "".join(
-                "".join(rng.permutation(residues[i: i + 20]))
+                "".join(rng.permutation(residues[i : i + 20]))
                 for i in range(0, len(sequence), 20)
             )
             for _ in range(config.references)
@@ -79,7 +79,7 @@ def distribution_shift(sequence: str, altered: list[str]) -> dict[str, Any]:
     """Descriptive distances, not evidence of naturalness or distribution membership."""
 
     def frequencies(s: str, k: int) -> dict[str, float]:
-        c = Counter(s[i: i + k] for i in range(len(s) - k + 1))
+        c = Counter(s[i : i + k] for i in range(len(s) - k + 1))
         n = max(len(s) - k + 1, 1)
         return {a: v / n for a, v in c.items()}
 

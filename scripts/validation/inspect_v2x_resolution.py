@@ -1,10 +1,9 @@
 """Attribution-blind coordinate/control feasibility, before final explanations."""
 
 import argparse
+import json
 from collections import defaultdict
 from pathlib import Path
-
-import json
 
 from mapexploc.execution import atomic_json, fingerprint
 from mapexploc.explainers.regions import sequence_regions
@@ -20,8 +19,8 @@ def masks(regions, intervals):
             j
             for j, other in enumerate(regions)
             if other.category == region.category
-               and other.end - other.start == region.end - region.start
-               and not any(a < other.end and other.start < b for a, b in intervals)
+            and other.end - other.start == region.end - region.start
+            and not any(a < other.end and other.start < b for a, b in intervals)
         ]
         if controls:
             result.append((i, tuple(controls)))

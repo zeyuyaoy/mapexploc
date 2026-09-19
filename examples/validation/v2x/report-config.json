@@ -1,11 +1,1 @@
-{
-  "method_profile": "v2x-legacy",
-  "cohort_id": "software-qualification-two-short-development-proteins",
-  "selection_criteria": "Two shortest development proteins, accession tie-break; software workflow qualification, not biological validation",
-  "seed": 42,
-  "references": 4,
-  "coalition_budget": 512,
-  "stability_checks": true,
-  "reference_sensitivity": true,
-  "faithfulness": true
-}
+{"method_profile": "v2x-legacy", "cohort_id": "software-qualification-two-short-development-proteins", "selection_criteria": "Two shortest development proteins, accession tie-break; software workflow qualification, not biological validation", "seed": 42, "references": 4, "coalition_budget": 512, "stability_checks": true, "reference_sensitivity": true, "faithfulness": true}

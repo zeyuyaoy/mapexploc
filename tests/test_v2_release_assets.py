@@ -1,9 +1,8 @@
 """Offline integrity of real-model evidence; no native checkpoint is needed."""
 
 import hashlib
-from pathlib import Path
-
 import json
+from pathlib import Path
 
 from mapexploc import AnalysisReport
 from mapexploc.biological_validation import validate_signal_concordance
@@ -13,7 +12,11 @@ def test_frozen_v2_release_reproduces_its_scientific_result():
     root = Path(__file__).resolve().parents[1] / "examples/validation/v2"
     checksums = json.loads((root / "checksums.json").read_text())
     for name, checksum in checksums.items():
-        assert hashlib.sha256((root / name).read_bytes()).hexdigest() == checksum
+        actual = hashlib.sha256((root / name).read_bytes()).hexdigest()
+        assert actual == checksum, (
+            f"Frozen evidence changed: {root / name}; "
+            f"expected {checksum}, got {actual}"
+        )
     report = AnalysisReport.model_validate_json((root / "report.json").read_text())
     manifest = json.loads((root / "cohort-manifest.json").read_text())
     assert [r.protein.protein_id for r in report.results] == [

@@ -1,9 +1,8 @@
 """Resumable development benchmark. No final-evaluation manifest is accepted."""
 
 import argparse
-from pathlib import Path
-
 import json
+from pathlib import Path
 
 from mapexploc import ExecutionOptions, Protein, run_analysis, write_report
 from mapexploc.benchmark import select_profile

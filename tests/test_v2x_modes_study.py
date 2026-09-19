@@ -40,12 +40,12 @@ def test_hardware_failures_no_fallback(monkeypatch):
         cuda=SimpleNamespace(is_available=lambda: False),
     )
     monkeypatch.setitem(sys.modules, "torch", torch)
-    monkeypatch.setattr(worker, "available_memory", lambda: 1024 ** 3)
+    monkeypatch.setattr(worker, "available_memory", lambda: 1024**3)
     with pytest.raises(RuntimeError, match="MPS device is unavailable"):
         worker.check_resources({"mode": "accurate", "device": "mps"}, loading=True)
     with pytest.raises(MemoryError, match="Insufficient available"):
         worker.check_resources({"mode": "accurate", "device": "cpu"}, loading=True)
-    monkeypatch.setattr(worker, "available_memory", lambda: 3 * 1024 ** 3)
+    monkeypatch.setattr(worker, "available_memory", lambda: 3 * 1024**3)
     worker.check_resources({"mode": "fast", "device": "cpu"}, length=1022)
     with pytest.raises(MemoryError, match="Insufficient available"):
         worker.check_resources(

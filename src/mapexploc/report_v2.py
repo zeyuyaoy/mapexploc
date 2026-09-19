@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 from pathlib import Path
 from typing import Any, Literal
 
-import json
 import numpy as np
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -36,7 +36,7 @@ class Protein(Record):
 
 class AnalysisConfiguration(Record):
     explainer: Literal["auto", "tree", "region_kernel"] = "auto"
-    seed: int = Field(default=42, ge=0, le=2 ** 32 - 1)
+    seed: int = Field(default=42, ge=0, le=2**32 - 1)
     references: int = Field(default=4, ge=1, le=32)
     coalition_budget: int = Field(default=512, ge=32)
     inference_batch_size: int = Field(default=16, ge=1, le=1024)
@@ -261,8 +261,8 @@ class AnalysisReport(Record):
                 )
             if (
                 not self.model.min_length
-                    <= len(local.protein.sequence)
-                    <= self.model.max_length
+                <= len(local.protein.sequence)
+                <= self.model.max_length
             ):
                 raise ValueError("Protein length is outside the adapter contract")
         policies = {
@@ -270,11 +270,11 @@ class AnalysisReport(Record):
                 {
                     k: r.explainer.get(k)
                     for k in (
-                    "method",
-                    "output_space",
-                    "reference_policy",
-                    "region_policy",
-                )
+                        "method",
+                        "output_space",
+                        "reference_policy",
+                        "region_policy",
+                    )
                 },
                 sort_keys=True,
             )
